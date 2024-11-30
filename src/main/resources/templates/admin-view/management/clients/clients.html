@@ -1,0 +1,73 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Customers','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Clients</li>
+</ol>
+<div class="page-inner">
+    <div
+            class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+    >
+        <div>
+            <h3 class="fw-bold mb-3">Clients List</h3>
+        </div>   <div class="ms-md-auto py-2 py-md-0">
+        <a th:href="@{/admin-pw/management/new-admin}" class="btn btn-primary btn-round">Add new Customer</a>
+    </div>
+
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Multi Filter Select</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table
+                            id="multi-filter-select"
+                            class="display table table-striped table-hover"
+                    >
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Emri</th>
+                            <th>Mbiemri</th>
+                            <th>Email</th>
+                            <th>Fillimi i Kontrates</th>
+                            <th>Data e Abonimit</th>
+                            <th>Data e Skadimit</th>
+                            <th>a1</th>
+                            <th>a2</th>
+                            <th>a2</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <td>1</td>
+                        <td>Adonit</td>
+                        <td>Halili</td>
+                        <td>adonit.ha12@gmail.com</td>
+                        <td>12.01.2023</td>
+                        <td>12.11.2024</td>
+                        <td>12.12.2024</td>
+                        <td>
+                            <button class="btn btn-success">Detajet</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Vazhdo Abonimin</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger">Nderprej Kontraten</button>
+                        </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</html>
