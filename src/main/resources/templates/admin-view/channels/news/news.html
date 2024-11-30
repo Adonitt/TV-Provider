@@ -1,6 +1,9 @@
-<html lang="en" th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},'')}">
+<html lang="en" th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
 
-
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active" >News channels</li>
+</ol>
 <div class="page-inner">
     <div
             class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"

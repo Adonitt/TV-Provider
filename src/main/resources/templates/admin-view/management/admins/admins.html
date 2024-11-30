@@ -1,5 +1,10 @@
-<html lang="en" th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},'')}">
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
 
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Admins List</li>
+</ol>
 
 <div class="page-inner">
     <div
@@ -9,69 +14,107 @@
             <h3 class="fw-bold mb-3">Admins List</h3>
         </div>
         <div class="ms-md-auto py-2 py-md-0">
-            <a href="#" class="btn btn-primary btn-round">Create New Admin</a>
+            <a th:href="@{/admin-pw/management/new-admin}" class="btn btn-primary btn-round">Create New Admin</a>
         </div>
 
     </div>
+    <section class="intro ">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card bg-dark shadow-2-strong">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table bg-dark table-borderless mb-0 ">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">State</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <th>Fatlind Gashi</th>
+                                        <td>19</td>
+                                        <td>fatlindi1@gmail.com</td>
+                                        <td>Podujeve</td>
+                                        <td>Kosovo</td>
+                                        <td>Se di</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-secondary">modify</button>
+                                            <button type="submit" class="btn btn-danger">delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <th>Adonit Halili</th>
+                                        <td>19</td>
+                                        <td>adonit.ha12@gmail.com</td>
+                                        <td>Podujeve</td>
+                                        <td>Kosovo</td>
+                                        <td>Ali Ajeti</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-secondary">modify</button>
+                                            <button type="submit" class="btn btn-danger">delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <th>Adonit Halili</th>
+                                        <td>19</td>
+                                        <td>adonit.ha12@gmail.com</td>
+                                        <td>Podujeve</td>
+                                        <td>Kosovo</td>
+                                        <td>Ali Ajeti</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-secondary">modify</button>
+                                            <button type="submit" class="btn btn-danger">delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <th>Adonit Halili</th>
+                                        <td>19</td>
+                                        <td>adonit.ha12@gmail.com</td>
+                                        <td>Podujeve</td>
+                                        <td>Kosovo</td>
+                                        <td>Ali Ajeti</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-secondary">modify</button>
+                                            <button type="submit" class="btn btn-danger">delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <th>Adonit Halili</th>
+                                        <td>19</td>
+                                        <td>adonit.ha12@gmail.com</td>
+                                        <td>Podujeve</td>
+                                        <td>Kosovo</td>
+                                        <td>Ali Ajeti</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-secondary">modify</button>
+                                            <button type="submit" class="btn btn-danger">delete</button>
+                                        </td>
+                                    </tr>
 
-    <table
-            id="multi-filter-select"
-            class="display table table-striped table-hover"
-    >
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Start date</th>
-            <th>Password</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td>Adonit</td>
-            <td>Halili</td>
-            <td>adonit.halili@student.cacttus.education</td>
-            <td>19</td>
-            <td>Male</td>
-            <td>2023-01-01</td>
-            <td>??</td>
-            <td>
-                <a href="#" class="btn btn-primary btn-sm">Modify</a>
-            </td>
-            <td>
-                <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <tr>
-            <td>2</td>
-
-            <td>Fatlind</td>
-            <td>Gashi</td>
-            <td>fatlind.gashi@student.cacttus.education</td>
-            <td>19</td>
-            <td>Male</td>
-            <td>2023-01-01</td>
-            <td>??</td>
-            <td>
-                <a href="#" class="btn btn-primary btn-sm">Modify</a>
-            </td>
-            <td>
-                <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
-
-
-        </tbody>
-    </table>
-
-
+    </section>
 </div>
+
 </html>

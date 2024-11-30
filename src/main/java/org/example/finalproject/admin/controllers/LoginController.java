@@ -1,13 +1,22 @@
-package org.example.finalproject.controllers.admin_controllers;
+package org.example.finalproject.admin.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin-pw")
+
 public class LoginController {
 
-    @GetMapping("/admin-pw")
+
+    @GetMapping("/")
     public String login() {
-        return "/admin-view/login-admin/login";
+        return "admin-view/login-admin/login";
+    }
+
+    @GetMapping("/**")
+    public String error() {
+        return "admin-view/login-admin/login";
     }
 }

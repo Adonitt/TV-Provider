@@ -1,22 +1,27 @@
-package org.example.finalproject.controllers.admin_controllers;
+package org.example.finalproject.admin.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/management")
+@RequestMapping("/admin-pw/management")
+
 public class ManagementController {
-
-
-    @GetMapping("/users")
-    public String manageUsers() {
-        return "/admin-view/management/users";
-    }
 
     @GetMapping("/admins")
     public String manageAdmins() {
-        return "/admin-view/management/admins";
+        return "admin-view/management/admins/admins";
     }
 
+    @GetMapping("/clients")
+    public String manageCustomers() {
+        return "admin-view/management/clients/clients";
+    }
+
+    @GetMapping("/new-admin")
+    public String newAdmin() {
+        return "admin-view/management/admins/new";
+    }
 
 }
