@@ -13,4 +13,19 @@ public class ProfileController {
     public String profile() {
         return "admin-view/profile/profile";
     }
+
+    @GetMapping("/profile/change-password")
+    public String changePassword() {
+        return "admin-view/profile/change-password";
+    }
+
+    @GetMapping("/profile/forgot-password")
+    public String forgotPassword() {
+        return "admin-view/profile/forgot-password";
+    }
+
+    @GetMapping("/profile/modify-profile")
+    public String modifyProfile() {
+        return "admin-view/profile/modify";
+    }
 }

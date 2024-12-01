@@ -8,70 +8,94 @@
 
 
 <div class="page-inner">
+    <h5>Create new Admin</h5>
 
-    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="container rounded bg-white mt-1 mb-15" id="main-body">
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                                                                                              width="150px"
-                                                                                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                        class="font-weight-bold">Edogaru</span><span
-                        class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+                                                                                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                </div>
             </div>
             <div class="col-md-7 border-right">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Add new Admin</h4>
+                        <!--                        <h4 class="text-right">Add new Admin</h4>-->
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
                                                                                        placeholder="first name"
-                                                                                       value=""></div>
+                                                                                       value="" required></div>
                         <div class="col-md-6"><label class="labels">Surname</label><input type="text"
                                                                                           class="form-control" value=""
-                                                                                          placeholder="surname"></div>
+                                                                                          placeholder="surname"
+                                                                                          required></div>
                     </div>
                     <div class="row mt-3">
 
                         <div class="col-md-12"><label class="labels">Birthdate</label><input type="date"
                                                                                              class="form-control"
                                                                                              placeholder="enter phone number"
-                                                                                             value=""></div>
-                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text"
+                                                                                             value="" required></div>
+                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="tel"
                                                                                                  class="form-control"
                                                                                                  placeholder="enter phone number"
-                                                                                                 value=""></div>
+                                                                                                 value="" required>
+                        </div>
                         <div class="col-md-12"><label class="labels">Gender</label>
-                            <input type="radio" class="form-check-input" value="M"/> M&nbsp;
-                            <input type="radio" class="form-check-input" value="F"/> F
+                            <input type="radio" class="form-check-input" value="M" required/> M&nbsp;
+                            <input type="radio" class="form-check-input" value="F" required/> F
                         </div>
                         <div class="col-md-12"></div>
 
                     </div>
+                    <div class="col-md-12"><label class="labels">State / Country</label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="enter state"
+                                                                                               value="" required></div>
+                    <div class="col-md-12"><label class="labels">Image</label><input type="text"
+                                                                                     class="form-control"
+                                                                                     placeholder="enter image paths"
+                                                                                     value="" required></div>
+
                     <div class="row mt-3">
 
-                        <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
-                                                                                               class="form-control"
-                                                                                               value=""
-                                                                                               placeholder="state">
+                        <div class="col-md-6"><label class="labels">Address</label><input type="text"
+                                                                                          class="form-control"
+                                                                                          value=""
+                                                                                          required
+                                                                                          placeholder="enter address">
                         </div>
                         <div class="col-md-6"><label class="labels">Postcode</label><input type="text"
                                                                                            class="form-control"
+                                                                                           required
                                                                                            placeholder="enter postcode"
                                                                                            value=""></div>
-
+                        <div class="col-md-12"><label class="labels">City</label><input type="text"
+                                                                                        class="form-control"
+                                                                                        required
+                                                                                        placeholder="enter city"
+                                                                                        value=""></div>
                         <div class="col-md-12"><label class="labels">Email </label><input type="text"
                                                                                           class="form-control"
+                                                                                          required
                                                                                           placeholder="enter email for admin "
                                                                                           value=""></div>
                         <div class="col-md-12"><label class="labels">Password </label><input type="password"
                                                                                              class="form-control"
+                                                                                             required
                                                                                              placeholder="enter password for admin "
                                                                                              value=""></div>
                     </div>
-                    <div class="mt-5 text-center">
-                        <button class="btn btn-primary profile-button" type="button">Create Profile</button>
+                    <div class="col-md-12"><label class="labels">Confirm Password </label><input type="password"
+                                                                                                 class="form-control"
+                                                                                                 placeholder="confirm password for admin "
+                                                                                                 required value="">
                     </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <button class="btn btn-primary profile-button" type="button">Save Profile</button>
                 </div>
             </div>
         </div>

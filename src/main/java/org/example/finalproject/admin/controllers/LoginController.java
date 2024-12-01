@@ -15,6 +15,12 @@ public class LoginController {
         return "admin-view/login-admin/login";
     }
 
+    @GetMapping("/forgot-password")
+    public String forgotPassword() {
+
+        return "admin-view/login-admin/forgot-password";
+    }
+
     @GetMapping("/**")
     public String error() {
         return "admin-view/login-admin/login";
