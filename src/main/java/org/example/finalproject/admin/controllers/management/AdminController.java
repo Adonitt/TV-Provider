@@ -59,7 +59,11 @@ public class AdminController {
 
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
 
-        uploadPhoto(admin, photoFile);
+        if (!photoFile.isEmpty()) {
+            uploadPhoto(admin, photoFile);
+        } else {
+            admin.setPhoto("/images/admin.jpg");
+        }
         adminService.save(admin);
         return "redirect:/admin-pw/management/admins";
     }
@@ -85,8 +89,9 @@ public class AdminController {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "/admin-view/management/admins/edit";
         }
-
-        uploadPhoto(admin, photoFile);
+        if (!photoFile.isEmpty()) {
+            uploadPhoto(admin, photoFile);
+        }
         ra.addFlashAttribute("editedMessage", "Admin with ID: " + admin.getId() + " - modified successfully!");
         adminService.modify(admin);
         return "redirect:/admin-pw/management/admins";
@@ -107,16 +112,13 @@ public class AdminController {
     }
 
     private void uploadPhoto(@ModelAttribute @Valid Admin admin, @RequestParam("photoFile") MultipartFile photoFile) {
-        if (!photoFile.isEmpty()) {
-            try {
-                var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
-                admin.setPhoto("/assets-a/img/" + fileName);
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        } else {
-            admin.setPhoto("/images/admin.jpg");
+        try {
+            var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
+            admin.setPhoto("/assets-a/img/" + fileName);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
+
 
 }

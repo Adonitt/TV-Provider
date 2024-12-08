@@ -71,7 +71,7 @@ public class Admin {
 
     private int age;
 
-    private String role = "Admin";
+    private String role = "Super Admin";
 
     private String photo;
 
