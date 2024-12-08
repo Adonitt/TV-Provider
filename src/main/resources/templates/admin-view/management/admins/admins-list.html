@@ -40,88 +40,92 @@
 
 
     <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage!=null}">
-
+        <i class="fas fa-check"></i>
         <strong th:text="${successMessage}"></strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${deletedMessage!=null}">
-        <i class="bi bi-exclamation-triangle me-1"></i>
+        <i class="fas fa-check"></i>
         <strong th:text="${deletedMessage}"></strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
-    <div class="row col" th:unless="${admins!=null && admins.size()>0}">
-        <div class="alert alert-primary">
-            <h4>There are no admins in the list!</h4>
-        </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${editedMessage!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${editedMessage}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="card">
-
-
-        <div class="card-body" th:if="${admins != null && admins.size() >0}">
-            <div class="card-header">
-                <h4 class="card-title">Admins List</h4>
-            </div>
-            <div class="table-responsive">
-                <table
-                        id="multi-filter-select"
-                        class="display table table-striped table-hover"
-                >
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Photo</th>
-                        <th>Emri</th>
-                        <th>Mbiemri</th>
-                        <th>Email</th>
-                        <th>Country</th>
-                        <th>Age</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="admin: ${admins}" th:object="${admin}">
-                        <td th:text="${admin.id}"></td>
-                        <td>
-                            <img th:src="${admin.photo}" style="width: 50px;height: 50px" alt="No photo"/>
-                        </td>
-                        <td th:text="*{name}">Adonit</td>
-                        <td th:text="*{surname}">Halili</td>
-                        <td th:text="*{email}">adonit.halili@smart-tv.com</td>
-                        <td th:text="*{country}">Ali Ajeti</td>
-                        <td th:text="*{age}">Kosovo</td>
-
-                        <td>
-                            <a th:href="@{/admin-pw/management/admins/{id}/details(id=*{id})}">
-                                <button type="button" class="btn btn-icon btn-round btn-info">
-                                    <i class="fa fa-info-circle"></i>
-                                </button>
-                            </a>
-
-                            <a th:href="@{/admin-pw/management/admins/{id}/edit(id=*{id})}">
-
-                                <button type="button" class="btn btn-icon btn-round btn-warning">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                            </a>
-                            <a th:href="@{/admin-pw/management/admins/{id}/delete(id=*{id})}">
-
-                                <button type="button" class="btn btn-icon btn-round btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                    <a href=""></a>
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="alert alert-info alert-dismissible fade show" role="alert"
+         th:unless="${admins!=null && admins.size()>0}">
+        <i class="fas fa-exclamation-circle"></i>
+        <strong>There are no admin in the list</strong>
     </div>
 
+
+    <div class="card-body" th:if="${admins != null && admins.size() >0}">
+        <div class="card-header">
+            <h4 class="card-title">Admins List</h4>
+        </div>
+        <div class="table-responsive">
+            <table
+                    id="multi-filter-select"
+                    class="display table table-striped table-hover"
+            >
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Photo</th>
+                    <th>Emri</th>
+                    <th>Mbiemri</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Age</th>
+                    <th></th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="admin: ${admins}" th:object="${admin}">
+                    <td th:text="${admin.id}"></td>
+                    <td>
+                        <img th:src="${admin.photo}" style="width: 50px;height: 50px" alt="No photo"/>
+                    </td>
+                    <td th:text="*{name}">Adonit</td>
+                    <td th:text="*{surname}">Halili</td>
+                    <td th:text="*{email}">adonit.halili@smart-tv.com</td>
+                    <td th:text="*{country}">Ali Ajeti</td>
+                    <td th:text="*{age}">Kosovo</td>
+
+                    <td>
+                        <a th:href="@{/admin-pw/management/admins/{id}/details(id=*{id})}">
+                            <button type="button" class="btn btn-icon btn-round btn-info">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                        </a>
+
+                        <a th:href="@{/admin-pw/management/admins/{id}/edit(id=*{id})}">
+
+                            <button type="button" class="btn btn-icon btn-round btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </a>
+                        <a th:href="@{/admin-pw/management/admins/{id}/delete(id=*{id})}">
+
+                            <button type="button" class="btn btn-icon btn-round btn-danger">
+                                <i class="fa fa-trash"></i>
+                                <a href=""></a>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 <script id="script">
     // Get filter input fields
     const nameFilter = document.getElementById("filter-name");

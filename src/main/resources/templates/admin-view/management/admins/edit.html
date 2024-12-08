@@ -1,5 +1,5 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Edit Admin','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Edit Admin','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
@@ -10,13 +10,15 @@
 
 
     <div class="container rounded bg-white mt-1 mb-15" id="main-body">
+
         <form class="row" th:object="${admin}" method="post" enctype="multipart/form-data">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                                                                                              width="150px"
-                                                                                             src="/images/admin.jpg">
+                                                                                             th:src="*{photo}"
+                                                                                             alt="No picture">
                     <p>Choose profile photo ( OPTIONAL )</p>
-                    <input type="hidden" th:field="*{photo}">
+                    <input type="hidden" th:value="*{photo}" name="photo" id="photo">
                     <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*">
                 </div>
             </div>
@@ -49,9 +51,10 @@
                     <div class="row mt-3">
 
                         <div class="col-md-12"><label class="labels">Birthdate</label><input type="date"
-                                                                                             th:field="*{dateOfBirth}"
+                                                                                             th:value="*{dateOfBirth}"
+                                                                                             name="dateOfBirth"
+                                                                                             id="dateOfBirth"
                                                                                              class="form-control"
-                                                                                             value=""
                                                                                              required
                                                                                              th:min="${from}"
                                                                                              th:max="${today}">
@@ -98,6 +101,7 @@
 
                         <div class="col-md-6"><label class="labels">Postcode</label><input type="text"
                                                                                            th:field="*{postcode}"
+
                                                                                            class="form-control"
                                                                                            placeholder="enter postcode"
                                                                                            value=""
@@ -113,7 +117,12 @@
                             <p class="alert-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
 
                             <div class="mt-4 text-center">
-                                <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+
+                                <button class="btn btn-primary profile-button" type="submit"><i class="fas fa-save"
+                                                                                                style="margin: 5px"></i>
+                                    Save
+                                    Profile
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -122,4 +131,24 @@
         </form>
     </div>
 </div>
+
+<script id="script">
+    document.addEventListener("DOMContentLoaded", function () {
+        const photoInput = document.getElementById("photoFile");
+        const photoPreview = document.querySelector(".rounded-circle");
+
+        photoInput.addEventListener("change", function () {
+            const file = photoInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    photoPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+
 </html>

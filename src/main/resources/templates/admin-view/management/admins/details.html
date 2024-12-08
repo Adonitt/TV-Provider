@@ -81,16 +81,18 @@
                             </div>
                             <hr>
                             <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Password</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="*{password    }">M</div>
+                            </div>
+                            <hr>
+                            <div class="row">
                                 <div class="col-sm-12">
                                     <a class="btn btn-info"
                                        th:href="@{/admin-pw/management/admins/{id}/edit(id=*{id})}">Edit</a>
-                                    <button
-                                            type="button"
-                                            class="btn btn-danger"
-                                            id="alert_demo_8"
-                                            data-id="*{id}"> <!-- Pass adminId here from Thymeleaf -->
+                                    <a th:href="@{/admin-pw/management/admins/{id}/delete(id=*{id})}"
+                                       class="btn btn-danger">
                                         Delete
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

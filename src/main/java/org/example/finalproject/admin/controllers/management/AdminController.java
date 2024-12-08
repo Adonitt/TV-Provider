@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.services.AdminService;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -57,20 +55,11 @@ public class AdminController {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "admin-view/management/admins/new";
         }
-//        System.out.println("Photo file" + photoFile.getOriginalFilename());
+        System.out.println("Photo file: " + photoFile.getOriginalFilename());
 
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
 
-        if (!photoFile.isEmpty()) {
-            try {
-                var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
-                admin.setPhoto("/assets-a/img/" + fileName);
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        } else {
-            admin.setPhoto("/images/admin.jpg");
-        }
+        uploadPhoto(admin, photoFile);
         adminService.save(admin);
         return "redirect:/admin-pw/management/admins";
     }
@@ -91,7 +80,14 @@ public class AdminController {
     }
 
     @PostMapping("/{id}/edit")
-    public String modifyAdmin(@ModelAttribute Admin admin) {
+    public String modifyAdmin(@ModelAttribute Admin admin, BindingResult bindingResult, @RequestParam("photoFile") MultipartFile photoFile, RedirectAttributes ra) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+            return "/admin-view/management/admins/edit";
+        }
+
+        uploadPhoto(admin, photoFile);
+        ra.addFlashAttribute("editedMessage", "Admin with ID: " + admin.getId() + " - modified successfully!");
         adminService.modify(admin);
         return "redirect:/admin-pw/management/admins";
     }
@@ -110,5 +106,17 @@ public class AdminController {
         return "redirect:/admin-pw/management/admins";
     }
 
+    private void uploadPhoto(@ModelAttribute @Valid Admin admin, @RequestParam("photoFile") MultipartFile photoFile) {
+        if (!photoFile.isEmpty()) {
+            try {
+                var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
+                admin.setPhoto("/assets-a/img/" + fileName);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        } else {
+            admin.setPhoto("/images/admin.jpg");
+        }
+    }
 
 }

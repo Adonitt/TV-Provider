@@ -37,6 +37,18 @@ public class AdminService {
         if (existingAdmin == null) {
             return null;
         }
+
+        existingAdmin.setName(admin.getName());
+        existingAdmin.setSurname(admin.getSurname());
+        existingAdmin.setDateOfBirth(admin.getDateOfBirth());
+        existingAdmin.setPhoneNumber(admin.getPhoneNumber());
+        existingAdmin.setGender(admin.getGender());
+        existingAdmin.setCountry(admin.getCountry());
+        existingAdmin.setAddress(admin.getAddress());
+        existingAdmin.setPostcode(admin.getPostcode());
+        existingAdmin.setCity(admin.getCity());
+        existingAdmin.setPhoto(admin.getPhoto());
+
         return adminRepository.save(existingAdmin);
     }
 
