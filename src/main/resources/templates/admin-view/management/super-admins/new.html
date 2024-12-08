@@ -1,0 +1,107 @@
+<html lang="en" th:replace="~{shared/_adminLayout::adminLayout('Super Admins','', ~{::div.page-inner},'', ~{::ol})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/management/super-admins}">Super Admins List</a></li>
+    <li class="breadcrumb-item active">Add new Super Admin</li>
+</ol>
+
+
+<div class="page-inner">
+    <h5>Create new Super Admin</h5>
+
+    <div class="container rounded bg-white mt-1 mb-15" id="main-body">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                                                                                             width="150px"
+                                                                                             src="/images/admin.jpg">
+<!--                    <p>Choose profile photo ( OPTIONAL )</p>-->
+                    <input type="file"
+                           id="photoFile"
+                           name="photoFile"
+                           class="form-control"
+
+                           value="">
+                </div>
+            </div>
+            <div class="col-md-7 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <!--                        <h4 class="text-right">Add new Admin</h4>-->
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                                                                                       placeholder="first name"
+                                                                                       value="" required></div>
+                        <div class="col-md-6"><label class="labels">Surname</label><input type="text"
+                                                                                          class="form-control" value=""
+                                                                                          placeholder="surname"
+                                                                                          required></div>
+                    </div>
+                    <div class="row mt-3">
+
+                        <div class="col-md-12"><label class="labels">Birthdate</label><input type="date"
+                                                                                             class="form-control"
+                                                                                             placeholder="enter phone number"
+                                                                                             value="" required></div>
+                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="tel"
+                                                                                                 class="form-control"
+                                                                                                 placeholder="enter phone number"
+                                                                                                 value="" required>
+                        </div>
+                        <div class="col-md-12"><label class="labels">Gender</label>
+                            <input type="radio" class="form-check-input" value="M" required/> M&nbsp;
+                            <input type="radio" class="form-check-input" value="F" required/> F
+                        </div>
+                        <div class="col-md-12"></div>
+
+                    </div>
+                    <div class="col-md-12"><label class="labels">State / Country</label><input type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="enter state"
+                                                                                               value="" required></div>
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-6"><label class="labels">Address</label><input type="text"
+                                                                                          class="form-control"
+                                                                                          value=""
+                                                                                          required
+                                                                                          placeholder="enter address">
+                        </div>
+                        <div class="col-md-6"><label class="labels">Postcode</label><input type="text"
+                                                                                           class="form-control"
+                                                                                           required
+                                                                                           placeholder="enter postcode"
+                                                                                           value=""></div>
+                        <div class="col-md-12"><label class="labels">City</label><input type="text"
+                                                                                        class="form-control"
+                                                                                        required
+                                                                                        placeholder="enter city"
+                                                                                        value=""></div>
+                        <div class="col-md-12"><label class="labels">Email </label><input type="text"
+                                                                                          class="form-control"
+                                                                                          required
+                                                                                          placeholder="enter email for admin "
+                                                                                          value=""></div>
+                        <div class="col-md-12"><label class="labels">Password </label><input type="password"
+                                                                                             class="form-control"
+                                                                                             required
+                                                                                             placeholder="enter password for admin "
+                                                                                             value=""></div>
+                    </div>
+                    <div class="col-md-12"><label class="labels">Confirm Password </label><input type="password"
+                                                                                                 class="form-control"
+                                                                                                 placeholder="confirm password for admin "
+                                                                                                 required value="">
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

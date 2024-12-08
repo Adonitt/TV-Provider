@@ -1,0 +1,127 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Clients','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Clients List</li>
+</ol>
+<div class="page-inner">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+        <div class="ms-md-auto py-2 py-md-0">
+            <a th:href="@{/admin-pw/management/clients/new}" class="btn btn-primary btn-round">Add new Client</a>
+        </div>
+    </div>
+
+    <div class="col-md-12 mb-3">
+        <div class="d-flex gap-2 align-items-center" style="display: flex">
+            <input
+                    type="text"
+                    id="filter-name"
+                    class="form-control"
+                    placeholder="Search by Name"
+                    style="width: 300px;"
+            />
+            <input
+                    type="text"
+                    id="filter-surname"
+                    class="form-control"
+                    placeholder="Search by Surname"
+                    style="width: 300px;"
+            />
+            <input
+                    type="text"
+                    id="filter-email"
+                    class="form-control"
+                    placeholder="Search by Email"
+                    style="width: 300px;"
+            />
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Clients</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="multi-filter-select" class="display table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Start Date</th>
+                        <th>Subscription Date</th>
+                        <th>Expiry Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Adonit</td>
+                        <td>Halili</td>
+                        <td>adonit.ha12@gmail.com</td>
+                        <td>12.01.2023</td>
+                        <td>12.11.2024</td>
+                        <td>12.12.2024</td>
+                        <td>
+                            <button class="btn btn-success">
+                                <a th:href="@{/admin-pw/management/clients/1/details}">Details</a></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Fatlind</td>
+                        <td>Gashi</td>
+                        <td>fatlind.ga34@gmail.com</td>
+                        <td>01.05.2022</td>
+                        <td>15.09.2023</td>
+                        <td>15.09.2024</td>
+                        <td>
+                            <button class="btn btn-success">
+                                <a th:href="@{/admin-pw/management/clients/1/details}">Details</a></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="script">
+    const nameFilter = document.getElementById("filter-name");
+    const surnameFilter = document.getElementById("filter-surname");
+    const emailFilter = document.getElementById("filter-email");
+
+    [nameFilter, surnameFilter, emailFilter].forEach((filterInput) => {
+        filterInput.addEventListener("input", filterTable);
+    });
+
+    function filterTable() {
+        const nameValue = nameFilter.value.toLowerCase();
+        const surnameValue = surnameFilter.value.toLowerCase();
+        const emailValue = emailFilter.value.toLowerCase();
+
+        const rows = document.querySelectorAll("#multi-filter-select tbody tr");
+
+        rows.forEach((row) => {
+            const nameCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            const surnameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+            const emailCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+
+            const nameMatch = !nameValue || nameCell.includes(nameValue);
+            const surnameMatch = !surnameValue || surnameCell.includes(surnameValue);
+            const emailMatch = !emailValue || emailCell.includes(emailValue);
+
+            if (nameMatch && surnameMatch && emailMatch) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>
+
+</html>

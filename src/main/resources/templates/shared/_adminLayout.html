@@ -7,11 +7,14 @@
             content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
             name="viewport"
     />
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+
     <link
             rel="icon"
             th:href="@{/assets-a/img/kaiadmin/favicon.ico}"
             type="image/x-icon"
     />
+
     <style>
         .pagetitle {
             margin: 10px;
@@ -24,6 +27,9 @@
         }
 
     </style>
+    <th:block th:if="${style!=null && style!=''}">
+        <th:block th:insert="${style}"></th:block>
+    </th:block>
 
     <!-- Fonts and icons -->
     <script th:src="@{/assets-a/js/plugin/webfont/webfont.min.js}"></script>
@@ -52,6 +58,8 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" th:href="@{/assets-a/css/demo.css}"/>
+
+
 </head>
 <body>
 <div class="wrapper">
@@ -110,12 +118,36 @@
                                         <span class="sub-item">Admins</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a th:href="@{/admin-pw/management/super-admins}">
+                                        <span class="sub-item">Super Admins</span>
+                                    </a>
+                                </li>
 
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#basee">
+                            <i class="icon-people"></i>
+                            <p>Clients</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="basee">
+                            <ul class="nav nav-collapse">
+
+                                <li>
+                                    <a th:href="@{/admin-pw/management/req-for-new-clients}">
+                                        <span class="sub-item">Requests</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a th:href="@{/admin-pw/management/clients}">
                                         <span class="sub-item">Clients</span>
                                     </a>
                                 </li>
+
 
                             </ul>
                         </div>
@@ -212,6 +244,12 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item ">
+                        <a th:href="@{/admin-pw/profile}">
+                            <i class="fas fa-newspaper"></i>
+                            <p>My Profile </p>
+                        </a>
+                    </li>
 
                 </ul>
             </div>
@@ -265,7 +303,7 @@
                                 <div class="avatar-sm">
                                     <img
                                             th:src="@{/images/une2.jpg}"
-                                            alt="..."
+                                            alt="No picture"
                                             class="avatar-img rounded-circle"
                                     />
                                 </div>
@@ -287,7 +325,7 @@
                                             </div>
                                             <div class="u-text">
                                                 <h4>Adonit</h4>
-                                                <p class="text-muted">adonit.halili@smart-tv.com</p>
+                                                <p class="text-muted">Super Admin</p>
                                                 <a
                                                         th:href="@{/admin-pw/profile}"
                                                         class="btn btn-xs btn-secondary btn-sm"
@@ -299,7 +337,8 @@
                                     <li>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" th:href="@{/admin-pw/profile}">My Profile</a>
-                                        <a class="dropdown-item" th:href="@{/admin-pw/profile/change-password}">Change Password</a>
+                                        <a class="dropdown-item" th:href="@{/admin-pw/profile/change-password}">Change
+                                            Password</a>
                                         <a class="dropdown-item" href="#">Inbox</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
@@ -314,8 +353,6 @@
             </nav>
             <!-- End Navbar -->
         </div>
-
-
 
 
         <div class="container">
@@ -342,10 +379,15 @@
 
 
 </div>
+<th:block th:if="${script!=null && script!=''}">
+    <th:block th:insert="${script}"></th:block>
+</th:block>
 <!--   Core JS Files   -->
 <script th:src="@{/assets-a/js/core/jquery-3.7.1.min.js}"></script>
 <script th:src="@{/assets-a/js/core/popper.min.js}"></script>
 <script th:src="@{/assets-a/js/core/bootstrap.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+
 
 <!-- jQuery Scrollbar -->
 <script th:src="@{/assets-a/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js}"></script>

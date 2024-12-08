@@ -1,0 +1,137 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Super Admins','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Super Admins List</li>
+</ol>
+
+<div class="page-inner">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="ms-md-auto py-2 py-md-0">
+            <a th:href="@{/admin-pw/management/new-s-admin}" class="btn btn-primary btn-round">Create New Super
+                Admin</a>
+        </div>
+        <div class="d-flex gap-2 align-items-center mt-3" style="display: flex">
+            <input
+                    type="text"
+                    id="filter-name"
+                    class="form-control"
+                    placeholder="Search by Name"
+                    style="width: 300px;"
+            />
+            <input
+                    type="text"
+                    id="filter-surname"
+                    class="form-control"
+                    placeholder="Search by Surname"
+                    style="width: 300px;"
+            />
+            <input
+                    type="text"
+                    id="filter-address"
+                    class="form-control"
+                    placeholder="Search by Address"
+                    style="width: 300px;"
+            />
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Super Admins List</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table
+                        id="multi-filter-select"
+                        class="display table table-striped table-hover"
+                >
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Emri</th>
+                        <th>Mbiemri</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Country</th>
+                        <th>Age</th>
+                        <th>a1</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Adonit</td>
+                        <td>Halili</td>
+                        <td>adonit.halili@smart-tv.com</td>
+                        <td>Ali Ajeti</td>
+                        <td>Kosovo</td>
+                        <td>19</td>
+                        <td>
+                            <button class="btn btn-success">
+                                <a th:href="@{/admin-pw/management/sa/1/details}">Details</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Fatlind</td>
+                        <td>Gashi</td>
+                        <td>fatlind.gashi@smart-tv.com</td>
+                        <td>Skenderbeu</td>
+                        <td>Kosovo</td>
+                        <td>19</td>
+                        <td>
+                            <button class="btn btn-success">
+                                <a th:href="@{/admin-pw/management/sa/1/details}">Details</a>
+                            </button>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script id="script">
+    // Get filter input fields
+    const nameFilter = document.getElementById("filter-name");
+    const surnameFilter = document.getElementById("filter-surname");
+    const addressFilter = document.getElementById("filter-address");
+
+    // Add event listeners for each filter input
+    [nameFilter, surnameFilter, addressFilter].forEach((filterInput) => {
+        filterInput.addEventListener("input", filterTable);
+    });
+
+    function filterTable() {
+        const nameValue = nameFilter.value.toLowerCase();
+        const surnameValue = surnameFilter.value.toLowerCase();
+        const addressValue = addressFilter.value.toLowerCase();
+
+        const rows = document.querySelectorAll("#multi-filter-select tbody tr");
+
+        rows.forEach((row) => {
+            const nameCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            const surnameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+            const addressCell = row.querySelector("td:nth-child(5)").textContent.toLowerCase();
+
+            const nameMatch = !nameValue || nameCell.includes(nameValue);
+            const surnameMatch = !surnameValue || surnameCell.includes(surnameValue);
+            const addressMatch = !addressValue || addressCell.includes(addressValue);
+
+            if (nameMatch && surnameMatch && addressMatch) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>
+</html>
