@@ -30,6 +30,7 @@
 <body>
 
 <section class="vh-100">
+
     <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
@@ -38,6 +39,12 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form>
+
+                    <div style="text-align: center">
+                        <h1 class="sitename">SmartTV
+<!--                        <span style="color: red;font-size: 30px;">.</span>-->
+                        </h1></div>
+
 
                     <p class="lead fw-normal  me-2">Login as admin</p>
                     <!-- Email input -->
@@ -62,13 +69,13 @@
                                 Remember me
                             </label>
                         </div>
-                        <a th:href="@{/admin-pw/forgot-password}" class="text-body">Forgot password?</a>
+                        <a th:href="@{/admin-af/forgot-password}" class="text-body">Forgot password?</a>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                            <a th:href="@{/admin-pw/dashboard}" style="color: black">Login</a>
+                            <a th:href="@{/admin-af/dashboard}" style="color: black">Login</a>
                         </button>
 
                 </form>

@@ -2,7 +2,7 @@
       th:replace="~{shared/_adminLayout::adminLayout('Super Admins','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-pw/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">Super Admins List</li>
 </ol>
 
@@ -10,7 +10,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="ms-md-auto py-2 py-md-0">
-            <a th:href="@{/admin-pw/management/new-s-admin}" class="btn btn-primary btn-round">Create New Super
+            <a th:href="@{/admin-afs/management/new-s-admin}" class="btn btn-primary btn-round">Create New Super
                 Admin</a>
         </div>
         <div class="d-flex gap-2 align-items-center mt-3" style="display: flex">
@@ -70,7 +70,7 @@
                         <td>19</td>
                         <td>
                             <button class="btn btn-success">
-                                <a th:href="@{/admin-pw/management/sa/1/details}">Details</a>
+                                <a th:href="@{/admin-af/management/sa/1/details}">Details</a>
                             </button>
                         </td>
                     </tr>
@@ -84,7 +84,7 @@
                         <td>19</td>
                         <td>
                             <button class="btn btn-success">
-                                <a th:href="@{/admin-pw/management/sa/1/details}">Details</a>
+                                <a th:href="@{/admin-af/management/sa/1/details}">Details</a>
                             </button>
                         </td>
 

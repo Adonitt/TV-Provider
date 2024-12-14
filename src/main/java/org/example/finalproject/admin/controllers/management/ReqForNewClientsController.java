@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin-pw/management")
+@RequestMapping("/admin-af/management")
 public class ReqForNewClientsController {
     @GetMapping("/req-for-new-clients")
     public String reqForNewClients() {

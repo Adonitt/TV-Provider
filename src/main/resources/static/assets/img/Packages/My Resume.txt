@@ -1,0 +1,128 @@
+Fatlind Gashi
+
+
+fatlindgashi88@gmail.com
++383 45 918 048
+Rruga Skenderbeu, Podujeve 11000, Kosovo
+https://linkedin.com/in/fatlind-gashi
+
+
+
+------------------------
+Student at Cacttus Education
+
+
+------------------------
+“I am a student balancing studies, work, and side projects, with strong time management skills and a drive to learn and grow through diverse experiences.”
+
+
+Education
+------------------------
+Web & App Developer
+Cacttus Education
+10/2023 - Present
+Prishtine, Kosovo
+Courses
+
+
+Natural Science
+Gjimnazi Aleksander Xhuvani
+09/2020 - 06/2023
+Podujeve, Kosovo
+Courses
+
+
+
+
+
+Work Experience
+------------------------
+Customer Care Specialist
+Baruti AG
+06/2024 - Present
+Prishtine, Kosovo
+Achievements/Tasks
+- Resolving customer requests and problems in German via phone and email. 
+- Providing quality service and building positive relationships with customers. 
+- Recording and updating customer data in internal systems. 
+
+
+
+Sales Agent
+Avedo International
+09/2023 - 06/2024
+Prishtine, Kosovo
+Achievements/Tasks
+- Providing customer service and managing requests in German. 
+- Making sales and promoting products to existing and new customers. 
+- Maintaining customer data in CRM systems. 
+
+
+
+
+
+
+Languages
+------------------------
+-Albanian- (100/100)
+-English- (80/100)
+-German- (80/100)
+
+
+
+Skills
+------------------------
+-Front-end Development
+-Back-end Development
+-Databases
+-Version control
+-UI/UX
+-Problem-Solving
+
+
+
+Personal Projects
+------------------------
+TV Provider Project
+11/2024 - Present
+-  <b>TV Provider</b>  is a web app built with Java Spring Boot and Bootstrap, allowing clients to register, browse TV packages, and manage subscriptions with ease. 
+
+
+Electrical Company Project
+02/2024 - 05/2024
+-  <b>Electrical Company</b>  is a system powered by MS SQL, designed to manage customer accounts, track electricity usage, handle billing, and oversee worker records efficiently. 
+
+
+Movies/Series Project
+11/2023 - 01/2024
+-  <b>Movies/Series Website</b>  is a platform built with HTML, CSS, and JavaScript, allowing users to explore various types of movies and series with an intuitive and engaging interface. 
+
+
+
+
+
+MINI-Projects
+------------------------
+Kompania Ime Application
+ A system demonstrating inheritance with classes such as Employee, Programmer, and TechnicalSupport.  It features method overriding in child classes, polymorphic method calls, and object management using a list structure. 
+
+
+Restaurant Kosova Application
+ A restaurant management system designed to handle customer data, staff records, and order tracking.  It incorporates inheritance, composition, and user-friendly functionality for seamless operation. 
+
+
+These projects, along with many others, have strengthened my skills in Java programming, object-oriented design, and creating practical applications.
+
+
+
+
+
+Certificates
+------------------------
+IT Essentials by Cisco
+10/2023 - 01/2024
+
+
+
+
+

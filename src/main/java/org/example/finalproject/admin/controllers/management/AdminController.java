@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin-pw/management/admins")
+@RequestMapping("/admin-af/management/admins")
 public class AdminController {
 
     private final AdminService adminService;
