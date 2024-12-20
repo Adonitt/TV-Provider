@@ -1,9 +1,14 @@
 package org.example.finalproject.admin.controllers.management;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.services.AdminService;
+import org.example.finalproject.admin.services.impls.AdminServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -49,8 +55,12 @@ public class AdminController {
     }
 
     @PostMapping("/new-admin")
-    public String newAdmin(@Valid @ModelAttribute Admin admin, BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                           @RequestParam("photoFile") MultipartFile photoFile) {
+    public String newAdmin(@Valid @ModelAttribute Admin admin,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes,
+                           @RequestParam("photoFile") MultipartFile photoFile,
+                           @SessionAttribute("admin") Admin adminSession) {
+
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "admin-view/management/admins/new";
@@ -64,8 +74,10 @@ public class AdminController {
         } else {
             admin.setPhoto("/images/admin.jpg");
         }
+
+
         adminService.save(admin);
-        return "redirect:/admin-pw/management/admins";
+        return "redirect:/admin-af/management/admins";
     }
 
 
@@ -94,7 +106,7 @@ public class AdminController {
         }
         ra.addFlashAttribute("editedMessage", "Admin with ID: " + admin.getId() + " - modified successfully!");
         adminService.modify(admin);
-        return "redirect:/admin-pw/management/admins";
+        return "redirect:/admin-af/management/admins";
     }
 
 
@@ -108,7 +120,7 @@ public class AdminController {
     public String deleteAdmin(@PathVariable long id, RedirectAttributes ra) {
         ra.addFlashAttribute("deletedMessage", "Admin deleted successfully!");
         adminService.deleteById(id);
-        return "redirect:/admin-pw/management/admins";
+        return "redirect:/admin-af/management/admins";
     }
 
     private void uploadPhoto(@ModelAttribute @Valid Admin admin, @RequestParam("photoFile") MultipartFile photoFile) {

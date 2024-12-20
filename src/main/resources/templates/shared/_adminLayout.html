@@ -136,7 +136,8 @@ fas fa-home"></i>
                                 </li>
                                 <li>
                                     <a th:href="@{/admin-af/management/super-admins}">
-                                        <span class="sub-item">Super Admins</span>
+                                        <span class="sub-item" th:if="${session.size()>0}">
+                                            <span>Super Admins</span></span>
                                     </a>
                                 </li>
 
@@ -260,7 +261,8 @@ fas fa-user-circle"></i>
                                 </div>
                                 <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Adonit</span>
+                      <span class="fw-bold" th:if="${session.size() > 0}">
+                          <span th:text="${session.admin.name}">Adonit</span></span>
                     </span>
                             </a>
                             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -275,8 +277,12 @@ fas fa-user-circle"></i>
                                                 />
                                             </div>
                                             <div class="u-text">
-                                                <h4>Adonit</h4>
-                                                <p class="text-muted">Super Admin</p>
+                                                <h4>
+                                                    <span th:text="${session.admin.name}">Adonit </span>
+                                                    <span th:text="${session.admin.surname}"></span>
+                                                </h4>
+                                                <p class="text-muted">
+                                                    <span th:text="${session.admin.role}">Super Admins</span></p>
                                                 <a
                                                         th:href="@{/admin-af/profile}"
                                                         class="btn btn-xs btn-secondary btn-sm"
@@ -294,7 +300,9 @@ fas fa-user-circle"></i>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Account Setting</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" th:href="@{/admin-af/login}">Logout</a>
+                                        <form th:action="@{/admin-af/logout}" method="post">
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
                                     </li>
                                 </div>
                             </ul>
@@ -302,7 +310,6 @@ fas fa-user-circle"></i>
                     </ul>
                 </div>
             </nav>
-            <!-- End Navbar -->
         </div>
 
 
@@ -315,14 +322,17 @@ fas fa-user-circle"></i>
 
 
         <footer class="footer">
-            <div class="container-fluid d-flex justify-content-between">
-                <nav class="pull-left">
+            <div style="text-align: center">
 
 
-                </nav>
-                <div class="copyright">
-                    Copyright © Fatlind Gashi & Adonit Halili - 2024
+                <div class="copyright" th:if="${session.size()>0}">
+                    <p><span th:text="${session.admin.name}"></span> <span
+                            th:text=" ${session.admin.surname}"></span>
+                    </p>
+                    <span th:text="${session.admin.role}"></span><br>
+                    <span th:text="${session.admin.email}"></span>
                 </div>
+
 
             </div>
         </footer>
