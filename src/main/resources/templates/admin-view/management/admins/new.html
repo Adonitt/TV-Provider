@@ -25,7 +25,6 @@
             <div class="col-md-7 border-right">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <!--                        <h4 class="text-right">Add new Admin</h4>-->
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
@@ -46,6 +45,18 @@
                                                                                           maxlength="50"
                         >
                             <p class="alert-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+                        </div>
+                        <div class="col-md-12"><label class="labels">Personal Number</label><input type="text"
+                                                                                                   th:field="*{personalNumber}"
+                                                                                                   class="form-control"
+                                                                                                   value=""
+                                                                                                   placeholder="personal number"
+                                                                                                   required
+                                                                                                   minlength="9"
+                                                                                                   maxlength="9"
+                        >
+                            <p class="alert-danger" th:if="${#fields.hasErrors('personalNumber')}"
+                               th:errors="*{personalNumber}"></p>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -73,6 +84,7 @@
                             <input type="radio" class="form-check-input" value="F" th:field="*{gender}" required/> F
                         </div>
                         <!--                        <div class="col-md-12"></div>-->
+
 
                     </div>
                     <div class="col-md-12"><label class="labels">Country</label><input type="text"
@@ -113,6 +125,15 @@
                                                                                         placeholder="enter city"
                                                                                         value="">
                             <p class="alert-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
+                            <div class="col-md-12"><label class="labels">Role</label><br>
+
+                                <input type="radio" class="form-check-input" value="Admin" th:field="*{role}" required/>
+                                Admin<br>
+                                <input type="radio" class="form-check-input" value="Super Admin" th:field="*{role}"
+                                       required/>
+                                Super Admin
+                            </div>
+
 
                             <div class="col-md-12"><label class="labels">Email </label><input type="text"
                                                                                               th:field="*{email}"
@@ -121,7 +142,8 @@
                                                                                               maxlength="50"
                                                                                               placeholder="enter email for admin "
                                                                                               value="">
-                                <p class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                                <p class="alert-danger" th:if="${#fields.hasErrors('email')}"
+                                   th:errors="*{email}"></p>
                             </div>
 
                             <div class="col-md-12">
@@ -142,10 +164,13 @@
 
 
                             <div class="mt-4 text-center">
-                                <button class="btn btn-primary profile-button" id="alert_demo_3_1" type="submit">
+
+                                <button class="btn btn-primary profile-button" type="submit"><i class="fas fa-save"
+                                                                                                style="margin: 5px"></i>
                                     Create Profile
                                 </button>
                             </div>
+
                         </div>
                     </div>
                 </div>

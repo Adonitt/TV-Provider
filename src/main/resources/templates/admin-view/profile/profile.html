@@ -6,4 +6,119 @@
     <li class="breadcrumb-item active">My Profile</li>
 </ol>
 
+
+<div class="page-inner">
+    <div class="container" id="main-body">
+        <div class="main-body">
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img th:src="${session.admin.photo}" alt="No picture" class="rounded-circle" width="200"
+                                     height="200">
+                                <div class="mt-3">
+                                    <h4 th:text="${session.admin.name} + ' ' + ${session.admin.surname}">Adonit </h4>
+                                    <p class="text-secondary mb-1" th:text="${session.admin.role}">Full Stack
+                                        Developer</p>
+                                    <p class="text-muted font-size-sm"
+                                       th:text="${session.admin.address} + ' , ' + ${session.admin.city}">Ali Ajeti
+                                        71, Podujeve</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Full Name</h6></div>
+                                <div class="col-sm-9 text-secondary"
+                                     th:text="${session.admin.name} + ' ' + ${session.admin.surname}">Adonit
+                                    Halili
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Personal Number</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.personalNumber}"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Age</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.age}">19</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Date of birth</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.dateOfBirth}">12-02-2005
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.email}">
+                                    adonit.halili@smart-tv.com
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Role</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.role}"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Phone</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.phoneNumber}">+383 45 350
+                                    345
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Country</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.country}">Kosovo</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">City</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.city}">Podujeve</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Post Code</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.postcode}">11000</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Address</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.address}">Ali Ajeti 71
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Gender</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.gender}">M</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3"><h6 class="mb-0">Password</h6></div>
+                                <div class="col-sm-9 text-secondary" th:text="${session.admin.password}">M</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a class="btn btn-info" th:href="@{/admin-af/profile/change-password}">Change your password</a>
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>

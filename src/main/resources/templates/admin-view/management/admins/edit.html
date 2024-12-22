@@ -48,6 +48,18 @@
                             <p class="alert-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
                         </div>
                     </div>
+                    <div class="col-md-12"><label class="labels">Personal Number</label><input type="text"
+                                                                                               th:field="*{personalNumber}"
+                                                                                               class="form-control"
+                                                                                               value=""
+                                                                                               placeholder="personal number"
+                                                                                               required
+                                                                                               minlength="9"
+                                                                                               maxlength="9"
+                    >
+                        <p class="alert-danger" th:if="${#fields.hasErrors('personalNumber')}"
+                           th:errors="*{personalNumber}"></p>
+                    </div>
                     <div class="row mt-3">
 
                         <div class="col-md-12"><label class="labels">Birthdate</label><input type="date"
@@ -73,7 +85,6 @@
                             <input type="radio" class="form-check-input" value="M" th:field="*{gender}" required/> M&nbsp;
                             <input type="radio" class="form-check-input" value="F" th:field="*{gender}" required/> F
                         </div>
-                        <!--                        <div class="col-md-12"></div>-->
 
                     </div>
                     <div class="col-md-12"><label class="labels">Country</label><input type="text"
@@ -116,14 +127,20 @@
                                                                                         value="">
                             <p class="alert-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
 
-                            <div class="mt-4 text-center">
 
+                            <div class="col-md-6"><label class="labels">Role</label><br>
+                                <input type="radio" class="form-check-input" value="Admin" th:field="*{role}" required/>
+                                Admin
+                                <input type="radio" class="form-check-input" value="Super Admin" th:field="*{role}"
+                                       required/> Super Admin
+                            </div>
+
+                            <div class="mt-4 text-center">
                                 <button class="btn btn-primary profile-button" type="submit"><i class="fas fa-save"
-                                                                                                style="margin: 5px"></i>
-                                    Save
-                                    Profile
+                                                                                                style="margin: 5px"></i>Save Profile
                                 </button>
                             </div>
+
                         </div>
                     </div>
                 </div>

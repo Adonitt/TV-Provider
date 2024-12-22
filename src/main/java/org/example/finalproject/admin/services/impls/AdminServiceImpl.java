@@ -1,18 +1,25 @@
 package org.example.finalproject.admin.services.impls;
 
+import org.example.finalproject.admin.mappers.AdminMapper;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.AdminService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
     private final AdminRepository adminRepository;
+    private final AdminMapper mapper;
 
-    public AdminServiceImpl(AdminRepository adminRepository) {
+    public AdminServiceImpl(AdminRepository adminRepository, AdminMapper mapper) {
         this.adminRepository = adminRepository;
+        this.mapper = mapper;
+        if (adminRepository.count() == 0) {
+            adminRepository.save(new Admin(1, "Adonit", "Halili", "1252334056", LocalDate.of(2005, 2, 12), "045350345", "Kosovo", "Ali Ajeti 72", "Podujeve", 11000, "adonit.halili@smart-tv.com", "Doni1234.", 19, "Super Admin", "/assets-a/img/449e24ee-599f-412f-8da7-1c4c26e756ea_une2.jpg", null, "M"));
+        }
     }
 
 
@@ -37,6 +44,7 @@ public class AdminServiceImpl implements AdminService {
         if (existingAdmin == null) {
             return null;
         }
+
 
         existingAdmin.setName(admin.getName());
         existingAdmin.setSurname(admin.getSurname());

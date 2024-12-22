@@ -134,12 +134,6 @@ fas fa-home"></i>
                                         <span class="sub-item">Admins</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a th:href="@{/admin-af/management/super-admins}">
-                                        <span class="sub-item" th:if="${session.size()>0}">
-                                            <span>Super Admins</span></span>
-                                    </a>
-                                </li>
 
 
                             </ul>
@@ -254,7 +248,7 @@ fas fa-user-circle"></i>
                             >
                                 <div class="avatar-sm">
                                     <img
-                                            th:src="@{/images/une2.jpg}"
+                                            th:src="${session.admin.photo}"
                                             alt="No picture"
                                             class="avatar-img rounded-circle"
                                     />
@@ -271,7 +265,7 @@ fas fa-user-circle"></i>
                                         <div class="user-box">
                                             <div class="avatar-lg">
                                                 <img
-                                                        th:src="@{/images/une2.jpg}"
+                                                        th:src="${session.admin.photo}"
                                                         alt="image profile"
                                                         class="avatar-img rounded"
                                                 />

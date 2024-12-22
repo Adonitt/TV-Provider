@@ -1,8 +1,5 @@
 package org.example.finalproject.admin.dtos.admin;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +12,23 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class AdminRegistrationRequestDto {
+    @PositiveOrZero(message = "ID must be a positive number")
+    private long id;
+
     @Size(min = 2, max = 50, message = "Name must be at least 2 characters long and at most 50 characters long")
     @NotBlank(message = "Name is required")
+    @NotNull(message = "Name is required")
     private String name;
+
+    @Size(min = 2, max = 50, message = "Name must be at least 2 characters long and at most 50 characters long")
+    @NotBlank(message = "Name is required")
+    private String surname;
+
+    @Size(min = 10, max = 10, message = "Personal number must be 10 digits long")
+    @NotBlank(message = "Personal number is required")
+    @NotNull(message = "Personal number is required")
+    private String personalNumber;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email address")
@@ -35,10 +44,6 @@ public class AdminRegistrationRequestDto {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).*$", message = "Password must contain at least one uppercase letter, one lowercase letter, and one number")
     @SameAs(field = "password", message = "Passwords do not match")
     private String confirmPassword;
-
-    @Size(min = 2, max = 50, message = "Name must be at least 2 characters long and at most 50 characters long")
-    @NotBlank(message = "Name is required")
-    private String surname;
 
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
@@ -58,16 +63,26 @@ public class AdminRegistrationRequestDto {
     @NotBlank(message = "City is required")
     private String city;
 
+    @NotBlank(message = "Postcode is required")
+    @Positive(message = "Postcode must be a positive number")
     private int postcode;
 
+    @NotBlank(message = "Date of birth is required")
+    @NotNull(message = "Date of birth is required")
+    @Positive(message = "Age must be a positive number")
     private int age;
 
-    private String role = "ADMIN";
+    @NotBlank(message = "Role is required")
+    @NotNull(message = "Role is required")
+    private String role;
 
     private String photo;
 
     private String imagePath;
 
-    private char gender;
+    @NotBlank(message = "Gender is required")
+    @NotNull(message = "Gender is required")
+    private String gender;
+
 
 }

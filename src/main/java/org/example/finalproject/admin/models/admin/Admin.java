@@ -18,12 +18,17 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Size(min = 2, max = 50, message = "Name must be at least 2 characters long and at most 50 characters long")
+    @NotBlank(message = "Name is required")
+    @NotNull(message = "Name is required")
     @Column(nullable = false)
     private String name;
 
-
     @Column(nullable = false)
     private String surname;
+
+    @Column(nullable = false, unique = true)
+    private String personalNumber;
 
     @Column(nullable = false)
     private LocalDate dateOfBirth;
@@ -49,15 +54,18 @@ public class Admin {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private int age;
 
-    private String role = "ADMIN";
+    @Column(nullable = false)
+    private String role;
 
     private String photo;
 
     private String imagePath;
 
-    private char gender;
+    @Column(nullable = false)
+    private String gender;
 
     public int calculateAge() {
         if (this.dateOfBirth != null) {

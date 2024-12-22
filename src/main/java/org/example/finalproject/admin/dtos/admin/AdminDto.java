@@ -18,6 +18,7 @@ public class AdminDto {
     private int id;
     private String name;
     private String surname;
+    private String personalNumber;
     private LocalDate dateOfBirth;
     private String phoneNumber;
     private String country;
@@ -26,9 +27,10 @@ public class AdminDto {
     private int postcode;
     private String email;
     private int age;
-    private String role = "ADMIN";
+    private String role;
     private String photo;
     private String imagePath;
-    private char gender;
+    private String
+            gender;
 
 }

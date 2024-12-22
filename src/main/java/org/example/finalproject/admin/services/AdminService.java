@@ -1,5 +1,6 @@
 package org.example.finalproject.admin.services;
 
+import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.models.admin.Admin;
 
 import java.util.List;
