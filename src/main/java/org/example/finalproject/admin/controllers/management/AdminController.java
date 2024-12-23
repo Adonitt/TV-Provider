@@ -1,5 +1,7 @@
 package org.example.finalproject.admin.controllers.management;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
@@ -29,12 +31,13 @@ public class AdminController {
 
 
     @GetMapping("")
-    public String manageAdmins(Model model) {
+    public String manageAdmins(Model model, HttpServletRequest request) {
+
+
         List<Admin> admins = adminService.findAll();
 
-        // Calculate age for each admin
         for (Admin admin : admins) {
-            admin.setAge(admin.calculateAge());  // Set the calculated age
+            admin.setAge(admin.calculateAge());
         }
         model.addAttribute("admins", adminService.findAll());
         return "/admin-view/management/admins/admins-list";
@@ -46,6 +49,7 @@ public class AdminController {
         model.addAttribute("admin", new AdminRegistrationRequestDto());
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("from", LocalDate.now().minusYears(65));
+        model.addAttribute("isEditMode", false);
         return "admin-view/management/admins/new";
     }
 
@@ -78,6 +82,7 @@ public class AdminController {
 
     @GetMapping("/{id}/details")
     public String details(@PathVariable long id, Model model) {
+
         Admin admin = adminService.findById(id);
         admin.calculateAge();
         model.addAttribute("admin", adminService.findById(id));
@@ -86,6 +91,7 @@ public class AdminController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable long id, Model model) {
+        model.addAttribute("isEditMode", true);
         model.addAttribute("admin", adminService.findById(id));
         return "admin-view/management/admins/edit";
     }

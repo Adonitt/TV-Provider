@@ -61,4 +61,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
+    @Override
+    public void changePassword(Long adminId, String password) {
+        Admin existingAdmin = adminRepository.findById(adminId).orElse(null);
+        if (existingAdmin != null) {
+            existingAdmin.setPassword(password);
+        }
+        adminRepository.save(existingAdmin);
+    }
+
 }

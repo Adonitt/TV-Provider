@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-
     Optional<Admin> findByEmail(String email);
 
     Admin findByName(String name);
@@ -21,4 +20,5 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
     List<Admin> findBySurnameContainingIgnoreCase(String surname);
 
     List<Admin> findByAddressContainingIgnoreCase(String address);
+
 }

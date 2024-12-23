@@ -1,27 +1,22 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},~{::script#script}, ~{::ol})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Edit My Profile','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/management/admins}">Admins List</a></li>
-    <li class="breadcrumb-item active">Add new Admin</li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-af/profile}">My Profile</a></li>
+    <li class="breadcrumb-item active">Edit My Profile</li>
 </ol>
-
-
 <div class="page-inner">
-    <h5>Create new Admin</h5>
+    <!--    <th:block th:insert="~{admin-view/management/admins/new::div.container}"></th:block>-->
 
     <div class="container rounded bg-white mt-1 mb-15" id="main-body">
         <form class="row" th:object="${admin}" method="post" enctype="multipart/form-data">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" th:if="${isEditMode}"
+                    <img class="rounded-circle mt-5"
                          height="180px"
                          width="180px"
                          th:src="*{photo}">
-                    <img class="rounded-circle mt-5" th:unless="${isEditMode}"
-                         width="150px"
-                         src="/images/admin.jpg">
                     <p>Choose profile photo ( OPTIONAL )</p>
                     <input type="hidden" th:field="*{photo}">
                     <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*">
@@ -66,36 +61,15 @@
                     </div>
                     <div class="row mt-3">
 
-                        <div class="col-md-12" th:if="${!isEditMode}">
-                            <label class="labels">Birthdate</label>
-                            <input type="date"
-                                   th:field="*{dateOfBirth}"
-                                   class="form-control"
-                                   th:value="*{dateOfBirth}"
-                                   name="dateOfBirth"
-                                   id="dateOfBirth"
-                                   required
-                                   th:min="${from}"
-                                   th:max="${today}">
+                        <div class="col-md-12"><label class="labels">Birthdate</label><input type="date"
+                                                                                             th:field="*{dateOfBirth}"
+                                                                                             class="form-control"
+                                                                                             th:value="*{dateOfBirth}"
+                                                                                             required
+                                                                                             th:min="${from}"
+                                                                                             th:max="${today}">
                             <p class="alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
-                               th:errors="*{dateOfBirth}"></p>
-                        </div>
-
-
-                        <div class="col-md-12" th:unless="${!isEditMode}">
-                            <label class="labels">Birthdate</label>
-                            <input type="date"
-                                   th:field="*{dateOfBirth}"
-                                   class="form-control"
-                                   value=""
-                                   required
-                                   th:min="${from}"
-                                   th:max="${today}">
-                            <p class="alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
-                               th:errors="*{dateOfBirth}"></p>
-                        </div>
-
-
+                               th:errors="*{dateOfBirth}"></p></div>
                         <div class="col-md-12"><label class="labels">Mobile Number</label><input type="tel"
                                                                                                  th:field="*{phoneNumber}"
                                                                                                  class="form-control"
@@ -109,6 +83,7 @@
                             <input type="radio" class="form-check-input" value="M" th:field="*{gender}" required/> M&nbsp;
                             <input type="radio" class="form-check-input" value="F" th:field="*{gender}" required/> F
                         </div>
+                        <!--                        <div class="col-md-12"></div>-->
 
 
                     </div>
@@ -150,82 +125,21 @@
                                                                                         placeholder="enter city"
                                                                                         value="">
                             <p class="alert-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
-                            <div class="col-md-12"><label class="labels">Role</label><br>
-
-                                <input type="radio" class="form-check-input" value="Admin" th:field="*{role}" required/>
-                                Admin<br>
-                                <input type="radio" class="form-check-input" value="Super Admin" th:field="*{role}"
-                                       required/>
-                                Super Admin
-                            </div>
-
-
-                            <div class="col-md-12" th:if="${!isEditMode}">
-                                <label class="labels">Email</label>
-                                <input type="text" th:field="*{email}" class="form-control" minlength="5" maxlength="50"
-                                       placeholder="Enter email for admin" value="">
-                                <p class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-                            </div>
-
-                            <div class="col-md-12" th:if="${!isEditMode}">
-                                <label class="labels">Temporary Password</label>
-                                <input type="password" th:field="*{password}" class="form-control" id="password"
-                                       minlength="8" maxlength="50" placeholder="Enter temporary password for admin"
-                                       value="">
-                                <p class="alert-danger" th:if="${#fields.hasErrors('password')}"
-                                   th:errors="*{password}"></p>
-                            </div>
-
-                            <div class="col-md-12" th:if="${!isEditMode}">
-                                <label class="labels">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" minlength="8"
-                                       maxlength="50" placeholder="Confirm password for admin" value="">
-                                <p class="alert-danger" id="passwordError" style="display: none;">Passwords do not
-                                    match!</p>
-                            </div>
 
 
                             <div class="mt-4 text-center">
-
-                                <button class="btn btn-primary profile-button" type="submit" th:if="${!isEditMode}"><i
+                                <button class="btn btn-primary profile-button" type="submit"><i
                                         class="fas fa-save"
                                         style="margin: 5px"></i>
-                                    Create Profile
-                                </button>
-                                <button class="btn btn-primary profile-button" type="submit" th:unless="${!isEditMode}">
-                                    <i
-                                            class="fas fa-save"
-                                            style="margin: 5px"></i>
                                     Edit Profile
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
         </form>
     </div>
-
 </div>
-<script id="script">
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");  // Assuming your form is the first form
-        const password = document.getElementById("password");
-        const confirmPassword = document.getElementById("confirmPassword");
-        const passwordError = document.getElementById("passwordError");
 
-        form.addEventListener("submit", function (event) {
-            // Reset the error message
-            passwordError.style.display = "none";
-
-            if (password.value !== confirmPassword.value) {
-                // If passwords don't match, prevent form submission
-                passwordError.style.display = "block";
-                event.preventDefault();
-            }
-        });
-    });
-</script>
 
 </html>

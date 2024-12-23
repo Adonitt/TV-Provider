@@ -31,9 +31,9 @@
             />
             <input
                     type="text"
-                    id="filter-address"
+                    id="email-address"
                     class="form-control"
-                    placeholder="Search by Address"
+                    placeholder="Search by Email Address"
                     style="width: 300px;"
             />
         </div>
@@ -80,7 +80,7 @@
                     <th>Emri</th>
                     <th>Mbiemri</th>
                     <th>Email</th>
-                    <th>Country</th>
+                    <th>Role</th>
                     <th>Age</th>
                     <th></th>
 
@@ -88,7 +88,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="admin: ${admins}" th:object="${admin}">
+                <tr>
+                    <td th:text="${session.admin.id}"></td>
+                    <td>
+                        <img th:src="${session.admin.photo}" style="width: 50px;height: 50px" alt="No photo"/>
+                    </td>
+                    <td th:text="${session.admin.name}">Adonit</td>
+                    <td th:text="${session.admin.surname}">Halili</td>
+                    <td th:text="${session.admin.email}">adonit.halili@smart-tv.com</td>
+                    <td th:text="${session.admin.role}">Admin</td>
+                    <td th:text="${session.admin.age}">Kosovo</td>
+                    <td>
+                        <a th:href="@{/admin-af/profile}">
+                            <button type="button" class="btn btn-icon btn-round btn-info">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                        </a>
+                        <a th:href="@{/admin-af/profile/edit-profile}">
+                            <button type="button" class="btn btn-icon btn-round btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                <tr th:each="admin: ${admins}" th:object="${admin}" th:if="${admin.id != session.admin.id}">
                     <td th:text="${admin.id}"></td>
                     <td>
                         <img th:src="${admin.photo}" style="width: 50px;height: 50px" alt="No photo"/>
@@ -96,7 +119,7 @@
                     <td th:text="*{name}">Adonit</td>
                     <td th:text="*{surname}">Halili</td>
                     <td th:text="*{email}">adonit.halili@smart-tv.com</td>
-                    <td th:text="*{country}">Ali Ajeti</td>
+                    <td th:text="*{role}">Admin</td>
                     <td th:text="*{age}">Kosovo</td>
 
                     <td>
@@ -106,13 +129,15 @@
                             </button>
                         </a>
 
-                        <a th:href="@{/admin-af/management/admins/{id}/edit(id=*{id})}"th:if=" ${session.admin.role=='Super Admin'}" >
+                        <a th:href="@{/admin-af/management/admins/{id}/edit(id=*{id})}"
+                           th:if=" ${session.admin.role=='Super Admin'}">
 
-                        <button type="button" class="btn btn-icon btn-round btn-warning">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                            <button type="button" class="btn btn-icon btn-round btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </button>
                         </a>
-                        <a th:href="@{/admin-af/management/admins/{id}/delete(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
+                        <a th:href="@{/admin-af/management/admins/{id}/delete(id=*{id})}"
+                           th:if="${session.admin.role == 'Super Admin'}">
 
                             <button type="button" class="btn btn-icon btn-round btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -129,10 +154,9 @@
 </div>
 
 <script id="script">
-    // Get filter input fields
     const nameFilter = document.getElementById("filter-name");
     const surnameFilter = document.getElementById("filter-surname");
-    const addressFilter = document.getElementById("filter-address");
+    const addressFilter = document.getElementById("email-address");
 
     // Add event listeners for each filter input
     [nameFilter, surnameFilter, addressFilter].forEach((filterInput) => {
@@ -150,18 +174,18 @@
 
         // Loop through each row and check if it matches the filter criteria
         rows.forEach((row) => {
-            // Get the cells for name, surname, and address (adjust the column numbers based on your table structure)
+            // Get the cells for name, surname, and email (adjust the column numbers based on your table structure)
             const nameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
             const surnameCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
-            const addressCell = row.querySelector("td:nth-child(6)").textContent.toLowerCase(); // Assuming address is in the 6th column
+            const emailCell = row.querySelector("td:nth-child(5)").textContent.toLowerCase(); // Now matching email
 
             // Check if each cell contains the corresponding filter value
             const nameMatch = !nameValue || nameCell.includes(nameValue);
             const surnameMatch = !surnameValue || surnameCell.includes(surnameValue);
-            const addressMatch = !addressValue || addressCell.includes(addressValue);
+            const emailMatch = !addressValue || emailCell.includes(addressValue);
 
             // If all criteria match, display the row, otherwise hide it
-            if (nameMatch && surnameMatch && addressMatch) {
+            if (nameMatch && surnameMatch && emailMatch) {
                 row.style.display = "";
             } else {
                 row.style.display = "none";

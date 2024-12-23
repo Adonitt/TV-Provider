@@ -18,6 +18,10 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        if (request.getRequestURI().contains("/assets")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("admin") != null) {
@@ -39,6 +43,7 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
 
         if (request.getRequestURI().equals("/admin-af")
                 || request.getRequestURI().equals("/admin-af/forgot-password")
+                || request.getRequestURI().equals("/admin-af/send-reset-link")
                 || request.getRequestURI().equals("/")
                 || request.getRequestURI().equals("/about")
                 || request.getRequestURI().equals("/contact")

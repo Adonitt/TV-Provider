@@ -47,7 +47,7 @@ public class AdminRegistrationRequestDto {
 
     @NotNull(message = "Date of birth is required")
     @Past(message = "Date of birth must be in the past")
-    @AtLeast18YearsOld()
+    @AtLeast18YearsOld(message = "You must be at least 18 years old to register")
     private LocalDate dateOfBirth;
 
     @Size(min = 9, max = 25, message = "Phone number must be at least 9 characters long and at most 25 characters long")

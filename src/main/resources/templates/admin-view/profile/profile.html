@@ -9,6 +9,14 @@
 
 <div class="page-inner">
     <div class="container" id="main-body">
+        <p th:if="${successMessage != null}" class="alert alert-success">
+            <strong th:text="${successMessage}"></strong>
+        </p>
+
+        <p th:if="${successChangeMessage != null}" class="alert alert-success">
+            <strong th:text="${successChangeMessage}"></strong>
+        </p>
+
         <div class="main-body">
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
@@ -108,9 +116,10 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info" th:href="@{/admin-af/profile/change-password}">Change your password</a>
-
-                                    </a>
+                                    <a class="btn btn-info" th:href="@{/admin-af/profile/change-password}">Change my
+                                        password</a> <a class="btn btn-dark"
+                                                        th:href="@{/admin-af/profile/edit-profile}">Edit my
+                                    profile</a>
                                 </div>
                             </div>
                         </div>
