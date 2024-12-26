@@ -1,5 +1,5 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},~{::script#script}, ~{::ol})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},'', ~{::ol})}">
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
@@ -12,14 +12,12 @@
     <h5>Create new Admin</h5>
 
     <div class="container rounded bg-white mt-1 mb-15" id="main-body">
-        <form class="row" th:object="${admin}" method="post" enctype="multipart/form-data">
+        <form class="row" th:object="${adminRegistrationRequestDto}"
+              th:action="@{/admin-af/management/admins/new-admin}" method="post" enctype="multipart/form-data">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" th:if="${isEditMode}"
-                         height="180px"
-                         width="180px"
-                         th:src="*{photo}">
-                    <img class="rounded-circle mt-5" th:unless="${isEditMode}"
+
+                    <img class="rounded-circle mt-5"
                          width="150px"
                          src="/images/admin.jpg">
                     <p>Choose profile photo ( OPTIONAL )</p>
@@ -66,23 +64,8 @@
                     </div>
                     <div class="row mt-3">
 
-                        <div class="col-md-12" th:if="${!isEditMode}">
-                            <label class="labels">Birthdate</label>
-                            <input type="date"
-                                   th:field="*{dateOfBirth}"
-                                   class="form-control"
-                                   th:value="*{dateOfBirth}"
-                                   name="dateOfBirth"
-                                   id="dateOfBirth"
-                                   required
-                                   th:min="${from}"
-                                   th:max="${today}">
-                            <p class="alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
-                               th:errors="*{dateOfBirth}"></p>
-                        </div>
 
-
-                        <div class="col-md-12" th:unless="${!isEditMode}">
+                        <div class="col-md-12">
                             <label class="labels">Birthdate</label>
                             <input type="date"
                                    th:field="*{dateOfBirth}"
@@ -94,7 +77,6 @@
                             <p class="alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
                                th:errors="*{dateOfBirth}"></p>
                         </div>
-
 
                         <div class="col-md-12"><label class="labels">Mobile Number</label><input type="tel"
                                                                                                  th:field="*{phoneNumber}"
@@ -160,14 +142,14 @@
                             </div>
 
 
-                            <div class="col-md-12" th:if="${!isEditMode}">
+                            <div class="col-md-12">
                                 <label class="labels">Email</label>
                                 <input type="text" th:field="*{email}" class="form-control" minlength="5" maxlength="50"
                                        placeholder="Enter email for admin" value="">
                                 <p class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                             </div>
 
-                            <div class="col-md-12" th:if="${!isEditMode}">
+                            <div class="col-md-12">
                                 <label class="labels">Temporary Password</label>
                                 <input type="password" th:field="*{password}" class="form-control" id="password"
                                        minlength="8" maxlength="50" placeholder="Enter temporary password for admin"
@@ -176,27 +158,23 @@
                                    th:errors="*{password}"></p>
                             </div>
 
-                            <div class="col-md-12" th:if="${!isEditMode}">
+                            <div class="col-md-12">
                                 <label class="labels">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" minlength="8"
+                                <input type="password" class="form-control" id="confirmPassword"
+                                       th:field="*{confirmPassword}" minlength="8"
                                        maxlength="50" placeholder="Confirm password for admin" value="">
-                                <p class="alert-danger" id="passwordError" style="display: none;">Passwords do not
-                                    match!</p>
+                                <div id="passwordError" class="alert alert-danger" style="display:none;">
+                                    <strong>Passwords do not match!</strong>
+                                </div>
                             </div>
 
 
                             <div class="mt-4 text-center">
 
-                                <button class="btn btn-primary profile-button" type="submit" th:if="${!isEditMode}"><i
+                                <button class="btn btn-primary profile-button" type="submit"><i
                                         class="fas fa-save"
                                         style="margin: 5px"></i>
                                     Create Profile
-                                </button>
-                                <button class="btn btn-primary profile-button" type="submit" th:unless="${!isEditMode}">
-                                    <i
-                                            class="fas fa-save"
-                                            style="margin: 5px"></i>
-                                    Edit Profile
                                 </button>
                             </div>
 
@@ -208,24 +186,5 @@
     </div>
 
 </div>
-<script id="script">
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");  // Assuming your form is the first form
-        const password = document.getElementById("password");
-        const confirmPassword = document.getElementById("confirmPassword");
-        const passwordError = document.getElementById("passwordError");
-
-        form.addEventListener("submit", function (event) {
-            // Reset the error message
-            passwordError.style.display = "none";
-
-            if (password.value !== confirmPassword.value) {
-                // If passwords don't match, prevent form submission
-                passwordError.style.display = "block";
-                event.preventDefault();
-            }
-        });
-    });
-</script>
 
 </html>

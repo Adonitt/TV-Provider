@@ -1,14 +1,10 @@
 package org.example.finalproject.admin.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.example.finalproject.admin.dtos.admin.AdminLoginDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.AdminService;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 
 @Controller
@@ -26,12 +19,12 @@ import java.time.LocalDate;
 
 public class ProfileController {
     private final AdminRepository adminRepository;
-    private final AdminService adminService;
+    private final AdminService service;
     private final FileHelper fileHelper;
 
-    public ProfileController(AdminRepository adminRepository, AdminService adminService, FileHelper fileHelper) {
+    public ProfileController(AdminRepository adminRepository, AdminService service, FileHelper fileHelper) {
         this.adminRepository = adminRepository;
-        this.adminService = adminService;
+        this.service = service;
         this.fileHelper = fileHelper;
     }
 
@@ -71,7 +64,7 @@ public class ProfileController {
             ra.addFlashAttribute("passwordNotMatch", "New password and confirm password do not match!");
             return "redirect:/admin-af/profile/change-password";
         }
-        adminService.changePassword(adminId, newPassword);
+        service.changePassword(adminId, newPassword);
         ra.addFlashAttribute("successChangeMessage", "Password changed successfully!");
         return "redirect:/admin-af/profile";
     }
@@ -112,7 +105,7 @@ public class ProfileController {
         sessionAdmin.setPostcode(admin.getPostcode());
         sessionAdmin.setCity(admin.getCity());
 
-        adminService.modify(sessionAdmin);
+//        service.modify(sessionAdmin.getId(), sessionAdmin);
 
         ra.addFlashAttribute("successMessage", "Profile edited successfully!");
         return "redirect:/admin-af/profile";

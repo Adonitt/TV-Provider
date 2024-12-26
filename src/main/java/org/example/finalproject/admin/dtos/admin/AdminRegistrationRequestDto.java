@@ -8,6 +8,7 @@ import org.example.finalproject.admin.infrastructure.interfaces.AtLeast18YearsOl
 import org.example.finalproject.admin.infrastructure.interfaces.SameAs;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Data
 @NoArgsConstructor
@@ -42,7 +43,7 @@ public class AdminRegistrationRequestDto {
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).*$", message = "Password must contain at least one uppercase letter, one lowercase letter, and one number")
-    @SameAs(field = "password", message = "Passwords do not match")
+//    @SameAs(field = "password", message = "Passwords do not match")
     private String confirmPassword;
 
     @NotNull(message = "Date of birth is required")
@@ -63,13 +64,8 @@ public class AdminRegistrationRequestDto {
     @NotBlank(message = "City is required")
     private String city;
 
-    @NotBlank(message = "Postcode is required")
-    @Positive(message = "Postcode must be a positive number")
     private int postcode;
 
-    @NotBlank(message = "Date of birth is required")
-    @NotNull(message = "Date of birth is required")
-    @Positive(message = "Age must be a positive number")
     private int age;
 
     @NotBlank(message = "Role is required")
@@ -77,8 +73,6 @@ public class AdminRegistrationRequestDto {
     private String role;
 
     private String photo;
-
-    private String imagePath;
 
     @NotBlank(message = "Gender is required")
     @NotNull(message = "Gender is required")

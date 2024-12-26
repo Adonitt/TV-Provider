@@ -16,11 +16,8 @@ import java.time.Period;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
-    @Size(min = 2, max = 50, message = "Name must be at least 2 characters long and at most 50 characters long")
-    @NotBlank(message = "Name is required")
-    @NotNull(message = "Name is required")
     @Column(nullable = false)
     private String name;
 
@@ -45,7 +42,6 @@ public class Admin {
     @Column(nullable = false)
     private String city;
 
-    @Column(nullable = false)
     private int postcode;
 
     @Column(nullable = false, unique = true, length = 50)
@@ -61,8 +57,6 @@ public class Admin {
     private String role;
 
     private String photo;
-
-    private String imagePath;
 
     @Column(nullable = false)
     private String gender;

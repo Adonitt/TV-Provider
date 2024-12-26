@@ -1,12 +1,11 @@
 package org.example.finalproject.admin.dtos.admin;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Data
 @NoArgsConstructor
@@ -14,8 +13,8 @@ import java.time.LocalDate;
 
 /// dto eshte info qe shkon prej controllerit ne front
 // komplet te dhanat qa i ka Admin modeli, pervec password, qe nuk ia kthejme userit
-public class AdminDto {
-    private int id;
+public class AdminDetailsDto {
+    private long id;
     private String name;
     private String surname;
     private String personalNumber;
@@ -29,8 +28,19 @@ public class AdminDto {
     private int age;
     private String role;
     private String photo;
-    private String imagePath;
-    private String
-            gender;
+    private String gender;
+    private String password;
+
+    public int calculateAge() {
+        if (this.dateOfBirth != null) {
+            this.age = Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+        }
+        return this.age;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        this.age = calculateAge();
+    }
 
 }

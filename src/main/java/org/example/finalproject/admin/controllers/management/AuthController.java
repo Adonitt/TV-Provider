@@ -5,53 +5,45 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.AdminLoginDto;
-import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.repositories.AdminRepository;
-import org.example.finalproject.admin.services.AdminLoginService;
-import org.springframework.core.io.ResourceLoader;
+import org.example.finalproject.admin.services.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin-af")
-
+@RequiredArgsConstructor
 public class AuthController {
-    private final AdminLoginService adminLoginService;
+    private final AdminService service;
     private final AdminRepository adminRepository;
-
-    public AuthController(AdminLoginService adminLoginService, AdminRepository adminRepository) {
-        this.adminLoginService = adminLoginService;
-        this.adminRepository = adminRepository;
-    }
 
     @GetMapping("")
     public String login(Model model) {
-        model.addAttribute("admin", new AdminLoginDto());
+        model.addAttribute("adminLoginDto", new AdminLoginDto());
         return "admin-view/auths/login";
     }
 
     @PostMapping("")
-    public String login(@Valid @ModelAttribute AdminLoginDto admin,
+    public String login(@Valid @ModelAttribute AdminLoginDto adminLoginDto,
+                        BindingResult bindingResult,
                         HttpServletRequest request,
                         HttpServletResponse response,
                         @RequestParam(value = "returnUrl", required = false) String returnUrl,
-                        BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes, Model model) {
-
-        var searchAdmin = adminLoginService.login(admin.getEmail(), admin.getPassword());
+                        RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
-            return "redirect:/admin-af";
+            return "admin-view/auths/login";
         }
+
+        var searchAdmin = service.login(adminLoginDto.getEmail(), adminLoginDto.getPassword());
 
         if (searchAdmin == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
@@ -90,7 +82,12 @@ public class AuthController {
     }
 
     @GetMapping("/forgot-password")
-    public String forgotPassword(@ModelAttribute Admin admin, Model model, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+    public String forgotPassword(@ModelAttribute Admin admin, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(System.out::println);
+        }
+
         if (admin.getEmail() != null) {
             System.out.println("Searching for email: " + admin.getEmail());
 
@@ -103,10 +100,6 @@ public class AuthController {
                 redirectAttributes.addFlashAttribute("errorMessage", "Email not found");
                 return "redirect:/admin-af/forgot-password";
             }
-        }
-
-        if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(System.out::println);
         }
         return "admin-view/auths/forgot-password";
     }

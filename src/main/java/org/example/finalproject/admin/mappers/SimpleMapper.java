@@ -1,4 +1,4 @@
-package org.example.finalproject.admin.infrastructure.mapping;
+package org.example.finalproject.admin.mappers;
 
 public interface SimpleMapper<TEntity, TDto> {
     TEntity toEntity(TDto dto);

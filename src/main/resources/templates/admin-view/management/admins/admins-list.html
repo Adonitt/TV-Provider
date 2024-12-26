@@ -33,7 +33,7 @@
                     type="text"
                     id="email-address"
                     class="form-control"
-                    placeholder="Search by Email Address"
+                    placeholder="Search by Email"
                     style="width: 300px;"
             />
         </div>
@@ -58,13 +58,13 @@
     </div>
 
     <div class="alert alert-info alert-dismissible fade show" role="alert"
-         th:unless="${admins!=null && admins.size()>0}">
+         th:unless="${adminsList!=null && adminsList.size()>0}">
         <i class="fas fa-exclamation-circle"></i>
         <strong>There are no admin in the list</strong>
     </div>
 
 
-    <div class="card-body" th:if="${admins != null && admins.size() >0}">
+    <div class="card-body" th:if="${adminsList != null && adminsList.size() >0}">
         <div class="card-header">
             <h4 class="card-title">Admins List</h4>
         </div>
@@ -81,10 +81,7 @@
                     <th>Mbiemri</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Age</th>
                     <th></th>
-
-
                 </tr>
                 </thead>
                 <tbody>
@@ -97,7 +94,6 @@
                     <td th:text="${session.admin.surname}">Halili</td>
                     <td th:text="${session.admin.email}">adonit.halili@smart-tv.com</td>
                     <td th:text="${session.admin.role}">Admin</td>
-                    <td th:text="${session.admin.age}">Kosovo</td>
                     <td>
                         <a th:href="@{/admin-af/profile}">
                             <button type="button" class="btn btn-icon btn-round btn-info">
@@ -111,7 +107,7 @@
                         </a>
                     </td>
                 </tr>
-                <tr th:each="admin: ${admins}" th:object="${admin}" th:if="${admin.id != session.admin.id}">
+                <tr th:each="admin: ${adminsList}" th:object="${admin}" th:if="${admin.id != session.admin.id}">
                     <td th:text="${admin.id}"></td>
                     <td>
                         <img th:src="${admin.photo}" style="width: 50px;height: 50px" alt="No photo"/>
@@ -120,7 +116,6 @@
                     <td th:text="*{surname}">Halili</td>
                     <td th:text="*{email}">adonit.halili@smart-tv.com</td>
                     <td th:text="*{role}">Admin</td>
-                    <td th:text="*{age}">Kosovo</td>
 
                     <td>
                         <a th:href="@{/admin-af/management/admins/{id}/details(id=*{id})}">
