@@ -1,4 +1,4 @@
-package org.example.finalproject.admin.services.impls;
+package org.example.finalproject.admin.services.implementations;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.mappers.AdminMapper;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.repositories.AdminRepository;
-import org.example.finalproject.admin.services.AdminService;
+import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

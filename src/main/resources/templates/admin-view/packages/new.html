@@ -1,0 +1,85 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active"><a th:href="@{/admin-af/packages}">Packages List</a></li>
+    <li class="breadcrumb-item active">Add new Package</li>
+</ol>
+
+
+<div class="page-inner">
+<!--    <p>Here you can add a new Package</p>-->
+    <form class="row" th:object="${packageRegistrationDto} " method="post" enctype="multipart/form-data">
+
+        <div class=" border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
+                                                                                   placeholder="package name"
+                                                                                   th:field="*{name}"
+                                                                                   value=""
+                                                                                   required
+                                                                                   minlength="2"
+                                                                                   maxlength="50">
+                                                <p class="alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+                    <div class="col-md-6"><label class="labels">Price</label><input type="text"
+                                                                                    th:field="*{price}"
+                                                                                    class="form-control" value=""
+                                                                                    placeholder="price"
+                                                                                    required
+                                                                                    minlength="2"
+                                                                                    maxlength="50"
+                    >
+                                                <p class="alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+                    </div>
+                    <div class="col-md-6"><label class="labels">Mbps</label><input type="text"
+                                                                                   th:field="*{mbps}"
+                                                                                   class="form-control" value=""
+                                                                                   placeholder="price"
+                                                                                   required
+                                                                                   minlength="2"
+                                                                                   maxlength="50"
+                    >
+                                                <p class="alert-danger" th:if="${#fields.hasErrors('mbps')}" th:errors="*{mbps}"></p>
+                    </div>
+                    <div class="col-md-6"><label class="labels">Number of channels</label><input type="text"
+                                                                                                 th:field="*{nrOfChannels}"
+                                                                                                 class="form-control"
+                                                                                                 value=""
+                                                                                                 placeholder="price"
+                                                                                                 required
+                                                                                                 minlength="2"
+                                                                                                 maxlength="50"
+                    >
+                                                <p class="alert-danger" th:if="${#fields.hasErrors('nrOfChannels')}" th:errors="*{nrOfChannels}"></p>
+                    </div>
+                    <br>
+
+                    <div class="col-md-12"><label class="labels">Sport Channels</label>
+
+                        <input type="radio" class="form-check-input" value="Yes" th:field="*{sportsChannels}" required/>
+                        Yes&nbsp;
+                        <input type="radio" class="form-check-input" value="No" th:field="*{sportsChannels}" required/>
+                        No
+                    </div>
+
+                    <div class="mt-4 text-center">
+
+                        <button class="btn btn-primary profile-button" type="submit"><i
+                                class="fas fa-save"
+                                style="margin: 5px"></i>
+                            Add Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+</html>

@@ -7,8 +7,7 @@ import org.example.finalproject.admin.dtos.admin.AdminEditingDto;
 import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.Admin;
-import org.example.finalproject.admin.services.AdminService;
-import org.example.finalproject.admin.services.impls.AdminServiceImplementation;
+import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,7 +73,7 @@ public class AdminController {
 
 
     @GetMapping("/{id}/details")
-    public String details(@PathVariable long id, Model model) {
+    public String etails(@PathVariable long id, Model model) {
 
         AdminDetailsDto adminDetailsDto = service.findById(id);
         adminDetailsDto.calculateAge();

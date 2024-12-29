@@ -33,7 +33,7 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
             Admin admin = (Admin) session.getAttribute("admin");
             if ((admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/edit"))
                     || (admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/delete"))) {
-                response.sendRedirect("/admin-af/management/admins");
+                response.sendRedirect("/admin-af/dashboard");
             }
 
             filterChain.doFilter(request, response);

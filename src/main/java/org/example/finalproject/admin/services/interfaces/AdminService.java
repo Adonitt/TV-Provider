@@ -1,4 +1,4 @@
-package org.example.finalproject.admin.services;
+package org.example.finalproject.admin.services.interfaces;
 
 import org.example.finalproject.admin.dtos.admin.AdminDetailsDto;
 import org.example.finalproject.admin.dtos.admin.AdminEditingDto;

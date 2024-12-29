@@ -6,8 +6,6 @@ import org.example.finalproject.admin.dtos.admin.AdminListingDto;
 import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 import org.springframework.context.annotation.Primary;
 
 import java.util.List;

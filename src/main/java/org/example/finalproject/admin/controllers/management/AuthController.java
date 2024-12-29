@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.AdminLoginDto;
 import org.example.finalproject.admin.models.admin.Admin;
 import org.example.finalproject.admin.repositories.AdminRepository;
-import org.example.finalproject.admin.services.AdminService;
+import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
