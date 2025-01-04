@@ -4,70 +4,56 @@
 <div id="fatlind">
 
 
-  <!--        Pricing Section-->
-  <section id="pricing" class="pricing section section-bg dark-background">
+    <!--        Pricing Section-->
+    <section id="pricing" class="pricing section section-bg dark-background">
 
-    <!-- Section Title -->
-    <div class="container section-title aos-init aos-animate" data-aos="fade-up">
-      <h2>Pricing</h2>
-      <p>Qmimet me te volitshme ne treg</p>
-    </div><!-- End Section Title -->
+        <!-- Section Title -->
+        <div class="container section-title aos-init aos-animate" data-aos="fade-up">
+            <h2>Pricing</h2>
+            <p>Cmimet me te volitshme ne treg</p>
+        </div><!-- End Section Title -->
 
-    <div class="container">
+        <div class="container">
 
-      <div class="row g-4 g-lg-0">
+            <div class="row">
+                <div class="col-lg-4 aos-init aos-animate"
+                     th:each="package, iterStat : ${packages}"
+                     th:classappend="${iterStat.index == 1} ? 'featured' : ''"
+                     data-aos="zoom-in">
+                    <div class="pricing-item">
+                        <h3 th:text="${package.name}">Pako Basic</h3>
 
-        <div class="col-lg-4 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
-          <div class="pricing-item">
-            <h3>Pako Basic</h3>
-            <h4>14,99€<span> / month</span></h4>
-            <ul>
-              <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-              <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-              <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-              <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-              <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-            </ul>
-            <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-          </div>
-        </div><!-- End Pricing Item -->
+                        <h4 th:text="${package.price}">14,99€</h4>
 
-        <div class="col-lg-4 featured aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
-          <div class="pricing-item">
-            <h3>Pako Premium</h3>
-            <h4>24,99€<span> / month</span></h4>
-            <ul>
-              <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-              <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-              <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-              <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-              <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-            </ul>
-            <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-          </div>
-        </div><!-- End Pricing Item -->
+                        <ul>
+                            <li>
+                                Mbps: <span th:text="${package.mbps}">100</span>
+                                <i class="bi bi-check"></i>
+                            </li>
+                            <li>
+                                Number of channels: <span th:text="${package.nrOfChannels}">50</span>
+                                <i class="bi bi-check"></i>
+                            </li>
+                            <li>
+                                Sports:
+                                <span th:text="${package.sportsChannels ? 'Yes' : 'No'}">Yes</span>
+                                <i th:class="${package.sportsChannels ? 'bi bi-check' : 'bi bi-x'}"></i>
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            <a th:href="@{/get-started}" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="col-lg-4 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
-          <div class="pricing-item">
-            <h3>Pako Sportive</h3>
-            <h4>19,99€<span> / month</span></h4>
-            <ul>
-              <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-              <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-              <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-              <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-              <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-            </ul>
-            <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-          </div>
+
+
         </div>
-        <!-- End Pricing Item -->
 
-      </div>
+</div>
 
-    </div>
-
-  </section> <!-- /Pricing Section -->
+</section> <!-- /Pricing Section -->
 
 
 </div>
