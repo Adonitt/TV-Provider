@@ -32,4 +32,26 @@ public class Packages {
     @Column(name = "sportsChannels")
     private String sportsChannels; // yes or no
 
+
+    @Column(name = "description1", nullable = false)
+    private String description1;
+
+    @Column(name = "description2", nullable = false)
+    private String description2;
+
+
+    @Column(name = "photo", nullable = false)
+    private String photo;
+
+    @Column(name = "channelsIncluded", nullable = false)
+    private String channelsIncluded;
+
+    @Column(name = "affordablePricing", nullable = false)
+    private String affordablePricing;
+
+    @Column(name = "hdStreaming", nullable = false)
+    private String hdStreaming;
+
+    @Column(name = "userFriendlyFeatures", nullable = false)
+    private String userFriendlyFeatures;
 }

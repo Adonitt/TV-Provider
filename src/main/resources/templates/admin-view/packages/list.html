@@ -77,7 +77,7 @@
                         <i class="fas fa-edit"></i>
                     </button>
                 </a>
-                <a th:href="@{/admin-af/packages/{id}/delete(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
+                <a th:href="@{/admin-af/packages/{id}/details(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
                     <button type="button" class="btn btn-icon btn-round btn-danger">
                         <i class="fa fa-trash"></i>
 

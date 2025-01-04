@@ -6,115 +6,54 @@
 
         <div class="container">
 
-            <ul class="nav nav-tabs row  d-flex" data-aos-delay="100">
-                <li class="nav-item col-3 flex-fill">
-                    <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tabs-tab-1">
+            <!-- Tab Nav -->
+             <ul class="nav nav-tabs row  d-flex" data-aos-delay="100">
+                <li class="nav-item col-3 flex-fill" th:each="package, iterStat : ${packages}">
+                    <a class="nav-link" :class="${iterStat.index == 0 ? 'active show' : ''}" data-bs-toggle="tab"
+                       th:attr="data-bs-target='#tabs-tab-' + ${iterStat.index + 1}">
                         <i class="bi bi-1-square"></i>
-                        <h4 class="d-none d-lg-block">Pako Basic</h4>
-                    </a>
-                </li>
-                <li class="nav-item col-3 flex-fill">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tabs-tab-3">
-                        <i class="bi bi-2-square"></i>
-                        <h4 class="d-none d-lg-block">Pako sportive</h4>
-                    </a>
-                </li>
-                <li class="nav-item col-3 flex-fill">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tabs-tab-4">
-                        <i class="bi bi-3-square"></i>
-                        <h4 class="d-none d-lg-block">Pako Premium</h4>
+                        <h4 class="d-none d-lg-block" th:text="${package.name}"></h4>
                     </a>
                 </li>
             </ul><!-- End Tab Nav -->
 
+            <!-- Tab Content -->
             <div class="tab-content" data-aos-delay="200">
-
-                <div class="tab-pane fade active show" id="tabs-tab-1">
+                <div th:each="package, iterStat : ${packages}" class="tab-pane fade"
+                     :class="${iterStat.index == 0 ? 'active show' : ''}" th:id="'tabs-tab-' + ${iterStat.index + 1}">
                     <div class="row">
                         <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                            <h3>Basic Package.</h3>
-                            <p class="fst-italic">
-                                Perfect for those who want the essentials, the Basic Package brings you a selection of the most popular and must-have channels for entertainment, news, and lifestyle.
-                            </p>
+                            <h3 th:text="${package.name}"></h3>
+                            <p class="fst-italic" th:text="${package.description1}"></p>
                             <ul>
                                 <li><i class="bi bi-check2-all"></i>
                                     <span><b>Key Features:</b></span>
                                 </li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Channels Included:</b> A mix of local networks, top-rated news channels, and general entertainment options. Examples: ABC, NBC, FOX, CNN, Discovery, and more.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Affordable Pricing:</b> Designed to fit your budget while offering great value.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>HD Streaming:</b> Enjoy crystal-clear quality on select channels.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>User-Friendly Features: </b> Access to a simple on-screen guide and parental controls.</span></li>
-                            </ul>
-                            <p class="fst-italic">
-                                The Basic Package is ideal for families and individuals looking for straightforward, quality entertainment without unnecessary extras.
-                            </p>
-                        </div>
-                        <div class="col-lg-6 order-1 order-lg-2 text-center">
-                            <img src="/assets/img/Packages/pako-basic.avif" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                </div><!-- End Tab Content Item -->
-                <div class="tab-pane fade" id="tabs-tab-3">
-                    <div class="row">
-                        <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                            <h3>Sports package</h3>
-                            <p>
-                                The Sports Package is a must-have for fans who never want to miss the action.
-                                From live games to expert analysis and highlights, this package delivers the ultimate sports experience right to your screen.
-                            </p>
-                            <ul>
-                                <li><i class="bi bi-check2-all"></i>
-                                    <span><b>Key Features:</b></span>
+                                <li><i class="bi bi-check2-all"></i> <span><b>Channels Included:</b>
+                                    <span th:text="${package.channelsIncluded}"></span></span>
                                 </li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Channels Included:</b> A comprehensive selection of sports networks covering major leagues, international events, and niche sports. Examples: ESPN, FOX Sports, NBA TV, NFL Network, and more.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Live Coverage:</b> Watch live games, tournaments, and exclusive matches across football, basketball, soccer, tennis, and more.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Specialty Content:</b> Get access to behind-the-scenes coverage, player interviews, and in-depth analysis.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Multi-Screen Access: </b> Watch games on your TV, tablet, or smartphone, so you never miss a moment.</span></li>
-                            </ul>
-                            <p class="fst-italic">
-                                Whether you’re cheering for your favorite team or keeping up with the latest in sports,
-                                the Sports Package ensures you’re always in the game.
-                            </p>
-                        </div>
-                        <div class="col-lg-6 order-1 order-lg-2 text-center">
-                            <img src="/assets/img/Packages/web-kujtesa.jpg" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                </div><!-- End Tab Content Item -->
-
-                <div class="tab-pane fade" id="tabs-tab-4">
-                    <div class="row">
-                        <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
-                            <h3>Premium Package</h3>
-                            <p>The Premium Package is the ultimate entertainment experience, offering an extensive
-                                range of exclusive channels, blockbuster movies, and the latest series.
-                                Perfect for those who want the best of everything, this package brings luxury viewing to your fingertips.
-                            </p>
-                            <ul>
-                                <li><i class="bi bi-check2-all"></i>
-                                    <span><b>Key Features:</b></span>
+                                <li><i class="bi bi-check2-all"></i> <span><b>Affordable Pricing:</b> <span
+                                        th:text="${package.affordablePricing}"></span></span>
                                 </li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Channels Included:</b> Access to premium networks and exclusive content providers. Examples: HBO, Showtime, Starz, Cinemax, and more.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Exclusive Movies and Series:</b> Watch the latest blockbuster films, award-winning series, and original productions you won’t find anywhere else.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Ad-Free Viewing:</b> Enjoy uninterrupted entertainment on select channels and streaming services.</span></li>
-                                <li><i class="bi bi-check2-all"></i> <span><b>Bonus Add-Ons: </b> Enjoy early access to new releases and special content bundles with select subscriptions.</span></li>
+                                <li><i class="bi bi-check2-all"></i> <span><b>HD Streaming:</b> <span
+                                        th:text="${package.hdStreaming}"></span></span>
+                                </li>
+                                <li><i class="bi bi-check2-all"></i> <span><b>User-Friendly Features: </b> <span
+                                        th:text="${package.userFriendlyFeatures}"></span></span>
+                                </li>
                             </ul>
-                            <p class="fst-italic">
-                                The Premium Package is designed for viewers who demand more—more variety, more quality, and more of the content they love.
-                            </p>
+                            <p class="fst-italic" th:text="${package.description2}"></p>
+
                         </div>
                         <div class="col-lg-6 order-1 order-lg-2 text-center">
-                            <img src="/assets/img/Packages/premium.webp" alt="" class="img-fluid">
+                            <img th:src="@{${package.photo}}" alt="Package Image" class="img-fluid">
                         </div>
                     </div>
-                </div><!-- End Tab Content Item -->
-
+                </div>
             </div>
 
         </div>
-
-    </section><!-- /Tabs Section -->
-
-
+    </section>
 </div>
+
 </html>

@@ -23,7 +23,8 @@ public class HomeController2 {
     }
 
     @GetMapping("/services")
-    public String services() {
+    public String services(Model model) {
+        model.addAttribute("packages", packageService.findAll());
         return "user-view/services";
     }
 
@@ -31,6 +32,7 @@ public class HomeController2 {
     public String tvChannels() {
         return "user-view/tv-channels";
     }
+
 
     @GetMapping("/pricing")
     public String pricing(Model model) {

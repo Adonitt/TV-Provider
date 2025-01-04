@@ -3,12 +3,14 @@ package org.example.finalproject.admin.controllers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.packages.PackageRegistrationDto;
+import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.services.implementations.PackageServiceImplementation;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class PackagesController {
     private final PackageServiceImplementation service;
+    private final FileHelper fileHelper;
 
     @GetMapping("")
     public String packages(Model model) {
@@ -37,12 +40,23 @@ public class PackagesController {
 
     @PostMapping("/add-new-package")
     public String addNewPackage(@Valid @ModelAttribute PackageRegistrationDto packageRegistrationDto,
+                                @RequestParam("photoFile") MultipartFile photoFile,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "admin-view/packages/new";
         }
+        if (!photoFile.isEmpty()) {
+            try {
+                var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
+                packageRegistrationDto.setPhoto("/assets-a/img/" + fileName);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
         redirectAttributes.addFlashAttribute("addedMessage", "Package added successfully!");
         service.add(packageRegistrationDto);
         return "redirect:/admin-af/packages";
@@ -57,25 +71,28 @@ public class PackagesController {
     @PostMapping("/{id}/edit")
     public String modifyPackage(@Valid @ModelAttribute PackageRegistrationDto packageRegistrationDto,
                                 BindingResult bindingResult,
+                                @RequestParam("photoFile") MultipartFile photoFile,
                                 RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "admin-view/packages/edit";
         }
+        if (!photoFile.isEmpty()) {
+            try {
+                var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
+                packageRegistrationDto.setPhoto("/assets-a/img/" + fileName);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
 
-        redirectAttributes.addFlashAttribute("editedMessage", "Package modified successfully!");
+        redirectAttributes.addFlashAttribute("editedMessage", "Package with id: " + packageRegistrationDto.getId() + " modified successfully!");
 
         service.modify(packageRegistrationDto, packageRegistrationDto.getId());
         return "redirect:/admin-af/packages";
     }
 
-    @GetMapping("/{id}/delete")
-    public String delete(@PathVariable long id, Model model) {
-        model.addAttribute("package", service.findById(id));
-
-        return "admin-view/packages/delete";
-    }
 
     @PostMapping("/{id}/delete")
     public String deletePackage(@PathVariable long id, RedirectAttributes redirectAttributes) {
