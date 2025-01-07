@@ -1,0 +1,35 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Channels','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <!--    <li class="breadcrumb-item"><a onclick="window.history.back()">-->
+    <!--        <i class="arrow"><-</i>-->
+    <!--    </a></li>-->
+    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">All channels</li>
+</ol>
+<div class="page-inner">
+
+    <form class="row g-3" th:object="${channelsDto}" method="post">
+        <div class="col-md-12">
+            <div class="card shadow-sm mb-5 rounded">
+                <div class="card-body p-4">
+                    <h3 class="text-center mb-4">Edit Channel</h3>
+
+                    <!-- Package Name -->
+                    <div class="col-md-12">
+                        <label class="form-label">Channel Name</label>
+                        <input type="text" class="form-control" placeholder="Channel Name" th:field="*{name}" required
+                               minlength="2" maxlength="50">
+                        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg" type="submit"><i class="fas fa-save"
+                                                                        style="margin-right: 8px;"></i> Save Channel
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+</html>

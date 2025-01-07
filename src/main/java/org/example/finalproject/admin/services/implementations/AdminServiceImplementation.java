@@ -2,13 +2,13 @@ package org.example.finalproject.admin.services.implementations;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.admin.dtos.admin.AdminDetailsDto;
-import org.example.finalproject.admin.dtos.admin.AdminEditingDto;
-import org.example.finalproject.admin.dtos.admin.AdminListingDto;
-import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminDetailsDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminEditingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminListingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminRegistrationRequestDto;
 
 import org.example.finalproject.admin.mappers.AdminMapper;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AdminServiceImplementation implements AdminService {
-
     private final AdminRepository repository;
     private final AdminMapper mapper;
-
 
     @Override
     public AdminRegistrationRequestDto add(AdminRegistrationRequestDto dto) {
@@ -51,7 +49,7 @@ public class AdminServiceImplementation implements AdminService {
 
     @Override
     public void changePassword(Long adminId, String password) {
-        Admin existingAdmin = repository.findById(adminId).orElse(null);
+        AdminEntity existingAdmin = repository.findById(adminId).orElse(null);
         if (existingAdmin != null) {
             existingAdmin.setPassword(password);
         }
@@ -66,7 +64,7 @@ public class AdminServiceImplementation implements AdminService {
 
     @Override
     public void modify(AdminEditingDto adminEditingDto, Long adminId) {
-        Admin existingAdmin = repository.findById(adminId)
+        AdminEntity existingAdmin = repository.findById(adminId)
                 .orElseThrow(() -> new EntityNotFoundException("Admin with ID " + adminId + " not found"));
 
         // Update the fields of the admin
@@ -90,7 +88,7 @@ public class AdminServiceImplementation implements AdminService {
     }
 
     @Override
-    public Admin login(String username, String password) {
+    public AdminEntity login(String username, String password) {
         var user = repository.findByEmail(username);
         if (user.isEmpty()) {
             System.out.println("User not found");

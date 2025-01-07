@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 
 @Entity(name = "packages")
-public class Packages {
+public class PackageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

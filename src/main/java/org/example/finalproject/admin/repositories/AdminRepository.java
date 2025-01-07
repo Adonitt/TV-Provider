@@ -1,6 +1,6 @@
 package org.example.finalproject.admin.repositories;
 
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long> {
-    Optional<Admin> findByEmail(String email);
+public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
+    Optional<AdminEntity> findByEmail(String email);
 
-    Admin findByName(String name);
+    AdminEntity findByName(String name);
 
-    Admin findBySurname(String surname);
+    AdminEntity findBySurname(String surname);
 
-    List<Admin> findByNameContainingIgnoreCase(String name);
+    List<AdminEntity> findByNameContainingIgnoreCase(String name);
 
-    List<Admin> findBySurnameContainingIgnoreCase(String surname);
+    List<AdminEntity> findBySurnameContainingIgnoreCase(String surname);
 
-    List<Admin> findByAddressContainingIgnoreCase(String address);
+    List<AdminEntity> findByAddressContainingIgnoreCase(String address);
 
 }

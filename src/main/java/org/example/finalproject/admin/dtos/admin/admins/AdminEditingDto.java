@@ -1,4 +1,4 @@
-package org.example.finalproject.admin.dtos.admin;
+package org.example.finalproject.admin.dtos.admin.admins;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

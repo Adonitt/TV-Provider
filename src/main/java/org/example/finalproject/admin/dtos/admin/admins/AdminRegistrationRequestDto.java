@@ -1,14 +1,12 @@
-package org.example.finalproject.admin.dtos.admin;
+package org.example.finalproject.admin.dtos.admin.admins;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.finalproject.admin.infrastructure.interfaces.AtLeast18YearsOld;
-import org.example.finalproject.admin.infrastructure.interfaces.SameAs;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 @Data
 @NoArgsConstructor

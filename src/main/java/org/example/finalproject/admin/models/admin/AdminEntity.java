@@ -1,35 +1,64 @@
-package org.example.finalproject.admin.dtos.admin;
+package org.example.finalproject.admin.models.admin;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Period;
 
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 
-/// dto eshte info qe shkon prej controllerit ne front
-// komplet te dhanat qa i ka Admin modeli, pervec password, qe nuk ia kthejme userit
-public class AdminDetailsDto {
+@Entity(name = "admins")
+public class AdminEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String surname;
+
+    @Column(nullable = false, unique = true)
     private String personalNumber;
+
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
+
+    @Column(nullable = false)
     private String phoneNumber;
+
+    @Column(nullable = false)
     private String country;
+
+    @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
     private String city;
+
     private int postcode;
+
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
-    private int age;
-    private String role;
-    private String photo;
-    private String gender;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private int age;
+
+    @Column(nullable = false)
+    private String role;
+
+    private String photo = "/images/admin.jpg";
+
+    @Column(nullable = false)
+    private String gender;
 
     public int calculateAge() {
         if (this.dateOfBirth != null) {
@@ -42,5 +71,6 @@ public class AdminDetailsDto {
         this.dateOfBirth = dateOfBirth;
         this.age = calculateAge();
     }
+
 
 }

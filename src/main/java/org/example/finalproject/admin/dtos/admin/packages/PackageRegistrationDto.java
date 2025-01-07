@@ -50,22 +50,22 @@ public class PackageRegistrationDto {
 
     @NotNull(message = "Channels included is required")
     @NotBlank(message = "Channels included is required")
-    @Size(min = 4, max = 50, message = "Name must be at least 4 characters long and at most 50 characters long")
+    @Size(min = 4, max = 200, message = "Name must be at least 4 characters long and at most 50 characters long")
     private String channelsIncluded;
 
     @NotNull(message = "Affordable pricing is required")
     @NotBlank(message = "Affordable pricing is required")
-    @Size(min = 4, max = 50, message = "Name must be at least 4 characters long and at most 50 characters long")
+    @Size(min = 4, max = 200, message = "Name must be at least 4 characters long and at most 50 characters long")
     private String affordablePricing;
 
     @NotNull(message = "HD streaming is required")
     @NotBlank(message = "HD streaming is required")
-    @Size(min = 4, max = 50, message = "Name must be at least 4 characters long and at most 50 characters long")
+    @Size(min = 4, max = 200, message = "Name must be at least 4 characters long and at most 50 characters long")
     private String hdStreaming;
 
     @NotNull(message = "User friendly features is required")
     @NotBlank(message = "User friendly features is required")
-    @Size(min = 4, max = 50, message = "Name must be at least 4 characters long and at most 50 characters long")
+    @Size(min = 4, max = 200, message = "Name must be at least 4 characters long and at most 50 characters long")
     private String userFriendlyFeatures;
 
 }

@@ -1,10 +1,10 @@
 package org.example.finalproject.admin.mappers;
 
-import org.example.finalproject.admin.dtos.admin.AdminDetailsDto;
-import org.example.finalproject.admin.dtos.admin.AdminEditingDto;
-import org.example.finalproject.admin.dtos.admin.AdminListingDto;
-import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.dtos.admin.admins.AdminDetailsDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminEditingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminListingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminRegistrationRequestDto;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.mapstruct.Mapper;
 import org.springframework.context.annotation.Primary;
 
@@ -12,15 +12,15 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 @Primary
-public interface AdminMapper extends SimpleMapper<Admin, AdminRegistrationRequestDto> {
+public interface AdminMapper extends SimpleMapper<AdminEntity, AdminRegistrationRequestDto> {
 
-    List<AdminListingDto> toAdminDetailsDtoList(List<Admin> admins);
+    List<AdminListingDto> toAdminDetailsDtoList(List<AdminEntity> admins);
 
-    Admin fromEditingDto(AdminEditingDto adminEditingDto);
+    AdminEntity fromEditingDto(AdminEditingDto adminEditingDto);
 
-    AdminEditingDto toEditingDto(Admin admin);
+    AdminEditingDto toEditingDto(AdminEntity admin);
 
-    AdminDetailsDto toAdminDetailsDto(Admin admin);
+    AdminDetailsDto toAdminDetailsDto(AdminEntity admin);
 
 }
 

@@ -1,8 +1,9 @@
 package org.example.finalproject.admin.controllers;
 
-import org.example.finalproject.admin.dtos.admin.AdminLoginDto;
+import lombok.RequiredArgsConstructor;
+import org.example.finalproject.admin.dtos.admin.admins.AdminLoginDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
@@ -16,17 +17,12 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/admin-af")
-
+@RequiredArgsConstructor
 public class ProfileController {
     private final AdminRepository adminRepository;
     private final AdminService service;
     private final FileHelper fileHelper;
 
-    public ProfileController(AdminRepository adminRepository, AdminService service, FileHelper fileHelper) {
-        this.adminRepository = adminRepository;
-        this.service = service;
-        this.fileHelper = fileHelper;
-    }
 
     @GetMapping("/profile")
     public String profile() {
@@ -34,7 +30,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/change-password")
-    public String changePassword(@ModelAttribute Admin admin, RedirectAttributes ra, Model model) {
+    public String changePassword(@ModelAttribute AdminEntity admin, RedirectAttributes ra, Model model) {
         model.addAttribute("adminId", admin.getId());
         return "admin-view/profile/change-password";
     }
@@ -46,7 +42,7 @@ public class ProfileController {
                                   @RequestParam("adminId") Long adminId,
                                   RedirectAttributes ra) {
 
-        Admin existingAdmin = adminRepository.findById(adminId).orElse(null);
+        AdminEntity existingAdmin = adminRepository.findById(adminId).orElse(null);
         if (existingAdmin == null) {
             ra.addFlashAttribute("adminNotFound", "Admin not found!");
             return "redirect:/admin-af/changePassword";
@@ -76,7 +72,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/edit-profile")
-    public String editProfile(@SessionAttribute("admin") Admin admin, Model model) {
+    public String editProfile(@SessionAttribute("admin") AdminEntity admin, Model model) {
         model.addAttribute("admin", admin);
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("from", LocalDate.now().minusYears(65));
@@ -85,9 +81,9 @@ public class ProfileController {
     }
 
     @PostMapping("/profile/edit-profile")
-    public String editProfile(@ModelAttribute Admin admin,
+    public String editProfile(@ModelAttribute AdminEntity admin,
                               @RequestParam("photoFile") MultipartFile photoFile,
-                              @SessionAttribute("admin") Admin sessionAdmin,
+                              @SessionAttribute("admin") AdminEntity sessionAdmin,
                               RedirectAttributes ra) throws IOException {
 
         if (!photoFile.isEmpty()) {
@@ -105,13 +101,13 @@ public class ProfileController {
         sessionAdmin.setPostcode(admin.getPostcode());
         sessionAdmin.setCity(admin.getCity());
 
-//        service.modify(sessionAdmin.getId(), sessionAdmin);
+//        service.modify(sessionAdmin, sessionAdmin.getId());
 
         ra.addFlashAttribute("successMessage", "Profile edited successfully!");
         return "redirect:/admin-af/profile";
     }
 
-    private void uploadPhoto(Admin admin, MultipartFile photoFile) {
+    private void uploadPhoto(AdminEntity admin, MultipartFile photoFile) {
         try {
             String fileName = fileHelper.uploadFile("target/classes/static/assets-a/img",
                     photoFile.getOriginalFilename(),

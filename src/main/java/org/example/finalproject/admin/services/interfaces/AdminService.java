@@ -1,10 +1,10 @@
 package org.example.finalproject.admin.services.interfaces;
 
-import org.example.finalproject.admin.dtos.admin.AdminDetailsDto;
-import org.example.finalproject.admin.dtos.admin.AdminEditingDto;
-import org.example.finalproject.admin.dtos.admin.AdminListingDto;
-import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.dtos.admin.admins.AdminDetailsDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminEditingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminListingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminRegistrationRequestDto;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.services.base_services.*;
 
 public interface AdminService extends
@@ -16,6 +16,6 @@ public interface AdminService extends
 
     void changePassword(Long adminId, String password);
 
-    Admin login(String email, String password);
+    AdminEntity login(String email, String password);
 
 }

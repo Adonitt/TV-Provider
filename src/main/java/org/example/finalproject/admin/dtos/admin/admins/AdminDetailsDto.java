@@ -1,65 +1,35 @@
-package org.example.finalproject.admin.models.admin;
+package org.example.finalproject.admin.dtos.admin.admins;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.Period;
 
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
 
-@Entity(name = "admins")
-public class Admin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+/// dto eshte info qe shkon prej controllerit ne front
+// komplet te dhanat qa i ka Admin modeli, pervec password, qe nuk ia kthejme userit
+public class AdminDetailsDto {
     private long id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String surname;
-
-    @Column(nullable = false, unique = true)
     private String personalNumber;
-
-    @Column(nullable = false)
     private LocalDate dateOfBirth;
-
-    @Column(nullable = false)
     private String phoneNumber;
-
-    @Column(nullable = false)
     private String country;
-
-    @Column(nullable = false)
     private String address;
-
-    @Column(nullable = false)
     private String city;
-
     private int postcode;
-
-    @Column(nullable = false, unique = true, length = 50)
     private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     private int age;
-
-    @Column(nullable = false)
     private String role;
-
     private String photo;
-
-    @Column(nullable = false)
     private String gender;
+    private String password;
 
     public int calculateAge() {
         if (this.dateOfBirth != null) {
@@ -72,6 +42,5 @@ public class Admin {
         this.dateOfBirth = dateOfBirth;
         this.age = calculateAge();
     }
-
 
 }

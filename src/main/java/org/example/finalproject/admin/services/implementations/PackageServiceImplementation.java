@@ -4,12 +4,13 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.packages.PackageRegistrationDto;
 import org.example.finalproject.admin.mappers.PackageMapper;
-import org.example.finalproject.admin.models.admin.Packages;
+import org.example.finalproject.admin.models.admin.PackageEntity;
 import org.example.finalproject.admin.repositories.PackageRepository;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PackageServiceImplementation implements PackageService {
@@ -25,13 +26,13 @@ public class PackageServiceImplementation implements PackageService {
     }
 
     @Override
-    public List<Packages> findAll() {
+    public List<PackageEntity> findAll() {
         var packagesList = repository.findAll();
         return packagesList;
     }
 
     @Override
-    public Packages findById(Long id) {
+    public PackageEntity findById(Long id) {
         var exists = repository.findById(id);
         if (exists.isEmpty()) {
             throw new EntityNotFoundException("Package with id " + id + " not found");
@@ -46,8 +47,7 @@ public class PackageServiceImplementation implements PackageService {
             throw new EntityNotFoundException("Package with id " + id + " not found");
         }
         var entity = mapper.toEntity(dto);
-        var savedEntity = repository.save(entity);
-
+        repository.save(entity);
     }
 
     @Override

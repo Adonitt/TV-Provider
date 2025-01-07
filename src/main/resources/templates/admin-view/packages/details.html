@@ -78,7 +78,7 @@
 
                 <div class="row" th:if="${session.admin.role == 'Super Admin'}">
                     <div class="col-sm-12 text-center">
-                        <a class="btn btn-info mx-2"
+                        <a class="btn btn-info mx-2 mb-3"
                            th:href="@{/admin-af/packages/{id}/edit(id=*{id})}">Edit this package</a>
 
                         <form method="post" th:action="@{/admin-af/packages/{id}/delete(id=*{id})}"

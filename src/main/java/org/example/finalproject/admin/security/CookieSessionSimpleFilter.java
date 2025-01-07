@@ -5,7 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -30,9 +30,11 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 return;
             }
 
-            Admin admin = (Admin) session.getAttribute("admin");
+            AdminEntity admin = (AdminEntity) session.getAttribute("admin");
             if ((admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/edit"))
-                    || (admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/delete"))) {
+                    || (admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/delete"))
+                    || (admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/new"))
+            ) {
                 response.sendRedirect("/admin-af/dashboard");
             }
 

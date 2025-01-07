@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.admin.dtos.admin.AdminLoginDto;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.dtos.admin.admins.AdminLoginDto;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
@@ -64,7 +64,6 @@ public class AuthController {
         if (returnUrl != null) {
             return "redirect:" + returnUrl;
         }
-
         return "redirect:/admin-af/dashboard";
     }
 
@@ -78,11 +77,12 @@ public class AuthController {
         if (session != null) {
             session.invalidate();
         }
+
         return "redirect:/admin-af";
     }
 
     @GetMapping("/forgot-password")
-    public String forgotPassword(@ModelAttribute Admin admin, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String forgotPassword(@ModelAttribute AdminEntity admin, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
@@ -91,7 +91,7 @@ public class AuthController {
         if (admin.getEmail() != null) {
             System.out.println("Searching for email: " + admin.getEmail());
 
-            Admin foundAdmin = adminRepository.findByEmail(admin.getEmail()).orElse(null);
+            AdminEntity foundAdmin = adminRepository.findByEmail(admin.getEmail()).orElse(null);
 
             if (foundAdmin != null) {
                 redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email. Please check your inbox!");

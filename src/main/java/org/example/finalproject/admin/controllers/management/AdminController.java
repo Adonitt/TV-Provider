@@ -2,11 +2,11 @@ package org.example.finalproject.admin.controllers.management;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.admin.dtos.admin.AdminDetailsDto;
-import org.example.finalproject.admin.dtos.admin.AdminEditingDto;
-import org.example.finalproject.admin.dtos.admin.AdminRegistrationRequestDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminDetailsDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminEditingDto;
+import org.example.finalproject.admin.dtos.admin.admins.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
-import org.example.finalproject.admin.models.admin.Admin;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +32,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/new-admin")
+    @GetMapping("/new")
     public String newAdmin(Model model) {
         model.addAttribute("adminRegistrationRequestDto", new AdminRegistrationRequestDto());
         model.addAttribute("today", LocalDate.now());
@@ -40,12 +40,12 @@ public class AdminController {
         return "admin-view/management/admins/new";
     }
 
-    @PostMapping("/new-admin")
+    @PostMapping("/new")
     public String newAdmin(@Valid @ModelAttribute AdminRegistrationRequestDto adminRegistrationRequestDto,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @RequestParam("photoFile") MultipartFile photoFile,
-                           @SessionAttribute("admin") Admin adminSession) {
+                           @SessionAttribute("admin") AdminEntity adminSession) {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
@@ -64,8 +64,6 @@ public class AdminController {
         } else {
             adminRegistrationRequestDto.setPhoto("/images/admin.jpg");
         }
-
-
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
         service.add(adminRegistrationRequestDto);
         return "redirect:/admin-af/management/admins";

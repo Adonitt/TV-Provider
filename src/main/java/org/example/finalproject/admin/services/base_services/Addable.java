@@ -1,5 +1,6 @@
 package org.example.finalproject.admin.services.base_services;
 
+@FunctionalInterface
 public interface Addable<T> {
-    public T add(T entity);
+    T add(T entity);
 }

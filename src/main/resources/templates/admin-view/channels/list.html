@@ -1,0 +1,123 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Channels','', ~{::div.page-inner},~{::script}, ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">All channels</li>
+</ol>
+
+<div class="page-inner">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+        <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role == 'Super Admin'}">
+            <a th:href="@{/admin-af/channels/new}" class="btn btn-primary btn-round">Create New Channel</a>
+        </div>
+    </div>
+    <h4 class="card-title">All channels: <span th:text="${channelsList.size()}"></span></h4>
+
+    <div class="d-flex gap-2 align-items-center mt-3" style="display: flex">
+        <input
+                type="text"
+                id="filter-name"
+                class="form-control"
+                placeholder="Search by Name"
+                style="width: 300px; margin-bottom: 20px"
+        />
+    </div>
+    <div class="card-header">
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${addedMessage!=null}">
+            <i class="fas fa-check"></i>
+            <strong th:text="${addedMessage}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${editedMessage!=null}">
+            <i class="fas fa-check"></i>
+            <strong th:text="${editedMessage}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${deletedMessage!=null}">
+            <i class="fas fa-check"></i>
+            <strong th:text="${deletedMessage}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="alert alert-info alert-dismissible fade show" role="alert"
+             th:unless="${channelsList!=null && channelsList.size()>0}">
+            <i class="fas fa-exclamation-circle"></i>
+            <strong>There are no channels in the list</strong>
+        </div>
+
+        <h4 class="card-title">Channels List</h4>
+        <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th th:if="${session.admin.role == 'Super Admin'}">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="channel: ${channelsList}" th:object="${channel}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+                <td th:if="${session.admin.role == 'Super Admin'}">
+                    <div class="d-inline-block">
+                        <form th:action="@{/admin-af/channels/{id}/delete(id=*{id})}" method="post"
+                              onsubmit="return confirmDelete()">
+                            <button type="submit" class="btn btn-icon btn-round btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="d-inline-block">
+                        <a th:href="@{/admin-af/channels/{id}/edit(id=*{id})}"
+                        >
+                            <button type="button" class="btn btn-icon btn-round btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this channel?");
+    }
+
+    const nameFilter = document.getElementById("filter-name");
+
+    // Add event listeners for each filter input
+    [nameFilter].forEach((filterInput) => {
+        filterInput.addEventListener("input", filterTable);
+    });
+
+    function filterTable() {
+        // Get the filter values and convert them to lowercase for case-insensitive matching
+        const nameValue = nameFilter.value.toLowerCase();
+
+        // Get all rows in the table
+        const rows = document.querySelectorAll("#multi-filter-select tbody tr");
+
+        // Loop through each row and check if it matches the filter criteria
+        rows.forEach((row) => {
+            // Get the name cell (second column, hence `nth-child(2)`)
+            const nameCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+
+            // Check if the name matches the filter value
+            const nameMatch = !nameValue || nameCell.includes(nameValue);
+            // If the name matches, display the row, otherwise hide it
+            if (nameMatch) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>
+
+</html>

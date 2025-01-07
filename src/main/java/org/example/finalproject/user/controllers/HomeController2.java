@@ -2,6 +2,7 @@ package org.example.finalproject.user.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.services.interfaces.AdminService;
+import org.example.finalproject.admin.services.interfaces.ChannelService;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class HomeController2 {
     private final PackageService packageService;
+    private final ChannelService channelService;
 
     @GetMapping("/")
     public String index() {
@@ -29,7 +31,8 @@ public class HomeController2 {
     }
 
     @GetMapping("/tv-channels")
-    public String tvChannels() {
+    public String tvChannels(Model model) {
+        model.addAttribute("channels", channelService.findAll());
         return "user-view/tv-channels";
     }
 

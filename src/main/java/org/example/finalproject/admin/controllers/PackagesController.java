@@ -32,13 +32,13 @@ public class PackagesController {
         return "admin-view/packages/details";
     }
 
-    @GetMapping("/add-new-package")
+    @GetMapping("/new")
     public String addNewPackage(Model model) {
         model.addAttribute("packageRegistrationDto", new PackageRegistrationDto());
         return "admin-view/packages/new";
     }
 
-    @PostMapping("/add-new-package")
+    @PostMapping("/new")
     public String addNewPackage(@Valid @ModelAttribute PackageRegistrationDto packageRegistrationDto,
                                 @RequestParam("photoFile") MultipartFile photoFile,
                                 BindingResult bindingResult,
