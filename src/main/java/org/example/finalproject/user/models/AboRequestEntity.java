@@ -5,16 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.finalproject.user.models.enums.Cities;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
 
-@Entity(name = "clients")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Client {
-
+@NoArgsConstructor
+@Entity(name = "aboRequests")
+public class AboRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,7 +34,12 @@ public class Client {
     @Column(nullable = false)
     private String address;
 
+    @Enumerated
     @Column(nullable = false)
-    private Boolean isActive;
+    private Cities cities;
+
+    @Column
+    private LocalDateTime requestTime;
+
 
 }

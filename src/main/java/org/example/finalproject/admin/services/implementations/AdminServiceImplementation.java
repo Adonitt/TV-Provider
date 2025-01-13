@@ -11,6 +11,7 @@ import org.example.finalproject.admin.mappers.AdminMapper;
 import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.interfaces.AdminService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +21,15 @@ import java.util.List;
 public class AdminServiceImplementation implements AdminService {
     private final AdminRepository repository;
     private final AdminMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AdminRegistrationRequestDto add(AdminRegistrationRequestDto dto) {
         var entity = mapper.toEntity(dto);
+
+        String encryptedPassword = passwordEncoder.encode(dto.getPassword());
+        entity.setPassword(encryptedPassword);
+
         var savedEntity = repository.save(entity);
         return mapper.toDto(savedEntity);
     }
@@ -49,10 +55,11 @@ public class AdminServiceImplementation implements AdminService {
 
     @Override
     public void changePassword(Long adminId, String password) {
-        AdminEntity existingAdmin = repository.findById(adminId).orElse(null);
+        AdminEntity existingAdmin = repository.findById(adminId).orElseThrow(() -> new EntityNotFoundException("Admin with ID " + adminId + " not found"));
         if (existingAdmin != null) {
             existingAdmin.setPassword(password);
         }
+
         repository.save(existingAdmin);
     }
 
@@ -98,6 +105,7 @@ public class AdminServiceImplementation implements AdminService {
             System.out.println("Password is incorrect");
             return null;
         }
+
         return user.get();
     }
 }

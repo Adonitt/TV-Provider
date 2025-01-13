@@ -64,6 +64,7 @@ public class AdminController {
         } else {
             adminRegistrationRequestDto.setPhoto("/images/admin.jpg");
         }
+
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
         service.add(adminRegistrationRequestDto);
         return "redirect:/admin-af/management/admins";

@@ -9,6 +9,7 @@
         body {
             background-color: #f8f9fa;
         }
+
         .form-container {
             max-width: 400px;
             margin: 50px auto;
@@ -17,12 +18,14 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             font-size: 1.5rem;
             margin-bottom: 20px;
             text-align: center;
             color: #343a40;
         }
+
         .btn-primary {
             width: 100%;
         }
@@ -32,17 +35,19 @@
 <div class="container">
     <div class="form-container">
         <h1>Bank Credentials</h1>
-        <form action="/submit-bank-credentials" method="POST">
+        <form class="form-control mb-5">
             <!-- Bank Name -->
             <div class="mb-3">
                 <label for="bankName" class="form-label">Bank Name</label>
-                <input type="text" class="form-control" id="bankName" name="bankName" placeholder="Enter bank name" required>
+                <input type="text" class="form-control" id="bankName" name="bankName" placeholder="Enter bank name"
+                       required>
             </div>
 
             <!-- Account Number -->
             <div class="mb-3">
                 <label for="accountNumber" class="form-label">Account Number</label>
-                <input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
+                <input type="text" class="form-control" id="accountNumber" name="accountNumber"
+                       placeholder="Enter account number" required>
             </div>
 
             <!-- IBAN -->
@@ -52,7 +57,8 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary"><a href="e-payment/invoice">Submit</a></button>
+            <button type="button" class="btn btn-primary"><a th:href="@{/e-payment/invoice}"
+                                                             style="color: white">Submit</a></button>
         </form>
     </div>
 </div>
