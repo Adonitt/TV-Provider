@@ -54,6 +54,8 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 || request.getRequestURI().equals("/pricing")
                 || request.getRequestURI().equals("/e-payment")
                 || request.getRequestURI().equals("/get-started")
+                || request.getRequestURI().equals("/e-payment/bank-information")
+                || request.getRequestURI().equals("/e-payment/invoice")
         ) {
             filterChain.doFilter(request, response);
             return;
