@@ -2,7 +2,49 @@
 <html lang="en" th:replace="shared/_layout.html::layout('SmartTV','',~{::div#fatlind},'')">
 
 <div id="fatlind">
-    <p class="text-center">Get Started is under construction</p>
+    <div class="form-container p-4 bg-white rounded shadow-sm" style="max-width: 600px; margin: auto;">
+        <h1 class="mb-4 text-center text-dark">Client Information</h1>
+        <form action="/clients" method="POST">
+            <!-- First Name -->
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" required>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" required>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter address" required></textarea>
+            </div>
+
+            <!-- Active Status -->
+            <div class="form-check mb-4">
+                <input type="checkbox" class="form-check-input" id="isActive" name="isActive">
+                <label class="form-check-label" for="isActive">Active</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
 
 </div>
 </html>
