@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.util.Objects;
 
-@Entity
+@Entity(name = "clients")
 @Getter
 @Setter
 @NoArgsConstructor
