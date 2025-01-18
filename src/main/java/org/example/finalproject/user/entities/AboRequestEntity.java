@@ -1,20 +1,20 @@
-package org.example.finalproject.user.models;
+package org.example.finalproject.user.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.finalproject.user.models.enums.Cities;
-import org.example.finalproject.user.models.enums.Offers;
+import org.example.finalproject.user.entities.enums.Cities;
 
-@Entity(name = "clients")
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ClientRequestEntity {
-
+@NoArgsConstructor
+@Entity(name = "aboRequests")
+public class AboRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,13 +32,14 @@ public class ClientRequestEntity {
     private String phone;
 
     @Column(nullable = false)
-    private Cities city;
-
-    @Column(nullable = false)
-    private Offers offer;
-
-    @Column(nullable = false)
     private String address;
+
+    @Enumerated
+    @Column(nullable = false)
+    private Cities cities;
+
+    @Column
+    private LocalDateTime requestTime;
 
 
 }

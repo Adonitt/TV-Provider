@@ -1,7 +1,6 @@
 package org.example.finalproject.user.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.example.finalproject.admin.services.interfaces.ChannelService;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.springframework.stereotype.Controller;

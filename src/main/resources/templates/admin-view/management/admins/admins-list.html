@@ -2,7 +2,7 @@
       th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">Admins List</li>
 </ol>
 
@@ -11,7 +11,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role == 'Super Admin'}">
-            <a th:href="@{/admin-af/management/admins/new}" class="btn btn-primary btn-round">Create New Admin</a>
+            <a th:href="@{/admin-panel/management/admins/new}" class="btn btn-primary btn-round">Create New Admin</a>
         </div>
 
         <div class="d-flex gap-2 align-items-center mt-3" style="display: flex">
@@ -95,12 +95,12 @@
                     <td th:text="${session.admin.email}">adonit.halili@smart-tv.com</td>
                     <td th:text="${session.admin.role}">Admin</td>
                     <td>
-                        <a th:href="@{/admin-af/profile}">
+                        <a th:href="@{/admin-panel/profile}">
                             <button type="button" class="btn btn-icon btn-round btn-info">
                                 <i class="fa fa-info-circle"></i>
                             </button>
                         </a>
-                        <a th:href="@{/admin-af/profile/edit-profile}">
+                        <a th:href="@{/admin-panel/profile/edit-profile}">
                             <button type="button" class="btn btn-icon btn-round btn-warning">
                                 <i class="fas fa-edit"></i>
                             </button>
@@ -118,20 +118,20 @@
                     <td th:text="*{role}">Admin</td>
 
                     <td>
-                        <a th:href="@{/admin-af/management/admins/{id}/details(id=*{id})}">
+                        <a th:href="@{/admin-panel/management/admins/{id}/details(id=*{id})}">
                             <button type="button" class="btn btn-icon btn-round btn-info">
                                 <i class="fa fa-info-circle"></i>
                             </button>
                         </a>
 
-                        <a th:href="@{/admin-af/management/admins/{id}/edit(id=*{id})}"
+                        <a th:href="@{/admin-panel/management/admins/{id}/edit(id=*{id})}"
                            th:if=" ${session.admin.role=='Super Admin'}">
 
                             <button type="button" class="btn btn-icon btn-round btn-warning">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </a>
-                        <a th:href="@{/admin-af/management/admins/{id}/delete(id=*{id})}"
+                        <a th:href="@{/admin-panel/management/admins/{id}/delete(id=*{id})}"
                            th:if="${session.admin.role == 'Super Admin'}">
 
                             <button type="button" class="btn btn-icon btn-round btn-danger">

@@ -2,7 +2,7 @@
       th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">TV Packages</li>
 </ol>
 
@@ -11,7 +11,7 @@
             class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
     >
         <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role == 'Super Admin'}">
-            <a th:href="@{/admin-af/packages/add-new-package}" class="btn btn-primary btn-round"
+            <a th:href="@{/admin-panel/packages/add-new-package}" class="btn btn-primary btn-round"
                th:if="${packagesList.size() < 3}">Create New Package
                 Offer</a>
         </div>
@@ -67,17 +67,17 @@
             <td th:text="*{nrOfChannels}"></td>
             <td th:text="*{sportsChannels}"></td>
             <td>
-                <a th:href="@{/admin-af/packages/{id}/details(id=*{id})}">
+                <a th:href="@{/admin-panel/packages/{id}/details(id=*{id})}">
                     <button type="button" class="btn btn-icon btn-round btn-info">
                         <i class="fa fa-info-circle"></i>
                     </button>
                 </a>
-                <a th:href="@{/admin-af/packages/{id}/edit(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
+                <a th:href="@{/admin-panel/packages/{id}/edit(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
                     <button type="button" class="btn btn-icon btn-round btn-warning">
                         <i class="fas fa-edit"></i>
                     </button>
                 </a>
-                <a th:href="@{/admin-af/packages/{id}/details(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
+                <a th:href="@{/admin-panel/packages/{id}/details(id=*{id})}" th:if="${session.admin.role == 'Super Admin'}">
                     <button type="button" class="btn btn-icon btn-round btn-danger">
                         <i class="fa fa-trash"></i>
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/admin-af/channels")
+@RequestMapping("/admin-panel/channels")
 @RequiredArgsConstructor
 public class ChannelsController {
     private final ChannelService service;
@@ -39,7 +39,7 @@ public class ChannelsController {
         }
         ra.addFlashAttribute("addedMessage", "Channel Addded Successfully!");
         service.add(channelsDto);
-        return "redirect:/admin-af/channels";
+        return "redirect:/admin-panel/channels";
     }
 
     @GetMapping("/{id}/edit")
@@ -57,7 +57,7 @@ public class ChannelsController {
 
         ra.addFlashAttribute("editedMessage", "Channel with id " + channelsDto.getId() + " edited successfully!");
         service.modify(channelsDto, channelsDto.getId());
-        return "redirect:/admin-af/channels";
+        return "redirect:/admin-panel/channels";
     }
 
 
@@ -65,6 +65,6 @@ public class ChannelsController {
     public String deleteChannel(@PathVariable Integer id, RedirectAttributes ra) {
         service.removeById(id);
         ra.addFlashAttribute("deletedMessage", "Channel with id " + id + " deleted successfully !");
-        return "redirect:/admin-af/channels";
+        return "redirect:/admin-panel/channels";
     }
 }

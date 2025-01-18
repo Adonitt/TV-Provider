@@ -1,7 +1,10 @@
 package org.example.finalproject.user.services.impls;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.user.models.ClientRequestEntity;
+import org.example.finalproject.user.dtos.clientsReq.ClientReqListingDto;
+import org.example.finalproject.user.dtos.clientsReq.ClientRequestDto;
+import org.example.finalproject.user.mappers.ClientRequestMapper;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
 import org.example.finalproject.user.services.ClientRequestService;
 import org.springframework.stereotype.Service;
@@ -11,56 +14,40 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ClientRequestServiceImpl implements ClientRequestService {
-
     private final ClientRequestRepository repository;
+    private final ClientRequestMapper mapper;
 
     @Override
-    public List<ClientRequestEntity> getAllClientRequests() {
-        return repository.findAll();
+    public ClientRequestDto add(ClientRequestDto dto) {
+        var entity = mapper.toEntity(dto);
+        var savedEntity = repository.save(entity);
+        return mapper.toDto(savedEntity);
     }
 
     @Override
-    public ClientRequestEntity getClientRequestById(Long id) {
-        return repository.findById(id).orElse(null);
+    public List<ClientReqListingDto> findAll() {
+        var clientRequests = repository.findAll();
+        return mapper.toClientReqListingDtoList(clientRequests);
     }
 
     @Override
-    public ClientRequestEntity createClientRequest(ClientRequestEntity clientRequestEntity) {
-        var existingClient = repository.findById(clientRequestEntity.getId());
-        if (existingClient.isPresent()) {
-            System.out.println("Client with this id exists");
-            return null;
+    public ClientRequestDto findById(Long id) {
+        var exists = repository.findById(id);
+        if (exists.isEmpty()) {
+            throw new EntityNotFoundException("Client request with id " + id + " not found");
         }
 
-        long totalClients = repository.countAllByEmailAndPhone(clientRequestEntity.getEmail(), clientRequestEntity.getPhone());
-        if (totalClients > 0) {
-            System.out.println("Client with this email and phone already exists");
-            return null;
-        }
-
-        return repository.save(clientRequestEntity);
+        return mapper.toClientDetailsDto(exists.get());
     }
 
-    @Override
-    public ClientRequestEntity updateClientRequest(ClientRequestEntity clientRequestEntity) {
-
-        var existingClient = repository.findById(clientRequestEntity.getId());
-        if (existingClient.isEmpty()) {
-            System.out.println("Client with this id does not exist");
-            return null;
-        }
-        return repository.save(clientRequestEntity);
-    }
 
     @Override
-    public void deleteClientRequest(Long id) {
-
-        var existingClient = repository.findById(id);
-        if (existingClient.isEmpty()) {
-            System.out.println("Client with this id does not exist");
-            return;
+    public void removeById(Long id) {
+        var exists = repository.findById(id);
+        if (exists.isEmpty()) {
+            throw new EntityNotFoundException("Client request with id " + id + " not found");
         }
         repository.deleteById(id);
-
     }
+
 }

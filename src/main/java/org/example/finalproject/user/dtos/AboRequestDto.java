@@ -1,13 +1,12 @@
 package org.example.finalproject.user.dtos;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.finalproject.user.models.enums.Cities;
-import org.example.finalproject.user.models.enums.Offers;
+import org.example.finalproject.user.entities.enums.Cities;
+import org.example.finalproject.user.entities.enums.Offers;
 
 import java.time.LocalDateTime;
 

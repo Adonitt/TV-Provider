@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin-af/management/clients")
+@RequestMapping("/admin-panel/management/clients")
 public class ClientController {
 
     @GetMapping("")
     public String clients() {
-
+        
         return "admin-view/management/clients/clients-list";
     }
 

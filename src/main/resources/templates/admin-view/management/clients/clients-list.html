@@ -1,13 +1,13 @@
 <html lang="en"
       th:replace="~{shared/_adminLayout::adminLayout('Clients','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">Clients List</li>
 </ol>
 <div class="page-inner">
     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
         <div class="ms-md-auto py-2 py-md-0">
-            <a th:href="@{/admin-af/management/clients/new}" class="btn btn-primary btn-round">Add new Client</a>
+            <a th:href="@{/admin-panel/management/clients/new}" class="btn btn-primary btn-round">Add new Client</a>
         </div>
     </div>
 
@@ -67,7 +67,7 @@
                         <td>12.12.2024</td>
                         <td>
                             <button class="btn btn-success">
-                                <a th:href="@{/admin-af/management/clients/1/details}">Details</a></button>
+                                <a th:href="@{/admin-panel/management/clients/1/details}">Details</a></button>
                         </td>
                     </tr>
                     <tr>
@@ -80,7 +80,7 @@
                         <td>15.09.2024</td>
                         <td>
                             <button class="btn btn-success">
-                                <a th:href="@{/admin-af/management/clients/1/details}">Details</a></button>
+                                <a th:href="@{/admin-panel/management/clients/1/details}">Details</a></button>
                         </td>
                     </tr>
                     </tbody>

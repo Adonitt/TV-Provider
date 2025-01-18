@@ -2,14 +2,14 @@
       th:replace="~{shared/_adminLayout::adminLayout('Channels','', ~{::div.page-inner},~{::script}, ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">All channels</li>
 </ol>
 
 <div class="page-inner">
     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
         <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role == 'Super Admin'}">
-            <a th:href="@{/admin-af/channels/new}" class="btn btn-primary btn-round">Create New Channel</a>
+            <a th:href="@{/admin-panel/channels/new}" class="btn btn-primary btn-round">Create New Channel</a>
         </div>
     </div>
     <h4 class="card-title">All channels: <span th:text="${channelsList.size()}"></span></h4>
@@ -63,7 +63,7 @@
                 <td th:text="*{name}"></td>
                 <td th:if="${session.admin.role == 'Super Admin'}">
                     <div class="d-inline-block">
-                        <form th:action="@{/admin-af/channels/{id}/delete(id=*{id})}" method="post"
+                        <form th:action="@{/admin-panel/channels/{id}/delete(id=*{id})}" method="post"
                               onsubmit="return confirmDelete()">
                             <button type="submit" class="btn btn-icon btn-round btn-danger">
                                 <i class="fa fa-trash"></i>
@@ -71,7 +71,7 @@
                         </form>
                     </div>
                     <div class="d-inline-block">
-                        <a th:href="@{/admin-af/channels/{id}/edit(id=*{id})}"
+                        <a th:href="@{/admin-panel/channels/{id}/edit(id=*{id})}"
                         >
                             <button type="button" class="btn btn-icon btn-round btn-warning">
                                 <i class="fas fa-edit"></i>

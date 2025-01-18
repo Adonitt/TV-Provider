@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/admin-af/packages")
+@RequestMapping("/admin-panel/packages")
 @RequiredArgsConstructor
 public class PackagesController {
     private final PackageServiceImplementation service;
@@ -59,7 +59,7 @@ public class PackagesController {
 
         redirectAttributes.addFlashAttribute("addedMessage", "Package added successfully!");
         service.add(packageRegistrationDto);
-        return "redirect:/admin-af/packages";
+        return "redirect:/admin-panel/packages";
     }
 
     @GetMapping("/{id}/edit")
@@ -90,7 +90,7 @@ public class PackagesController {
         redirectAttributes.addFlashAttribute("editedMessage", "Package with id: " + packageRegistrationDto.getId() + " modified successfully!");
 
         service.modify(packageRegistrationDto, packageRegistrationDto.getId());
-        return "redirect:/admin-af/packages";
+        return "redirect:/admin-panel/packages";
     }
 
 
@@ -98,7 +98,7 @@ public class PackagesController {
     public String deletePackage(@PathVariable long id, RedirectAttributes redirectAttributes) {
         service.removeById(id);
         redirectAttributes.addFlashAttribute("deletedMessage", "Package deleted successfully!");
-        return "redirect:/admin-af/packages";
+        return "redirect:/admin-panel/packages";
     }
 
 

@@ -3,8 +3,8 @@
       th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},~{::script} ,~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
-    <li class="breadcrumb-item active"><a th:href="@{/admin-af/packages}">Packages List</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active"><a th:href="@{/admin-panel/packages}">Packages List</a></li>
     <li class="breadcrumb-item active">Package Details</li>
 </ol>
 
@@ -79,9 +79,9 @@
                 <div class="row" th:if="${session.admin.role == 'Super Admin'}">
                     <div class="col-sm-12 text-center">
                         <a class="btn btn-info mx-2 mb-3"
-                           th:href="@{/admin-af/packages/{id}/edit(id=*{id})}">Edit this package</a>
+                           th:href="@{/admin-panel/packages/{id}/edit(id=*{id})}">Edit this package</a>
 
-                        <form method="post" th:action="@{/admin-af/packages/{id}/delete(id=*{id})}"
+                        <form method="post" th:action="@{/admin-panel/packages/{id}/delete(id=*{id})}"
                               onsubmit="return confirmDelete()">
                             <button type="submit" class="btn btn-danger">
                                 Delete this package forever

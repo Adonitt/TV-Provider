@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("/admin-af")
+@RequestMapping("/admin-panel")
 @RequiredArgsConstructor
 public class AuthController {
     private final AdminService service;
@@ -47,7 +47,7 @@ public class AuthController {
 
         if (searchAdmin == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-            return "redirect:/admin-af";
+            return "redirect:/admin-panel";
         }
 
         Cookie cookie = new Cookie("adminId", String.valueOf(searchAdmin.getId()));
@@ -64,7 +64,7 @@ public class AuthController {
         if (returnUrl != null) {
             return "redirect:" + returnUrl;
         }
-        return "redirect:/admin-af/dashboard";
+        return "redirect:/admin-panel/dashboard";
     }
 
     @PostMapping("/logout")
@@ -78,7 +78,7 @@ public class AuthController {
             session.invalidate();
         }
 
-        return "redirect:/admin-af";
+        return "redirect:/admin-panel";
     }
 
     @GetMapping("/forgot-password")
@@ -95,10 +95,10 @@ public class AuthController {
 
             if (foundAdmin != null) {
                 redirectAttributes.addFlashAttribute("successMessage", "Password reset link has been sent to your email. Please check your inbox!");
-                return "redirect:/admin-af";
+                return "redirect:/admin-panel";
             } else {
                 redirectAttributes.addFlashAttribute("errorMessage", "Email not found");
-                return "redirect:/admin-af/forgot-password";
+                return "redirect:/admin-panel/forgot-password";
             }
         }
         return "admin-view/auths/forgot-password";

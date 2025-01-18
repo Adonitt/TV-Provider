@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping("/admin-af/management/admins")
+@RequestMapping("/admin-panel/management/admins")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -67,7 +67,7 @@ public class AdminController {
 
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
         service.add(adminRegistrationRequestDto);
-        return "redirect:/admin-af/management/admins";
+        return "redirect:/admin-panel/management/admins";
     }
 
 
@@ -109,7 +109,7 @@ public class AdminController {
 
         ra.addFlashAttribute("editedMessage", "Admin with ID: " + adminEditingDto.getId() + " - modified successfully!");
         service.modify(adminEditingDto, adminEditingDto.getId());
-        return "redirect:/admin-af/management/admins";
+        return "redirect:/admin-panel/management/admins";
     }
 
 
@@ -123,7 +123,7 @@ public class AdminController {
     public String deleteAdmin(@PathVariable long id, RedirectAttributes ra) {
         service.removeById(id);
         ra.addFlashAttribute("deletedMessage", "Admin deleted successfully!");
-        return "redirect:/admin-af/management/admins";
+        return "redirect:/admin-panel/management/admins";
     }
 
 

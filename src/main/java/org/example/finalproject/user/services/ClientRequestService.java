@@ -1,13 +1,22 @@
 package org.example.finalproject.user.services;
 
-import org.example.finalproject.user.models.ClientRequestEntity;
+import org.example.finalproject.admin.services.base_services.*;
+import org.example.finalproject.user.dtos.clientsReq.ClientReqListingDto;
+import org.example.finalproject.user.dtos.clientsReq.ClientRequestDto;
 
-import java.util.List;
+public interface ClientRequestService extends
+        FindAll<ClientReqListingDto>,
+        FindById<ClientRequestDto, Long>,
+        Addable<ClientRequestDto>,
+        Removable<Long> {
 
-public interface ClientRequestService {
-    List<ClientRequestEntity> getAllClientRequests();
-    ClientRequestEntity getClientRequestById(Long id);
-    ClientRequestEntity createClientRequest(ClientRequestEntity clientRequestEntity);
-    ClientRequestEntity updateClientRequest(ClientRequestEntity clientRequestEntity);
-    void deleteClientRequest(Long id);
+//    List<ClientRequestEntity> getAllClientRequests();
+//
+//    ClientRequestEntity getClientRequestById(Long id);
+//
+//    void createClientRequest(ClientRequestDto clientRequestDto);
+//
+//    ClientRequestEntity updateClientRequest(ClientRequestEntity clientRequestEntity);
+//
+//    void deleteClientRequest(Long id);
 }

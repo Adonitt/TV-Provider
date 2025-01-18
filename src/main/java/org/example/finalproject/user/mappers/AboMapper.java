@@ -2,7 +2,7 @@ package org.example.finalproject.user.mappers;
 
 import org.example.finalproject.admin.mappers.SimpleMapper;
 import org.example.finalproject.user.dtos.AboRequestDto;
-import org.example.finalproject.user.models.ClientRequestEntity;
+import org.example.finalproject.user.entities.ClientRequestEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

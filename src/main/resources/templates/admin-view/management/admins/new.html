@@ -2,8 +2,8 @@
       th:replace="~{shared/_adminLayout::adminLayout('Admins','', ~{::div.page-inner},'', ~{::ol})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/management/admins}">Admins List</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/admins}">Admins List</a></li>
     <li class="breadcrumb-item active">Add new Admin</li>
 </ol>
 
@@ -13,7 +13,7 @@
 
     <div class="container rounded bg-white mt-1 mb-15" id="main-body">
         <form class="row" th:object="${adminRegistrationRequestDto}"
-              th:action="@{/admin-af/management/admins/new}" method="post" enctype="multipart/form-data">
+              th:action="@{/admin-panel/management/admins/new}" method="post" enctype="multipart/form-data">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
 

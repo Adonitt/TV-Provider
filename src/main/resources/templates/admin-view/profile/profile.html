@@ -2,7 +2,7 @@
       th:replace="~{shared/_adminLayout::adminLayout('My Profile','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/admin-af/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">My Profile</li>
 </ol>
 
@@ -116,9 +116,9 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info" th:href="@{/admin-af/profile/change-password}">Change my
+                                    <a class="btn btn-info" th:href="@{/admin-panel/profile/change-password}">Change my
                                         password</a> <a class="btn btn-dark"
-                                                        th:href="@{/admin-af/profile/edit-profile}">Edit my
+                                                        th:href="@{/admin-panel/profile/edit-profile}">Edit my
                                     profile</a>
                                 </div>
                             </div>

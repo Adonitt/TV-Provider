@@ -1,10 +1,114 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Requests','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Requests','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
+
 <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">Requests for new clients</li>
 </ol>
 
 <div class="page-inner">
-    <h1>Here are all requests for new connection</h1>
+    <div class="d-flex gap-3 align-items-center" style="display: flex; gap: 10px;">
+        <input
+                type="text"
+                id="filter-ticket-number"
+                class="form-control"
+                placeholder="Search by Ticket Number"
+                style="width: 250px;"
+        />
+        <input
+                type="text"
+                id="filter-name"
+                class="form-control"
+                placeholder="Search by Name"
+                style="width: 250px;"
+        />
+        <input
+                type="text"
+                id="filter-surname"
+                class="form-control"
+                placeholder="Search by Surname"
+                style="width: 250px;"
+        />
+    </div>
+
+    <div class="alert alert-info alert-dismissible fade show " role="alert"
+         th:unless="${clientRequestList!=null && clientRequestList.size()>0}">
+        <i class="fas fa-exclamation-circle"></i>
+        <strong>There are no admin in the list</strong>
+    </div>
+
+    <div class="card-body" th:if="${clientRequestList != null && clientRequestList.size() > 0}">
+        <div class="card-header">
+            <h4 class="card-title">Client Requests List</h4>
+        </div>
+        <div class="table-responsive">
+            <table id="multi-filter-select" class="display table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Ticket Nr</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>City</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="clientReq : ${clientRequestList}" th:object="${clientReq}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{ticketNr}"></td>
+                    <td th:text="*{firstName}"></td>
+                    <td th:text="*{lastName}"></td>
+                    <td th:text="*{city}"></td>
+                    <td>
+                        <a th:href="@{/admin-panel/management/req-for-new-clients/{id}/details(id=*{id})}">
+                            <button type="button" class="btn btn-icon btn-round btn-info ">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+                        </a>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+<script id="script">
+    const ticketNumberFilter = document.getElementById("filter-ticket-number");
+    const nameFilter = document.getElementById("filter-name");
+    const surnameFilter = document.getElementById("filter-surname");
+
+    // Attach event listeners to the Ticket Number, Name, and Surname input fields
+    [ticketNumberFilter, nameFilter, surnameFilter].forEach((filterInput) => {
+        filterInput.addEventListener("input", filterTable);
+    });
+
+    function filterTable() {
+        const ticketNumberValue = ticketNumberFilter.value.toLowerCase();
+        const nameValue = nameFilter.value.toLowerCase();
+        const surnameValue = surnameFilter.value.toLowerCase();
+
+        // Get all rows in the table body
+        const rows = document.querySelectorAll("#multi-filter-select tbody tr");
+
+        rows.forEach((row) => {
+            const ticketNumberCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            const nameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+            const surnameCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+
+            // Check if the row matches the Ticket Number, Name, and Surname filters
+            const matchesTicketNumber = !ticketNumberValue || ticketNumberCell.includes(ticketNumberValue);
+            const matchesName = !nameValue || nameCell.includes(nameValue);
+            const matchesSurname = !surnameValue || surnameCell.includes(surnameValue);
+
+            // Show or hide the row based on the filter match
+            if (matchesTicketNumber && matchesName && matchesSurname) {
+                row.style.display = ""; // Show row
+            } else {
+                row.style.display = "none"; // Hide row
+            }
+        });
+    }
+</script>
 </html>

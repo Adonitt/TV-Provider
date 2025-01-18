@@ -25,8 +25,8 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
 
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("admin") != null) {
-            if (request.getRequestURI().equals("admin-af")) {
-                response.sendRedirect("/admin-af/dashboard");
+            if (request.getRequestURI().equals("admin-panel")) {
+                response.sendRedirect("/admin-panel/dashboard");
                 return;
             }
 
@@ -35,7 +35,7 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                     || (admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/delete"))
                     || (admin.getRole().equalsIgnoreCase("Admin") && request.getRequestURI().endsWith("/new"))
             ) {
-                response.sendRedirect("/admin-af/dashboard");
+                response.sendRedirect("/admin-panel/dashboard");
             }
 
             filterChain.doFilter(request, response);
@@ -43,9 +43,9 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
         }
 
 
-        if (request.getRequestURI().equals("/admin-af")
-                || request.getRequestURI().equals("/admin-af/forgot-password")
-                || request.getRequestURI().equals("/admin-af/send-reset-link")
+        if (request.getRequestURI().equals("/admin-panel")
+                || request.getRequestURI().equals("/admin-panel/forgot-password")
+                || request.getRequestURI().equals("/admin-panel/send-reset-link")
                 || request.getRequestURI().equals("/")
                 || request.getRequestURI().equals("/about")
                 || request.getRequestURI().equals("/contact")
@@ -56,12 +56,13 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 || request.getRequestURI().equals("/get-started")
                 || request.getRequestURI().equals("/e-payment/bank-information")
                 || request.getRequestURI().equals("/e-payment/invoice")
+                || request.getRequestURI().equals("/get-started/successfully-sent")
         ) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        response.sendRedirect("/admin-af?returnUrl=" + request.getRequestURI());
+        response.sendRedirect("/admin-panel?returnUrl=" + request.getRequestURI());
 
 
     }

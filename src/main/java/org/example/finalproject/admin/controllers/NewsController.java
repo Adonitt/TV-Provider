@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin-af")
+@RequestMapping("/admin-panel")
 public class NewsController {
 
     @GetMapping("/news")

@@ -5,8 +5,9 @@
 <div id="fatlind">
     <div class="form-container p-4 bg-white rounded shadow-sm" style="max-width: 600px; margin: auto;">
         <h1 class="mb-4 text-center text-dark">Client Information</h1>
-        <form method="post" th:object="${aboRequestDto}">
+        <form method="post" th:object="${clientRequestEntity}">
             <!-- First Name -->
+
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" th:field="*{firstName}" placeholder="Enter first name"
@@ -36,8 +37,8 @@
 
             <div class="mb-3">
                 <label for="city" class="form-label">City</label><br/>
-                <select class="form-control" th:field="*{cities}">
-                    <option value=""  selected>Select City</option>
+                <select class="form-control" th:field="*{city}">
+                    <option value="" selected>Select City</option>
                     <th:block th:each="city : ${citiesList}">
                         <option th:value="${city}" th:text="${city}"></option>
                     </th:block>
@@ -51,15 +52,15 @@
                        required>
             </div>
 
-            <div class="mb-3">
-                <label for="offer" class="form-label">Select an Offer</label>
-                <select class="form-control" th:field="*{offers}" required>
-                    <option value=""  selected>Select an offer</option>
-                    <th:block th:each="offer : ${offersList}">
-                        <option th:value="${offer}" th:text="${offer}"></option>
-                    </th:block>
-                </select>
-            </div>
+            <!--            <div class="mb-3">-->
+            <!--                <label for="offer" class="form-label">Select an Offer</label>-->
+            <!--                <select class="form-control" th:field="*{offers}" required>-->
+            <!--                    <option value=""  selected>Select an offer</option>-->
+            <!--                    <th:block th:each="offer : ${offersList}">-->
+            <!--                        <option th:value="${offer}" th:text="${offer}"></option>-->
+            <!--                    </th:block>-->
+            <!--                </select>-->
+            <!--            </div>-->
 
 
             <!-- Submit Button -->

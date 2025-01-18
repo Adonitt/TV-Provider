@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping("/admin-af")
+@RequestMapping("/admin-panel")
 @RequiredArgsConstructor
 public class ProfileController {
     private final AdminRepository adminRepository;
@@ -45,7 +45,7 @@ public class ProfileController {
         AdminEntity existingAdmin = adminRepository.findById(adminId).orElse(null);
         if (existingAdmin == null) {
             ra.addFlashAttribute("adminNotFound", "Admin not found!");
-            return "redirect:/admin-af/changePassword";
+            return "redirect:/admin-panel/changePassword";
         }
         System.out.printf("Admin ID: %d%n - Email : %s %n Current Password: %s %n- New Password: %s%n", adminId, existingAdmin.getEmail(), existingAdmin.getPassword(), newPassword);
 
@@ -53,22 +53,22 @@ public class ProfileController {
 
         if (!currentPassword.equals(existingAdmin.getPassword())) {
             ra.addFlashAttribute("currentPassNotCorrect", "Current password is not correct!");
-            return "redirect:/admin-af/profile/change-password";
+            return "redirect:/admin-panel/profile/change-password";
         }
 
         if (!newPassword.equals(confirmPassword)) {
             ra.addFlashAttribute("passwordNotMatch", "New password and confirm password do not match!");
-            return "redirect:/admin-af/profile/change-password";
+            return "redirect:/admin-panel/profile/change-password";
         }
         service.changePassword(adminId, newPassword);
         ra.addFlashAttribute("successChangeMessage", "Password changed successfully!");
-        return "redirect:/admin-af/profile";
+        return "redirect:/admin-panel/profile";
     }
 
     @PostMapping("/profile/send-reset-link")
     public String sendResetLink(@ModelAttribute AdminLoginDto adminLoginDto, RedirectAttributes ra) {
         ra.addFlashAttribute("successMessage", "A link for resetting your password has been sent to your email! Please check your inbox.");
-        return "redirect:/admin-af/profile";
+        return "redirect:/admin-panel/profile";
     }
 
     @GetMapping("/profile/edit-profile")
@@ -104,7 +104,7 @@ public class ProfileController {
 //        service.modify(sessionAdmin, sessionAdmin.getId());
 
         ra.addFlashAttribute("successMessage", "Profile edited successfully!");
-        return "redirect:/admin-af/profile";
+        return "redirect:/admin-panel/profile";
     }
 
     private void uploadPhoto(AdminEntity admin, MultipartFile photoFile) {
