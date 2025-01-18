@@ -2,8 +2,9 @@ package org.example.finalproject.user.controllers;
 
 import jakarta.validation.Valid;
 import org.example.finalproject.user.dtos.AboRequestDto;
-import org.example.finalproject.user.models.ClientEntity;
+import org.example.finalproject.user.models.ClientRequestEntity;
 import org.example.finalproject.user.models.enums.Cities;
+import org.example.finalproject.user.models.enums.Offers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +21,12 @@ public class GetStartedController {
     public String getStarted(Model model) {
         model.addAttribute("aboRequestDto", new AboRequestDto());
         model.addAttribute("citiesList", Cities.values());
+        model.addAttribute("offersList", Offers.values());
         return "user-view/get-started/get-started";
     }
 
     @PostMapping("")
-    public String getStartedPost(@Valid @ModelAttribute AboRequestDto aboRequestDto, BindingResult br, RedirectAttributes ra) {
+    public String getStartedPost(@Valid @ModelAttribute ClientRequestEntity clientRequest, BindingResult br, RedirectAttributes ra) {
         if (br.hasErrors()) {
             br.getAllErrors().forEach(System.out::println);
             return "/user-view/get-started/get-started";
@@ -32,7 +34,9 @@ public class GetStartedController {
 
         ra.addFlashAttribute("successRequest", "Your request has been sent successfully!");
 
-        System.out.println("Recived client: " + aboRequestDto);
+        System.out.println("Recived client: " + clientRequest);
         return "redirect:/";
     }
+
+
 }

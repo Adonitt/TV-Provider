@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.finalproject.user.models.enums.Cities;
+import org.example.finalproject.user.models.enums.Offers;
 
 import java.time.LocalDateTime;
 
@@ -39,6 +40,8 @@ public class AboRequestDto {
     @NotNull(message = "City is required")
     @NotBlank(message = "City is required")
     private Cities cities;
+
+    private Offers offers;
 
     @NotNull(message = "Address is required")
     @NotBlank(message = "Address is required")
