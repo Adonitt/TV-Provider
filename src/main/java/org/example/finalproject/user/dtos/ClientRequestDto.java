@@ -9,12 +9,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.finalproject.user.models.enums.Cities;
+import org.example.finalproject.user.models.enums.Offers;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDto {
+public class ClientRequestDto {
+
+    private Long id;
 
     @NotBlank(message = "First name is required.")
     @Size(max = 50, message = "First name must not exceed 50 characters.")
@@ -35,10 +39,18 @@ public class ClientDto {
     )
     private String phone;
 
+    @NotNull(message = "City is required.")
+    @NotBlank(message = "City is required.")
+    private Cities city;
+
+    @NotBlank(message = "Offer is required.")
+    @NotNull(message = "Offer is required.")
+    private Offers offers;
+
     @NotBlank(message = "Address is required.")
     @Size(max = 255, message = "Address must not exceed 255 characters.")
     private String address;
 
-    @NotNull(message = "Active status is required.")
-    private Boolean isActive;
+
+
 }
