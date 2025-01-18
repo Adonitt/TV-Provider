@@ -36,8 +36,8 @@ public class AboRequestDto {
     @Size(min = 7, max = 15, message = "Phone number must be at least 7 characters long and at most 15 characters long")
     private String phone;
 
-    //    @NotNull(message = "City is required")
-//    @NotBlank(message = "City is required")
+    @NotNull(message = "City is required")
+    @NotBlank(message = "City is required")
     private Cities cities;
 
     @NotNull(message = "Address is required")
