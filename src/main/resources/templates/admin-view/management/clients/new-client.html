@@ -3,10 +3,121 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/clients}">Clients List</a></li>
-    <li class="breadcrumb-item active">Add new Client</li>
+    <li class="breadcrumb-item active">Save the Client</li>
 </ol>
 
 <div class="page-inner">
+    <div id="registrationForm">
+        <div class="form-container p-4 bg-white rounded shadow-sm">
+            <h1 class="mb-4 text-center text-dark">Client Registration</h1>
+            <form method="post" th:object="${clientRegistrationDto}">
+
+                <!-- First Name and Last Name (Inline) -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" th:field="*{firstName}" placeholder="Enter first name"
+                               required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="Enter last name"
+                               required>
+                    </div>
+                </div>
+
+                <!-- Email and Phone (Inline) -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" th:field="*{email}" placeholder="Enter email address"
+                               required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" th:field="*{phone}" placeholder="Enter phone number"
+                               required>
+                    </div>
+                </div>
+
+                <!-- City and Address -->
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <select class="form-control" th:field="*{city}">
+                        <option value="" selected>Select City</option>
+                        <th:block th:each="city : ${citiesList}">
+                            <option th:value="${city}" th:text="${city}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" th:field="*{address}" rows="2" placeholder="Enter address"
+                              required></textarea>
+                </div>
+
+                <!-- Subscription Plan and Active Status (Inline) -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="subscriptionPlan" class="form-label">Subscription Plan</label>
+                        <select class="form-control" th:field="*{subscriptionPlan}">
+                            <option value="" selected>Select a Plan</option>
+                            <th:block th:each="plan : ${packagesList}">
+                                <option th:value="${plan}" th:text="${plan.name}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="subscriptionActive" class="form-label">Subscription Active</label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" th:field="*{subscriptionActive}" value="true"
+                                   required>
+                            <label class="form-check-label">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" th:field="*{subscriptionActive}" value="false"
+                                   required>
+                            <label class="form-check-label">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Address -->
+                <div class="mb-3">
+                    <label for="billingAddress" class="form-label">Billing Address</label>
+                    <textarea class="form-control" th:field="*{billingAddress}" rows="2"
+                              placeholder="Enter billing address" required></textarea>
+                </div>
+
+                <!-- Installation Date -->
+                <div class="mb-3">
+                    <label for="installationDate" class="form-label">Installation Date</label>
+                    <input type="datetime-local" class="form-control" th:field="*{installationDate}" required>
+                </div>
+
+                <!-- Preferred Language and Device Type (Inline) -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="preferredLanguage" class="form-label">Preferred Language</label>
+                        <select class="form-control" th:field="*{preferredLanguage}">
+                            <option value="" selected>Select Preferred Language</option>
+                            <th:block th:each="language : ${preferredLanguages}">
+                                <option th:value="${language}" th:text="${language}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="deviceType" class="form-label">Device Type</label>
+                        <input type="text" class="form-control" th:field="*{deviceType}" placeholder="Enter device type"
+                               required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 </html>

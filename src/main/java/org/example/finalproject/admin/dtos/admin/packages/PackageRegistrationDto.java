@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.finalproject.admin.models.admin.PackageEnum;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class PackageRegistrationDto {
     @NotBlank(message = "Name is required")
     @NotNull(message = "Name is required")
     @Size(min = 4, max = 50, message = "Name must be at least 4 characters long and at most 50 characters long")
-    private String name;
+    private PackageEnum name;
 
     @Positive(message = "Price must be a positive number")
     @NotNull(message = "Price is required")

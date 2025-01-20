@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.packages.PackageRegistrationDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
+import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.admin.services.implementations.PackageServiceImplementation;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ public class PackagesController {
     @GetMapping("/new")
     public String addNewPackage(Model model) {
         model.addAttribute("packageRegistrationDto", new PackageRegistrationDto());
+        model.addAttribute("packagesList", PackageEnum.values());
         return "admin-view/packages/new";
     }
 
@@ -65,6 +67,8 @@ public class PackagesController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("packageRegistrationDto", service.findById(id));
+        model.addAttribute("packagesList", PackageEnum.values());
+
         return "admin-view/packages/edit";
     }
 

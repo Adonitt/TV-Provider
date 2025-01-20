@@ -7,7 +7,9 @@
 </ol>
 
 <div class="page-inner">
-    <div class="d-flex gap-3 align-items-center" style="display: flex; gap: 10px;">
+    <div class="d-flex gap-3 align-items-center" style="display: flex; gap: 10px;"
+         th:if="${clientRequestList!=null && clientRequestList.size()>0}">
+
         <input
                 type="text"
                 id="filter-ticket-number"
@@ -34,7 +36,7 @@
     <div class="alert alert-info alert-dismissible fade show " role="alert"
          th:unless="${clientRequestList!=null && clientRequestList.size()>0}">
         <i class="fas fa-exclamation-circle"></i>
-        <strong>There are no admin in the list</strong>
+        <strong>There are no requests in the list</strong>
     </div>
 
     <div class="card-body" th:if="${clientRequestList != null && clientRequestList.size() > 0}">
@@ -66,7 +68,6 @@
                                 <i class="fa fa-info-circle"></i>
                             </button>
                         </a>
-
                     </td>
                 </tr>
                 </tbody>

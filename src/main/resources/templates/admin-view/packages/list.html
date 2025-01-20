@@ -11,7 +11,7 @@
             class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
     >
         <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role == 'Super Admin'}">
-            <a th:href="@{/admin-panel/packages/add-new-package}" class="btn btn-primary btn-round"
+            <a th:href="@{/admin-panel/packages/new}" class="btn btn-primary btn-round"
                th:if="${packagesList.size() < 3}">Create New Package
                 Offer</a>
         </div>

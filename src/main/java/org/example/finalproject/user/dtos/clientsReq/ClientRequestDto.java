@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.finalproject.user.entities.enums.Cities;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,6 +42,8 @@ public class ClientRequestDto {
     @NotBlank(message = "Address is required.")
     @Size(max = 255, message = "Address must not exceed 255 characters.")
     private String address;
+
+    private LocalDateTime requestTime = LocalDateTime.now();
 
 
 }

@@ -18,7 +18,7 @@ public class PackageEntity {
     private long id;
 
     @Column(nullable = false, name = "pacakgeName", unique = true)
-    private String name;
+    private PackageEnum name;
 
     @Column(name = "pricePerMonth", nullable = false)
     private double price;
