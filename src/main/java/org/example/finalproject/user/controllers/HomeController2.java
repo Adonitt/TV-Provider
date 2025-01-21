@@ -47,5 +47,9 @@ public class HomeController2 {
         return "user-view/contact";
     }
 
+//    @GetMapping("/**")
+//    public String error() {
+//        return "error";
+//    }
 
 }

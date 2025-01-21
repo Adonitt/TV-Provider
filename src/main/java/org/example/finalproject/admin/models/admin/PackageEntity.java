@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.finalproject.user.entities.ClientsEntity;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +35,6 @@ public class PackageEntity {
     @Column(name = "sportsChannels")
     private String sportsChannels; // yes or no
 
-
     @Column(name = "description1", nullable = false)
     private String description1;
 
@@ -54,4 +56,9 @@ public class PackageEntity {
 
     @Column(name = "userFriendlyFeatures", nullable = false)
     private String userFriendlyFeatures;
+
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<ClientsEntity> clientsEntity;
+
 }

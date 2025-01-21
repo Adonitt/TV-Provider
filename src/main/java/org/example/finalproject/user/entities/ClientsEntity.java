@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.finalproject.admin.models.admin.PackageEntity;
+import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.user.entities.enums.Cities;
+import org.example.finalproject.user.entities.enums.DevicesTypes;
 import org.example.finalproject.user.entities.enums.PreferredLanguages;
+import org.example.finalproject.user.entities.enums.StatusEnum;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +20,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity(name = "clients")
 public class ClientsEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,14 +43,17 @@ public class ClientsEntity {
     @Column(nullable = false)
     private String address;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime requestTime = LocalDateTime.now();
 
-    @OneToOne
-    private PackageEntity subscriptionPlan;
-
     @Column(nullable = false)
-    private String accountId;
+    private LocalDateTime registeredTIme = LocalDateTime.now();
+
+    //    @Column(nullable = false)
+    private String registeredBy;
+
+    @Enumerated
+    private PackageEnum subscriptionPlan;
 
     @Column(nullable = false)
     private boolean subscriptionActive;
@@ -56,13 +61,18 @@ public class ClientsEntity {
     @Column(nullable = false)
     private String billingAddress;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime installationDate;
 
-    @Column
+    @Enumerated
+    @Column(nullable = false)
     private PreferredLanguages preferredLanguage;
 
-    @Column
-    private String deviceType;
+    @Enumerated
+    @Column(nullable = false)
+    private DevicesTypes deviceType;
+
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
 }

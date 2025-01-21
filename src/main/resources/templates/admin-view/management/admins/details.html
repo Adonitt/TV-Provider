@@ -96,7 +96,7 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-12" th:if="${session.admin.role == 'Super Admin'}">
+                                <div class="col-sm-12" th:if="${session.admin.role == 'SUPER_ADMIN'}">
                                     <a class="btn btn-info"
                                        th:href="@{/admin-panel/management/admins/{id}/edit(id=*{id})}">Edit</a>
                                     <a th:href="@{/admin-panel/management/admins/{id}/delete(id=*{id})}"

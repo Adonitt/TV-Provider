@@ -7,6 +7,7 @@ import org.example.finalproject.admin.dtos.admin.admins.AdminEditingDto;
 import org.example.finalproject.admin.dtos.admin.admins.AdminRegistrationRequestDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.AdminEntity;
+import org.example.finalproject.admin.models.admin.AdminRole;
 import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,7 @@ public class AdminController {
         model.addAttribute("adminRegistrationRequestDto", new AdminRegistrationRequestDto());
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("from", LocalDate.now().minusYears(65));
+        model.addAttribute("roles", AdminRole.values());
         return "admin-view/management/admins/new";
     }
 
@@ -84,6 +86,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("adminEditingDto", service.findById(id));
+        model.addAttribute("roles", AdminRole.values());
         return "admin-view/management/admins/edit";
     }
 

@@ -12,6 +12,7 @@
                 <label for="firstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" th:field="*{firstName}" placeholder="Enter first name"
                        required>
+
             </div>
 
             <!-- Last Name -->
@@ -45,22 +46,22 @@
                 </select>
             </div>
 
+<!--            <div class="col-md-6">-->
+<!--                <label for="subscriptionPlan" class="form-label">Subscription Plan</label>-->
+<!--                <select class="form-control" th:field="*{subscriptionPlan}">-->
+<!--                    <option value="" selected>Select a Plan</option>-->
+<!--                    <th:block th:each="plan : ${packageList}">-->
+<!--                        <option th:value="${plan}" th:text="${plan.name}"></option>-->
+<!--                    </th:block>-->
+<!--                </select>-->
+<!--            </div>-->
+
             <!-- Address -->
             <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
                 <input class="form-control" th:field="*{address}" rows="3" placeholder="Enter address"
                        required>
             </div>
-
-            <!--            <div class="mb-3">-->
-            <!--                <label for="offer" class="form-label">Select an Offer</label>-->
-            <!--                <select class="form-control" th:field="*{offers}" required>-->
-            <!--                    <option value=""  selected>Select an offer</option>-->
-            <!--                    <th:block th:each="offer : ${offersList}">-->
-            <!--                        <option th:value="${offer}" th:text="${offer}"></option>-->
-            <!--                    </th:block>-->
-            <!--                </select>-->
-            <!--            </div>-->
 
 
             <!-- Submit Button -->

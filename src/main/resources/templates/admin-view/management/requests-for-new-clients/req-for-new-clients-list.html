@@ -38,42 +38,46 @@
         <i class="fas fa-exclamation-circle"></i>
         <strong>There are no requests in the list</strong>
     </div>
-
-    <div class="card-body" th:if="${clientRequestList != null && clientRequestList.size() > 0}">
-        <div class="card-header">
-            <h4 class="card-title">Client Requests List</h4>
-        </div>
-        <div class="table-responsive">
-            <table id="multi-filter-select" class="display table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Ticket Nr</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>City</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="clientReq : ${clientRequestList}" th:object="${clientReq}">
-                    <td th:text="*{id}"></td>
-                    <td th:text="*{ticketNr}"></td>
-                    <td th:text="*{firstName}"></td>
-                    <td th:text="*{lastName}"></td>
-                    <td th:text="*{city}"></td>
-                    <td>
-                        <a th:href="@{/admin-panel/management/req-for-new-clients/{id}/details(id=*{id})}">
-                            <button type="button" class="btn btn-icon btn-round btn-info ">
-                                <i class="fa fa-info-circle"></i>
-                            </button>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <div class="card mt-4">
+        <div class="card-body" th:if="${clientRequestList != null && clientRequestList.size() > 0}">
+            <div class="card-header">
+                <h4 class="card-title">Client Requests List</h4>
+            </div>
+            <div class="table-responsive">
+                <table id="multi-filter-select" class="display table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ticket Nr</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="clientReq : ${clientRequestList}" th:object="${clientReq}">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{ticketNr}"></td>
+                        <td th:text="*{firstName}"></td>
+                        <td th:text="*{lastName}"></td>
+                        <td th:text="*{city}"></td>
+                        <td th:text="*{status}"></td>
+                        <td>
+                            <a th:href="@{/admin-panel/management/req-for-new-clients/{id}/save-client(id=*{id})}">
+                                <button type="button" class="btn btn-icon btn-round btn-info ">
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
 </div>
 <script id="script">
     const ticketNumberFilter = document.getElementById("filter-ticket-number");

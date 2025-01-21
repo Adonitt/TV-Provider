@@ -2,8 +2,11 @@ package org.example.finalproject.user.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.user.dtos.clientsReq.ClientRequestDto;
+import org.example.finalproject.admin.models.admin.PackageEntity;
+import org.example.finalproject.admin.models.admin.PackageEnum;
+import org.example.finalproject.user.dtos.clients.ClientRequestDto;
 import org.example.finalproject.user.entities.enums.Cities;
+import org.example.finalproject.user.entities.enums.StatusEnum;
 import org.example.finalproject.user.services.ClientRequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,7 @@ public class GetStartedController {
     public String getStarted(Model model) {
         model.addAttribute("clientRequestEntity", new ClientRequestDto());
         model.addAttribute("citiesList", Cities.values());
+        model.addAttribute("packageList", PackageEnum.values());
         return "user-view/get-started/get-started";
     }
 
@@ -36,6 +40,7 @@ public class GetStartedController {
         }
         var randomTicketNr = 100000L + (long) (Math.random() * 900000);
         clientRequest.setTicketNr(randomTicketNr);
+        clientRequest.setStatus(StatusEnum.OPEN);
         service.add(clientRequest);
 
         ra.addFlashAttribute("successRequest", "Your form has been requested successfully. You will receive a response via email shortly.");

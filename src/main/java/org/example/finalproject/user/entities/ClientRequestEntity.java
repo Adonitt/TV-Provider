@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.finalproject.user.entities.enums.Cities;
+import org.example.finalproject.user.entities.enums.StatusEnum;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +35,7 @@ public class ClientRequestEntity {
     @Column(nullable = false)
     private String phone;
 
+    @Enumerated
     private Cities city;
 
     @Column(nullable = false)
@@ -42,5 +44,7 @@ public class ClientRequestEntity {
     @Column
     private LocalDateTime requestTime = LocalDateTime.now();
 
+    @Enumerated
+    private StatusEnum status;
 
 }

@@ -132,11 +132,11 @@
                                                                                         placeholder="enter city"
                                                                                         value="">
                             <p class="alert-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
-                            <div class="col-md-12"><label class="labels">Role</label><br>
 
-                                <input type="radio" class="form-check-input" value="Admin" th:field="*{role}" required/>
+                            <div class="col-md-12"><label class="labels">Role</label><br>
+                                <input type="radio" class="form-check-input" value="ADMIN" th:field="*{role}" required/>
                                 Admin<br>
-                                <input type="radio" class="form-check-input" value="Super Admin" th:field="*{role}"
+                                <input type="radio" class="form-check-input" value="SUPER_ADMIN" th:field="*{role}"
                                        required/>
                                 Super Admin
                             </div>

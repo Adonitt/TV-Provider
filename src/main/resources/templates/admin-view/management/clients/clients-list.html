@@ -5,11 +5,14 @@
     <li class="breadcrumb-item active">Clients List</li>
 </ol>
 <div class="page-inner">
-    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-        <div class="ms-md-auto py-2 py-md-0">
-            <a th:href="@{/admin-panel/management/clients/new}" class="btn btn-primary btn-round">Add new Client</a>
-        </div>
+
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${savedSuccessfully!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${savedSuccessfully}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+
 
     <div class="col-md-12 mb-3">
         <div class="d-flex gap-2 align-items-center" style="display: flex">
@@ -38,8 +41,44 @@
     </div>
 
     <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Clients</h4>
+        <div class="card-body" th:if="${clientsList != null && clientsList.size() >0}">
+            <div class="card-header">
+                <h4 class="card-title">Clients List</h4>
+            </div>
+            <div class="table-responsive">
+                <table
+                        id="multi-filter-select"
+                        class="display table table-striped table-hover"
+                >
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Ticket Number</th>
+                        <th>Full name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="client: ${clientsList}" th:object="${client}">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{ticketNr}">Adonit</td>
+                        <td th:text="*{firstName + ' ' + lastName} ">Adonit</td>
+                        <td th:text="*{email}">adonit.halili@smart-tv.com</td>
+                        <td th:text="*{status}">adonit.halili@smart-tv.com</td>
+                        <td>
+                            <a>
+                                <button type="button" class="btn btn-icon btn-round btn-info">
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

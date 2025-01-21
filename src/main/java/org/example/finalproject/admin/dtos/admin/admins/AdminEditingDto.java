@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.finalproject.admin.infrastructure.interfaces.AtLeast18YearsOld;
+import org.example.finalproject.admin.models.admin.AdminRole;
 
 import java.time.LocalDate;
 
@@ -55,7 +56,7 @@ public class AdminEditingDto {
 
     @NotNull(message = "role is required")
     @NotBlank(message = "role is required")
-    private String role;
+    private AdminRole role;
 
     private String photo;
 

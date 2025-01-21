@@ -53,7 +53,7 @@ public class AdminEntity {
     private int age;
 
     @Column(nullable = false)
-    private String role;
+    private AdminRole role;
 
     private String photo = "/images/admin.jpg";
 

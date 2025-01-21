@@ -3,6 +3,7 @@ package org.example.finalproject.admin.dtos.admin.admins;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.finalproject.admin.models.admin.AdminRole;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -26,7 +27,7 @@ public class AdminDetailsDto {
     private int postcode;
     private String email;
     private int age;
-    private String role;
+    private AdminRole role;
     private String photo;
     private String gender;
     private String password;

@@ -3,6 +3,7 @@ package org.example.finalproject.admin.dtos.admin.admins;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.finalproject.admin.models.admin.AdminRole;
 
 @Data
 @AllArgsConstructor
@@ -13,5 +14,5 @@ public class AdminListingDto {
     private String surname;
     private String email;
     private String photo;
-    private String role;
+    private AdminRole role;
 }

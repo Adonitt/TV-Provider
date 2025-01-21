@@ -12,50 +12,6 @@
             <h1 class="mb-4 text-center text-dark">Client Registration</h1>
             <form method="post" th:object="${clientRegistrationDto}">
 
-                <!-- First Name and Last Name (Inline) -->
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" th:field="*{firstName}" placeholder="Enter first name"
-                               required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="Enter last name"
-                               required>
-                    </div>
-                </div>
-
-                <!-- Email and Phone (Inline) -->
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" th:field="*{email}" placeholder="Enter email address"
-                               required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" th:field="*{phone}" placeholder="Enter phone number"
-                               required>
-                    </div>
-                </div>
-
-                <!-- City and Address -->
-                <div class="mb-3">
-                    <label for="city" class="form-label">City</label>
-                    <select class="form-control" th:field="*{city}">
-                        <option value="" selected>Select City</option>
-                        <th:block th:each="city : ${citiesList}">
-                            <option th:value="${city}" th:text="${city}"></option>
-                        </th:block>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">Address</label>
-                    <textarea class="form-control" th:field="*{address}" rows="2" placeholder="Enter address"
-                              required></textarea>
-                </div>
-
                 <!-- Subscription Plan and Active Status (Inline) -->
                 <div class="row mb-3">
                     <div class="col-md-6">
