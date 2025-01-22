@@ -1,0 +1,146 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Requests','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/requests}">Requests for new clients</a>
+    </li>
+
+    <li class="breadcrumb-item active">Save Client</li>
+</ol>
+
+
+<div class="page-inner">
+    <div class="col-md-12" th:object="${clientRequest}">
+        <div class="card mb-5">
+            <div class="card-body" style="margin: 25px">
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0"> Status</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{status}">Id</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0"> Id</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{id}">Id</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0"> Ticket Number</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{ticketNr}"></div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0"> Subscription Plan</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.name}">Adonit</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0"> Name</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{firstName}">Adonit</div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Surname</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{lastName}"></div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Phone</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{phone}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">City</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{city}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Address</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{address}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{email}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Requested At</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedRequestTime}"></div>
+                </div>
+                <hr>
+                <br>
+            </div>
+        </div>
+    </div>
+    <h1 style="text-align: center">Please give other details to save the client successfully </h1>
+    <form method="post" th:object="${clientRegistrationDto}">
+
+
+        <input type="hidden" th:field="*{status}" value="SAVED"/>
+
+        <!-- Preferred Language and Device Type (Inline) -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="preferredLanguage" class="form-label">Preferred Language</label>
+                <select class="form-control" th:field="*{preferredLanguage}">
+                    <option value="" selected>Select Preferred Language</option>
+                    <th:block th:each="language : ${preferredLanguages}">
+                        <option th:value="${language}" th:text="${language}"></option>
+                    </th:block>
+                </select>
+                <p class="alert-danger" th:if="${#fields.hasErrors('preferredLanguage')}"
+                   th:errors="*{preferredLanguage}"></p>
+
+            </div>
+            <div class="col-md-6">
+                <label for="deviceType" class="form-label">Device</label>
+                <select class="form-control" th:field="*{deviceType}">
+                    <option value="" selected>Select Modem Type</option>
+                    <th:block th:each="type : ${deviceTypes}">
+                        <option th:value="${type}" th:text="${type}"></option>
+                    </th:block>
+                </select>
+                <p class="alert-danger" th:if="${#fields.hasErrors('deviceType')}"
+                   th:errors="*{deviceType}"></p>
+
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="preferredLanguage" class="form-label">Contract Type</label>
+                <select class="form-control" th:field="*{contractType}">
+                    <option value="" selected>Select Contract Type</option>
+                    <th:block th:each="type : ${contractType}">
+                        <option th:value="${type}" th:text="${type}"></option>
+                    </th:block>
+                </select>
+                <p class="alert-danger" th:if="${#fields.hasErrors('contractType')}"
+                   th:errors="*{contractType}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="billingAddress" class="form-label">Billing Address</label>
+                <input type="text" class="form-control" th:field="*{billingAddress}"
+                       placeholder="Enter Billing Address"></input>
+                <p class="alert-danger" th:if="${#fields.hasErrors('billingAddress')}"
+                   th:errors="*{billingAddress}"></p>
+            </div>
+
+        </div>
+        <div class="mb-6">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" th:field="*{notes}" rows="2"
+                      placeholder="Enter notes ( optional )"></textarea>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary w-100">Save Client</button>
+    </form>
+
+</div>
+
+</html>

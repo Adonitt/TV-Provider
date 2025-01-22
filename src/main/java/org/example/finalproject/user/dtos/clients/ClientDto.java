@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.finalproject.admin.models.admin.PackageEntity;
-import org.example.finalproject.user.entities.enums.Cities;
-import org.example.finalproject.user.entities.enums.DevicesTypes;
-import org.example.finalproject.user.entities.enums.PreferredLanguages;
-import org.example.finalproject.user.entities.enums.StatusEnum;
+import org.example.finalproject.user.entities.enums.*;
 
 import java.time.LocalDateTime;
 
@@ -54,5 +51,17 @@ public class ClientDto {
     private LocalDateTime registeredTime = LocalDateTime.now();
 
     private StatusEnum status;
+
+    private ContractType contractType;
+
+    private LocalDateTime contractDate;
+
+    private ContractStatus contractStatus;
+
+    private LocalDateTime expiryDate;
+
+    private String notes;
+
+    private String declinedBy;
 
 }

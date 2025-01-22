@@ -23,7 +23,7 @@ public class PackageEntity {
     @Column(nullable = false, unique = true)
     private PackageEnum name;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private double price;
 
     @Column(nullable = false)
@@ -57,8 +57,5 @@ public class PackageEntity {
     @Column(nullable = false)
     private String userFriendlyFeatures;
 
-    @OneToMany
-    @JoinColumn(name = "client_id")
-    private List<ClientsEntity> clientsEntity;
 
 }

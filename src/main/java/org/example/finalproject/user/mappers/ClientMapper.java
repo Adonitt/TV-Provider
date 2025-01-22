@@ -23,6 +23,7 @@ public interface ClientMapper extends SimpleMapper<ClientRequestEntity, ClientRe
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", source = "clientRegistrationDto.status")
+    @Mapping(target = "declinedBy", source = "clientRegistrationDto.declinedBy")
     ClientDto mergeDtosToClientDto(ClientRequestDto clientRequestDto, ClientRegistrationDto clientRegistrationDto);
 
     ClientsEntity toClientEntity(ClientDto clientDto);

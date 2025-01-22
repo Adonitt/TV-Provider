@@ -31,6 +31,7 @@ public class AdminDetailsDto {
     private String photo;
     private String gender;
     private String password;
+    private String createdBy;
 
     public int calculateAge() {
         if (this.dateOfBirth != null) {

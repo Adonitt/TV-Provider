@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.finalproject.admin.models.admin.PackageEntity;
 import org.example.finalproject.admin.models.admin.PackageEnum;
-import org.example.finalproject.user.entities.enums.Cities;
-import org.example.finalproject.user.entities.enums.DevicesTypes;
-import org.example.finalproject.user.entities.enums.PreferredLanguages;
-import org.example.finalproject.user.entities.enums.StatusEnum;
+import org.example.finalproject.user.entities.enums.*;
 
 import java.time.LocalDateTime;
 
@@ -49,7 +46,7 @@ public class ClientsEntity {
     @Column(nullable = false)
     private LocalDateTime registeredTIme = LocalDateTime.now();
 
-    //    @Column(nullable = false)
+    @Column(nullable = false)
     private String registeredBy;
 
     @ManyToOne
@@ -73,7 +70,25 @@ public class ClientsEntity {
     @Column(nullable = false)
     private DevicesTypes deviceType;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated()
     private StatusEnum status;
+
+    @Enumerated
+    @Column(nullable = false)
+    private ContractType contractType;
+
+    @Column(nullable = false)
+    private LocalDateTime contractDate;
+
+    @Enumerated
+    @Column(nullable = false)
+    private ContractStatus contractStatus;
+
+    @Column(nullable = false)
+    private LocalDateTime expiryDate;
+
+    private String notes;
+    private String declinedBy;
+
 
 }

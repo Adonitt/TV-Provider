@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.format.DateTimeFormatter;
+
 @Controller
 @RequestMapping("/admin-panel/management/clients")
 @RequiredArgsConstructor
@@ -42,7 +44,22 @@ public class ClientController {
     public String details(@PathVariable Long id, Model model) {
         var clientEntity = clientsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Client not found"));
         var clientDto = mapper.toClientDto(clientEntity);
+        String formattedRequestTime = clientDto.getRequestTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedRegisteredTime = clientDto.getRegisteredTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedContractDate = clientDto.getContractDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedExpiryDate = clientDto.getExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+        // Add formatted dates to model
+        model.addAttribute("formattedRequestTime", formattedRequestTime);
+        model.addAttribute("formattedRegisteredTime", formattedRegisteredTime);
+        model.addAttribute("formattedContractDate", formattedContractDate);
+        model.addAttribute("formattedExpiryDate", formattedExpiryDate);
+
         model.addAttribute("clientDto", clientDto);
         return "admin-view/management/clients/details";
     }
+
+    private void formatRequestTime(ClientDto clientDto, Model model) {
+    }
+
 }

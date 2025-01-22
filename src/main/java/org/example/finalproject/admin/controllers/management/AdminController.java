@@ -29,6 +29,7 @@ public class AdminController {
     @GetMapping("")
     public String manageAdmins(Model model) {
         model.addAttribute("adminsList", service.findAll());
+        model.addAttribute("roles", AdminRole.class);
         return "/admin-view/management/admins/admins-list";
     }
 
@@ -66,7 +67,7 @@ public class AdminController {
         } else {
             adminRegistrationRequestDto.setPhoto("/images/admin.jpg");
         }
-
+        adminRegistrationRequestDto.setCreatedBy(adminSession.getName() + " " + adminSession.getSurname());
         redirectAttributes.addFlashAttribute("successMessage", "Admin added successfully!");
         service.add(adminRegistrationRequestDto);
         return "redirect:/admin-panel/management/admins";

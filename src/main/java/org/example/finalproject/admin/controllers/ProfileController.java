@@ -6,6 +6,7 @@ import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.interfaces.AdminService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class ProfileController {
     private final AdminRepository adminRepository;
     private final AdminService service;
     private final FileHelper fileHelper;
+    private final PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/profile")
@@ -49,9 +51,7 @@ public class ProfileController {
         }
         System.out.printf("Admin ID: %d%n - Email : %s %n Current Password: %s %n- New Password: %s%n", adminId, existingAdmin.getEmail(), existingAdmin.getPassword(), newPassword);
 
-//        boolean isCurrentPasswordValid = passwordEncoder.matches(currentPassword, existingAdmin.getPassword());
-
-        if (!currentPassword.equals(existingAdmin.getPassword())) {
+        if (!passwordEncoder.matches(currentPassword, existingAdmin.getPassword())) {
             ra.addFlashAttribute("currentPassNotCorrect", "Current password is not correct!");
             return "redirect:/admin-panel/profile/change-password";
         }
@@ -60,6 +60,7 @@ public class ProfileController {
             ra.addFlashAttribute("passwordNotMatch", "New password and confirm password do not match!");
             return "redirect:/admin-panel/profile/change-password";
         }
+
         service.changePassword(adminId, newPassword);
         ra.addFlashAttribute("successChangeMessage", "Password changed successfully!");
         return "redirect:/admin-panel/profile";
@@ -100,8 +101,6 @@ public class ProfileController {
         sessionAdmin.setAddress(admin.getAddress());
         sessionAdmin.setPostcode(admin.getPostcode());
         sessionAdmin.setCity(admin.getCity());
-
-//        service.modify(sessionAdmin, sessionAdmin.getId());
 
         ra.addFlashAttribute("successMessage", "Profile edited successfully!");
         return "redirect:/admin-panel/profile";

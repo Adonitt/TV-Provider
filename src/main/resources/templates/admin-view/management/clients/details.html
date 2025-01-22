@@ -10,7 +10,12 @@
     <div class="col-md-12" th:object="${clientDto}">
         <div class="card mb-5">
             <div class="card-body" style="margin: 25px">
-<h1 style="text-align: center"> Client Details</h1>
+                <h1 style="text-align: center"> Client Details</h1>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Status</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{status}"></div>
+                </div>
+                <hr>
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">ID</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{id}"></div>
@@ -53,29 +58,26 @@
                 <hr>
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Request Time</h6></div>
-                    <div class="col-sm-9 text-secondary" th:text="*{requestTime}"></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedRequestTime}"></div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Registered Time</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedRegisteredTime}"></div>
+                </div>
+                <hr>
+
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Registered By</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{registeredBy}"></div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-sm-3"><h6 class="mb-0">Registered Time</h6></div>
-                    <div class="col-sm-9 text-secondary" th:text="*{registeredTime}"></div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-3"><h6 class="mb-0">Status</h6></div>
-                    <div class="col-sm-9 text-secondary" th:text="*{status}"></div>
-                </div>
-                <hr>
+
             </div>
         </div>
         <div class="card">
             <div class="card-body">
-                <h1 class="mb-3" style="text-align: center">Subscription Details</h1>
+                <h1 class="mb-3" style="text-align: center">Package Details</h1>
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Subscription Plan</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.name}"></div>
@@ -111,16 +113,17 @@
                     <div class="col-sm-9 text-secondary" th:text="*{subscriptionActive}"></div>
                 </div>
                 <hr>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="mb-3" style="text-align: center">Subscription Details</h1></h1>
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Billing Address</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{billingAddress}"></div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-sm-3"><h6 class="mb-0">Installation Date</h6></div>
-                    <div class="col-sm-9 text-secondary" th:text="*{installationDate}"></div>
-                </div>
-                <hr>
+
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Preferred Language</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{preferredLanguage}"></div>
@@ -131,6 +134,37 @@
                     <div class="col-sm-9 text-secondary" th:text="*{deviceType}"></div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Installation Date</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedContractDate}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Contract Type</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{contractType}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Contract Date</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedContractDate}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Contract Status</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{contractStatus}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Expiry Date</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedExpiryDate}"></div>
+                </div>
+                <hr>
+                <div class="row" th:if="${clientDto.notes == null}">
+                    <div class="col-sm-3"><h6 class="mb-0">Notes</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{notes}"></div>
+                <hr>
+                </div>
+
             </div>
         </div>
     </div>

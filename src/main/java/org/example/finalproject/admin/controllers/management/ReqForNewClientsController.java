@@ -6,12 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
+import org.example.finalproject.user.dtos.clients.ClientRequestDto;
 import org.example.finalproject.user.entities.ClientRequestEntity;
 import org.example.finalproject.user.entities.ClientsEntity;
-import org.example.finalproject.user.entities.enums.Cities;
-import org.example.finalproject.user.entities.enums.DevicesTypes;
-import org.example.finalproject.user.entities.enums.PreferredLanguages;
-import org.example.finalproject.user.entities.enums.StatusEnum;
+import org.example.finalproject.user.entities.enums.*;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
 import org.example.finalproject.user.repositories.ClientsRepository;
 import org.example.finalproject.user.services.ClientRequestService;
@@ -21,6 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Controller
@@ -31,15 +32,15 @@ public class ReqForNewClientsController {
     private final ClientRequestService service;
     private final ClientRequestRepository clientRequestRepository;
 
-    @GetMapping("/req-for-new-clients")
+    @GetMapping("/requests")
     public String reqForNewClients(Model model) {
         var clientList = service.findAll(); // Fetch mapped data
         model.addAttribute("clientRequestList", clientList);
         model.addAttribute("statusEnum", StatusEnum.class);
-        return "admin-view/management/requests-for-new-clients/req-for-new-clients-list";
+        return "admin-view/management/requests/requests-list";
     }
 
-    @GetMapping("/req-for-new-clients/{id}/save-client")
+    @GetMapping("/requests/{id}/save-client")
     public String saveClient(@PathVariable long id, Model model) {
         model.addAttribute("clientRequest", service.findById(id));
         model.addAttribute("clientRegistrationDto", new ClientRegistrationDto());
@@ -47,39 +48,69 @@ public class ReqForNewClientsController {
         model.addAttribute("cities", Cities.values());
         model.addAttribute("packagesList", PackageEnum.values());
         model.addAttribute("deviceTypes", DevicesTypes.values());
-        return "admin-view/management/requests-for-new-clients/save-client";
+        model.addAttribute("contractType", ContractType.values());
+        model.addAttribute("contractStatus", ContractStatus.values());
+
+        ClientRequestDto clientDto = service.findById(id);
+        String formattedRequestTime = clientDto.getRequestTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        model.addAttribute("formattedRequestTime", formattedRequestTime);
+
+        return "admin-view/management/requests/save-client";
     }
 
-    @PostMapping("/req-for-new-clients/{id}/save-client")
-    public String saveClient(@Valid ClientRegistrationDto clientRegistrationDto,
+    @PostMapping("/requests/{id}/save-client")
+    public String saveClient(ClientRegistrationDto clientRegistrationDto,
                              BindingResult br,
                              @PathVariable long id,
                              RedirectAttributes redirectAttributes,
-
                              @SessionAttribute("admin") AdminEntity adminSession) {
         if (br.hasErrors()) {
             br.getAllErrors().forEach(System.out::println);
-            return "admin-view/management/requests-for-new-clients/save-client";
+            return "admin-view/management/requests/save-client";
         }
+        fillDataAutomatically(clientRegistrationDto, adminSession);
 
-        clientRegistrationDto.setStatus(StatusEnum.SAVED);
-        clientRegistrationDto.setSubscriptionActive(true);
-        clientRegistrationDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
         service.saveClient(clientRegistrationDto);
         redirectAttributes.addFlashAttribute("savedSuccessfully", "Client saved successfully!");
         return "redirect:/admin-panel/management/clients";
     }
 
-    @GetMapping("/req-for-new-clients/{id}/decline")
-    public String declineRequest(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("declinedSuccessfully", "Request Declined!");
-        return "redirect:/admin-panel/management/req-for-new-clients";
+    private void fillDataAutomatically(ClientRegistrationDto clientRegistrationDto, @SessionAttribute("admin") AdminEntity adminSession) {
+        clientRegistrationDto.setStatus(StatusEnum.SAVED);
+        clientRegistrationDto.setSubscriptionActive(true);
+        clientRegistrationDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
+
+        clientRegistrationDto.setContractDate(LocalDateTime.now());
+
+        if (clientRegistrationDto.getContractType() == ContractType.MONTHLY) {
+            clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusMonths(1));
+        } else if (clientRegistrationDto.getContractType() == ContractType.YEARLY) {
+            clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusYears(1));
+        }
+
+        if (clientRegistrationDto.getExpiryDate() != null && clientRegistrationDto.getExpiryDate().isBefore(LocalDateTime.now())) {
+            clientRegistrationDto.setContractStatus(ContractStatus.INACTIVE);
+        } else {
+            clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
+        }
+
     }
 
-    @PostMapping("/req-for-new-clients/{id}/decline")
-    public String declineRequest(RedirectAttributes ra) {
+    @GetMapping("/requests/{id}/decline")
+    public String declineRequest(@PathVariable long id, Model model) {
+        model.addAttribute("clientRequest", service.findById(id));
 
-        ra.addFlashAttribute("declinedMessage", "Request Declined Successfully!");
-        return "redirect:/admin-panel/management/req-for-new-clients/{id}/decline";
+        return "admin-view/management/requests/declined";
+    }
+
+    @PostMapping("/requests/{id}/decline")
+    public String declineRequest(@PathVariable long id, RedirectAttributes redirectAttributes, @SessionAttribute("admin") AdminEntity adminSession) {
+        ClientRequestDto clientRequestDto = service.findById(id);
+        if (clientRequestDto != null) {
+            clientRequestDto.setStatus(StatusEnum.DECLINED);
+            service.add(clientRequestDto);
+            redirectAttributes.addFlashAttribute("declinedMessage", "Request declined successfully!");
+        }
+        return "redirect:/admin-panel/management/requests";
     }
 }

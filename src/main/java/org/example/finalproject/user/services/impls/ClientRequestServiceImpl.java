@@ -70,7 +70,6 @@ public class ClientRequestServiceImpl implements ClientRequestService {
 
         mapper.toClientRegDto(savedEntity);
         mapper.toClientDto(savedEntity);
-
         return mapper.toClientReqDto(savedEntity);
     }
 

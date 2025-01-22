@@ -57,9 +57,8 @@ public class AdminServiceImplementation implements AdminService {
     public void changePassword(Long adminId, String password) {
         AdminEntity existingAdmin = repository.findById(adminId).orElseThrow(() -> new EntityNotFoundException("Admin with ID " + adminId + " not found"));
         if (existingAdmin != null) {
-            existingAdmin.setPassword(password);
+            existingAdmin.setPassword(passwordEncoder.encode(password));
         }
-
         repository.save(existingAdmin);
     }
 
@@ -101,11 +100,10 @@ public class AdminServiceImplementation implements AdminService {
             System.out.println("User not found");
             return null;
         }
-        if (!user.get().getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, user.get().getPassword())) {
             System.out.println("Password is incorrect");
             return null;
         }
-
         return user.get();
     }
 }

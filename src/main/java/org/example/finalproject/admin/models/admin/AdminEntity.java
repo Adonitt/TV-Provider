@@ -60,6 +60,10 @@ public class AdminEntity {
     @Column(nullable = false)
     private String gender;
 
+    @Column(nullable = false)
+    private String createdBy;
+
+
     public int calculateAge() {
         if (this.dateOfBirth != null) {
             this.age = Period.between(this.dateOfBirth, LocalDate.now()).getYears();

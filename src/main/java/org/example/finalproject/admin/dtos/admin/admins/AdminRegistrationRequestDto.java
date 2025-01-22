@@ -75,5 +75,7 @@ public class AdminRegistrationRequestDto {
     @NotNull(message = "Gender is required")
     private String gender;
 
+    private String createdBy;
+
 
 }

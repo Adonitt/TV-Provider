@@ -3,10 +3,10 @@
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/req-for-new-clients}">Requests for new clients</a>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/requests}">Requests for new clients</a>
     </li>
 
-    <li class="breadcrumb-item active">Save Client</li>
+    <li class="breadcrumb-item active">Declined Requests</li>
 </ol>
 
 
@@ -15,6 +15,7 @@
         <div class="card mb-5">
             <div class="card-body" style="margin: 25px">
 
+                <h1 class="mb-4">Request Details</h1>
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0"> Status</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{status}">Id</div>
@@ -72,57 +73,15 @@
                     <div class="col-sm-3"><h6 class="mb-0">Requested At</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{requestTime}"></div>
                 </div>
+                <hr>  <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Declined By</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{declinedBy}"></div>
+                </div>
                 <hr>
                 <br>
             </div>
         </div>
     </div>
-    <h1 style="text-align: center">Please give other details to save the client successfully </h1>
-    <form method="post" th:object="${clientRegistrationDto}">
-
-
-        <!-- Billing Address -->
-        <div class="mb-3">
-            <label for="billingAddress" class="form-label">Billing Address</label>
-            <textarea class="form-control" th:field="*{billingAddress}" rows="2"
-                      placeholder="Enter billing address" required></textarea>
-        </div>
-
-        <input type="hidden" th:field="*{status}" value="SAVED"/>
-
-
-        <!-- Preferred Language and Device Type (Inline) -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="preferredLanguage" class="form-label">Preferred Language</label>
-                <select class="form-control" th:field="*{preferredLanguage}">
-                    <option value="" selected>Select Preferred Language</option>
-                    <th:block th:each="language : ${preferredLanguages}">
-                        <option th:value="${language}" th:text="${language}"></option>
-                    </th:block>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="deviceType" class="form-label">Device</label>
-                <select class="form-control" th:field="*{deviceType}">
-                    <option value="" selected>Select Modem Type</option>
-                    <th:block th:each="type : ${deviceTypes}">
-                        <option th:value="${type}" th:text="${type}"></option>
-                    </th:block>
-                </select>
-            </div>
-        </div>
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary w-100">Save Client</button>
-    </form>
-    <!--            </div>-->
-    <!--                <div class="row">-->
-    <!--                    <div class="col-sm-3"><button class="btn btn-primary">Save as a client</button></div>-->
-    <!--                    <div class="col-sm-9 text-secondary"><button class="btn btn-danger">Decline this request</button></div>-->
-    <!--                </div>-->
-    <!--                <hr>-->
-    <!--            </div>-->
-    <!--        </div>-->
 </div>
 
 </html>
