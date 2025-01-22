@@ -5,7 +5,7 @@
 <div id="fatlind">
     <div class="form-container p-4 bg-white rounded shadow-sm" style="max-width: 600px; margin: auto;">
         <h1 class="mb-4 text-center text-dark">Client Information</h1>
-        <form method="post" th:object="${clientRequestEntity}">
+        <form method="post" th:object="${clientRequestDto}">
             <!-- First Name -->
 
             <div class="mb-3">
@@ -45,16 +45,16 @@
                     </th:block>
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="subscriptionPlan" class="form-label">Subscription Plan</label>
+                <select class="form-control" th:field="*{subscriptionPlan}">
+                    <option value="" selected>Select a Plan</option>
+                    <th:block th:each="plan : ${packageList}">
+                        <option th:value="${plan.id}" th:text="${plan.name}"></option>
+                    </th:block>
+                </select>
+            </div>
 
-<!--            <div class="col-md-6">-->
-<!--                <label for="subscriptionPlan" class="form-label">Subscription Plan</label>-->
-<!--                <select class="form-control" th:field="*{subscriptionPlan}">-->
-<!--                    <option value="" selected>Select a Plan</option>-->
-<!--                    <th:block th:each="plan : ${packageList}">-->
-<!--                        <option th:value="${plan}" th:text="${plan.name}"></option>-->
-<!--                    </th:block>-->
-<!--                </select>-->
-<!--            </div>-->
 
             <!-- Address -->
             <div class="mb-3">

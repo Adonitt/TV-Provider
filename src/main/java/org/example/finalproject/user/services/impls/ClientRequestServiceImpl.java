@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
 import org.example.finalproject.user.dtos.clients.ClientReqListingDto;
 import org.example.finalproject.user.dtos.clients.ClientRequestDto;
+import org.example.finalproject.user.entities.enums.StatusEnum;
 import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
 import org.example.finalproject.user.repositories.ClientsRepository;
@@ -29,8 +30,8 @@ public class ClientRequestServiceImpl implements ClientRequestService {
 
     @Override
     public List<ClientReqListingDto> findAll() {
-        var clientRequests = clientRequestRepository.findAll();
-        return mapper.toClientReqListingDtoList(clientRequests);
+        var clientRequests = clientRequestRepository.findAll(); // Fetch all requests
+        return mapper.toClientReqListingDtoList(clientRequests); // Map to Listing DTOs
     }
 
     @Override
@@ -63,7 +64,13 @@ public class ClientRequestServiceImpl implements ClientRequestService {
         var mergedDto = mapper.mergeDtosToClientDto(clientRequestDto, dto);
 
         var entity = mapper.toClientEntity(mergedDto);
+
+        clientRequestEntity.setStatus(StatusEnum.SAVED);
         var savedEntity = clientsRepository.save(entity);
+
+        mapper.toClientRegDto(savedEntity);
+        mapper.toClientDto(savedEntity);
+
         return mapper.toClientReqDto(savedEntity);
     }
 

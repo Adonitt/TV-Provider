@@ -20,41 +20,41 @@ public class PackageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, name = "pacakgeName", unique = true)
+    @Column(nullable = false, unique = true)
     private PackageEnum name;
 
-    @Column(name = "pricePerMonth", nullable = false)
+    @Column( nullable = false)
     private double price;
 
-    @Column(name = "mbps", nullable = false)
+    @Column(nullable = false)
     private int mbps;
 
-    @Column(name = "nrOfChannels", nullable = false)
+    @Column(nullable = false)
     private int nrOfChannels;
 
-    @Column(name = "sportsChannels")
+    @Column()
     private String sportsChannels; // yes or no
 
-    @Column(name = "description1", nullable = false)
+    @Column(nullable = false)
     private String description1;
 
-    @Column(name = "description2", nullable = false)
+    @Column(nullable = false)
     private String description2;
 
 
-    @Column(name = "photo", nullable = false)
+    @Column(nullable = false)
     private String photo;
 
-    @Column(name = "channelsIncluded", nullable = false)
+    @Column(nullable = false)
     private String channelsIncluded;
 
-    @Column(name = "affordablePricing", nullable = false)
+    @Column(nullable = false)
     private String affordablePricing;
 
-    @Column(name = "hdStreaming", nullable = false)
+    @Column(nullable = false)
     private String hdStreaming;
 
-    @Column(name = "userFriendlyFeatures", nullable = false)
+    @Column(nullable = false)
     private String userFriendlyFeatures;
 
     @OneToMany

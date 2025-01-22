@@ -4,6 +4,7 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">Requests for new clients</li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/clients}">Go to Clients List</a></li>
 </ol>
 
 <div class="page-inner">
@@ -30,7 +31,14 @@
                 class="form-control"
                 placeholder="Search by Surname"
                 style="width: 250px;"
-        />
+        /> <select id="filter-status" class="form-control" style="width: 250px;">
+        <option value="">Search by status</option>
+        <option value="OPEN">Open</option>
+        <option value="CLOSED">Closed</option>
+        <option value="SAVED">Saved</option>
+    </select>
+
+
     </div>
 
     <div class="alert alert-info alert-dismissible fade show " role="alert"
@@ -38,11 +46,18 @@
         <i class="fas fa-exclamation-circle"></i>
         <strong>There are no requests in the list</strong>
     </div>
+
     <div class="card mt-4">
         <div class="card-body" th:if="${clientRequestList != null && clientRequestList.size() > 0}">
             <div class="card-header">
                 <h4 class="card-title">Client Requests List</h4>
             </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${declinedMessage!=null}">
+                <i class="fas fa-check"></i>
+                <strong th:text="${declinedMessage}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <div class="table-responsive">
                 <table id="multi-filter-select" class="display table table-striped table-hover">
                     <thead>
@@ -53,7 +68,7 @@
                         <th>Surname</th>
                         <th>City</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th> Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,12 +79,25 @@
                         <td th:text="*{lastName}"></td>
                         <td th:text="*{city}"></td>
                         <td th:text="*{status}"></td>
-                        <td>
+                        <td th:if="${clientReq.status.toString() != 'SAVED'}">
                             <a th:href="@{/admin-panel/management/req-for-new-clients/{id}/save-client(id=*{id})}">
-                                <button type="button" class="btn btn-icon btn-round btn-info ">
-                                    <i class="fa fa-info-circle"></i>
+                                <button type="button" class="btn btn-icon btn-round btn-secondary ">
+                                    <i class="fa fa-save"></i> <!-- Save Icon -->
                                 </button>
+                                <form th:action="@{/admin-panel/management/req-for-new-clients/{id}/decline(id=${clientReq.id})}"
+                                      method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-icon btn-round btn-danger"
+                                            th:disabled="${clientReq.status == 'DECLINED'}">
+                                        <i class="fa fa-times"></i> <!-- X Icon -->
+                                    </button>
+                                </form>
                             </a>
+                        <td th:if="${clientReq.status.toString() == 'SAVED' }">
+                            <a th:href="@{/admin-panel/management/clients/{id}/details(id=*{id})}"
+                               class="btn btn-icon btn-round btn-info">
+                                <i class="fa fa-info-circle"></i>
+                            </a>
+
                         </td>
                     </tr>
                     </tbody>
@@ -80,40 +108,52 @@
 
 </div>
 <script id="script">
-    const ticketNumberFilter = document.getElementById("filter-ticket-number");
-    const nameFilter = document.getElementById("filter-name");
-    const surnameFilter = document.getElementById("filter-surname");
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterStatus = document.getElementById("filter-status");
+        const filterTicketNumber = document.getElementById("filter-ticket-number");
+        const filterName = document.getElementById("filter-name");
+        const filterSurname = document.getElementById("filter-surname");
 
-    // Attach event listeners to the Ticket Number, Name, and Surname input fields
-    [ticketNumberFilter, nameFilter, surnameFilter].forEach((filterInput) => {
-        filterInput.addEventListener("input", filterTable);
+        // Attach event listeners to the filters
+        filterStatus.addEventListener("change", filterTable);
+        filterTicketNumber.addEventListener("input", filterTable);
+        filterName.addEventListener("input", filterTable);
+        filterSurname.addEventListener("input", filterTable);
+
+        function filterTable() {
+            const statusValue = filterStatus.value.toUpperCase();
+            const ticketNumberValue = filterTicketNumber.value.toLowerCase();
+            const nameValue = filterName.value.toLowerCase();
+            const surnameValue = filterSurname.value.toLowerCase();
+
+            // Get all rows in the table
+            const rows = document.querySelectorAll("#multi-filter-select tbody tr");
+
+            rows.forEach((row) => {
+                // Get the column values
+                const statusCell = row.querySelector("td:nth-child(6)").textContent.toUpperCase();
+                const ticketNumberCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                const nameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                const surnameCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+
+                // Debugging logs
+                console.log("Status:", statusCell, "Ticket:", ticketNumberCell, "Name:", nameCell, "Surname:", surnameCell);
+
+                // Apply filters
+                const matchesStatus = !statusValue || statusCell.includes(statusValue);
+                const matchesTicketNumber = !ticketNumberValue || ticketNumberCell.includes(ticketNumberValue);
+                const matchesName = !nameValue || nameCell.includes(nameValue);
+                const matchesSurname = !surnameValue || surnameCell.includes(surnameValue);
+
+                // Show or hide the row based on filter matches
+                if (matchesStatus && matchesTicketNumber && matchesName && matchesSurname) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
     });
-
-    function filterTable() {
-        const ticketNumberValue = ticketNumberFilter.value.toLowerCase();
-        const nameValue = nameFilter.value.toLowerCase();
-        const surnameValue = surnameFilter.value.toLowerCase();
-
-        // Get all rows in the table body
-        const rows = document.querySelectorAll("#multi-filter-select tbody tr");
-
-        rows.forEach((row) => {
-            const ticketNumberCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
-            const nameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
-            const surnameCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
-
-            // Check if the row matches the Ticket Number, Name, and Surname filters
-            const matchesTicketNumber = !ticketNumberValue || ticketNumberCell.includes(ticketNumberValue);
-            const matchesName = !nameValue || nameCell.includes(nameValue);
-            const matchesSurname = !surnameValue || surnameCell.includes(surnameValue);
-
-            // Show or hide the row based on the filter match
-            if (matchesTicketNumber && matchesName && matchesSurname) {
-                row.style.display = ""; // Show row
-            } else {
-                row.style.display = "none"; // Hide row
-            }
-        });
-    }
 </script>
+
 </html>

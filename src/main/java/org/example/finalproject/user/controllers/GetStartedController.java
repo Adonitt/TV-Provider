@@ -2,8 +2,7 @@ package org.example.finalproject.user.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.finalproject.admin.models.admin.PackageEntity;
-import org.example.finalproject.admin.models.admin.PackageEnum;
+import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.example.finalproject.user.dtos.clients.ClientRequestDto;
 import org.example.finalproject.user.entities.enums.Cities;
 import org.example.finalproject.user.entities.enums.StatusEnum;
@@ -23,12 +22,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class GetStartedController {
 
     private final ClientRequestService service;
+    private final PackageService packageService;
 
     @GetMapping("")
     public String getStarted(Model model) {
-        model.addAttribute("clientRequestEntity", new ClientRequestDto());
+        model.addAttribute("clientRequestDto", new ClientRequestDto());
         model.addAttribute("citiesList", Cities.values());
-        model.addAttribute("packageList", PackageEnum.values());
+        model.addAttribute("packageList", packageService.findAll());
         return "user-view/get-started/get-started";
     }
 
@@ -41,6 +41,9 @@ public class GetStartedController {
         var randomTicketNr = 100000L + (long) (Math.random() * 900000);
         clientRequest.setTicketNr(randomTicketNr);
         clientRequest.setStatus(StatusEnum.OPEN);
+
+        var selectedPlan = packageService.findById(clientRequest.getSubscriptionPlan().getId());
+         clientRequest.setSubscriptionPlan(selectedPlan);
         service.add(clientRequest);
 
         ra.addFlashAttribute("successRequest", "Your form has been requested successfully. You will receive a response via email shortly.");

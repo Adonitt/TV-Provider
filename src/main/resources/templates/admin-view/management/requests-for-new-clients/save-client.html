@@ -33,7 +33,7 @@
 
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0"> Subscription Plan</h6></div>
-                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan}">Adonit</div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.name}">Adonit</div>
                 </div>
                 <hr>
                 <div class="row">
@@ -79,24 +79,7 @@
     </div>
     <h1 style="text-align: center">Please give other details to save the client successfully </h1>
     <form method="post" th:object="${clientRegistrationDto}">
-        <div class="row mb-3">
 
-            <div class="col-md-6">
-                <label for="subscriptionActive" class="form-label">Subscription Active</label><br>
-                <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" th:field="*{subscriptionActive}"
-                           value="true"
-                           required>
-                    <label class="form-check-label">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" th:field="*{subscriptionActive}"
-                           value="false"
-                           required>
-                    <label class="form-check-label">No</label>
-                </div>
-            </div>
-        </div>
 
         <!-- Billing Address -->
         <div class="mb-3">

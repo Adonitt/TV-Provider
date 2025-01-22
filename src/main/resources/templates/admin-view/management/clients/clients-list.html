@@ -2,6 +2,7 @@
       th:replace="~{shared/_adminLayout::adminLayout('Clients','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/req-for-new-clients}">Requests for new clients</a></li>
     <li class="breadcrumb-item active">Clients List</li>
 </ol>
 <div class="page-inner">
@@ -20,21 +21,21 @@
                     type="text"
                     id="filter-name"
                     class="form-control"
-                    placeholder="Search by Name"
+                    placeholder="Search by ticket number"
                     style="width: 300px;"
             />
             <input
                     type="text"
                     id="filter-surname"
                     class="form-control"
-                    placeholder="Search by Surname"
+                    placeholder="Search by Name"
                     style="width: 300px;"
             />
             <input
-                    type="text"
+                    type="hidden"
                     id="filter-email"
                     class="form-control"
-                    placeholder="Search by Email"
+                    placeholder="Search by Surname"
                     style="width: 300px;"
             />
         </div>
@@ -69,9 +70,9 @@
                         <td th:text="*{status}">adonit.halili@smart-tv.com</td>
                         <td>
                             <a>
-                                <button type="button" class="btn btn-icon btn-round btn-info">
+                                <a th:href="@{/admin-panel/management/clients/{id}/details(id=*{id})}" class="btn btn-icon btn-round btn-info">
                                     <i class="fa fa-info-circle"></i>
-                                </button>
+                                </a>
                             </a>
                         </td>
                     </tr>

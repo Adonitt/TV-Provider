@@ -21,6 +21,8 @@ public class ClientRegistrationDto {
 
     private boolean subscriptionActive;
 
+
+
     @NotNull(message = "Billing address is required")
     @NotBlank(message = "Billing address is required")
     private String billingAddress;

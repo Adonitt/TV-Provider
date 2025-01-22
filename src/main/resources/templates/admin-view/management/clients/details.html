@@ -7,6 +7,132 @@
 </ol>
 
 <div class="page-inner">
-</div>
+    <div class="col-md-12" th:object="${clientDto}">
+        <div class="card mb-5">
+            <div class="card-body" style="margin: 25px">
+<h1 style="text-align: center"> Client Details</h1>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">ID</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{id}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Ticket Number</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{ticketNr}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">First Name</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{firstName}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Last Name</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{lastName}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{email}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Phone</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{phone}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">City</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{city}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Address</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{address}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Request Time</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{requestTime}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Registered By</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{registeredBy}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Registered Time</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{registeredTime}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Status</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{status}"></div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h1 class="mb-3" style="text-align: center">Subscription Details</h1>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Subscription Plan</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.name}"></div>
+                </div>
+                <hr>
 
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Price</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.price}"></div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Mbps</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.mbps}">19</div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Number of Channels</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.nrOfChannels}">12-02-2005</div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Sports</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionPlan.sportsChannels}"></div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Subscription Active</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{subscriptionActive}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Billing Address</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{billingAddress}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Installation Date</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{installationDate}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Preferred Language</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{preferredLanguage}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Device Type</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{deviceType}"></div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

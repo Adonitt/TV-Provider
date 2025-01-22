@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.finalproject.admin.models.admin.PackageEntity;
 import org.example.finalproject.user.entities.enums.Cities;
 import org.example.finalproject.user.entities.enums.StatusEnum;
 
@@ -46,5 +47,10 @@ public class ClientRequestEntity {
 
     @Enumerated
     private StatusEnum status;
+
+    @ManyToOne
+    @JoinColumn(name = "package_id", nullable = false)
+    private PackageEntity subscriptionPlan;
+
 
 }

@@ -12,4 +12,5 @@ public interface ClientRequestService extends
         Removable<Long> {
 
     ClientRegistrationDto saveClient(ClientRegistrationDto dto);
+
 }

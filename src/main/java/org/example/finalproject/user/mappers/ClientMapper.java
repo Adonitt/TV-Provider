@@ -25,9 +25,13 @@ public interface ClientMapper extends SimpleMapper<ClientRequestEntity, ClientRe
     @Mapping(target = "status", source = "clientRegistrationDto.status")
     ClientDto mergeDtosToClientDto(ClientRequestDto clientRequestDto, ClientRegistrationDto clientRegistrationDto);
 
-    @Mapping(target = "subscriptionPlan", ignore = true)
     ClientsEntity toClientEntity(ClientDto clientDto);
 
     ClientRegistrationDto toClientReqDto(ClientsEntity clientsEntity);
 
+    ClientRegistrationDto toClientRegDto(ClientsEntity clientsEntity);
+
+    ClientDto toClientDto(ClientsEntity clientsEntity);
+
+    List<ClientReqListingDto> toClientReqListingDtos(List<ClientsEntity> clientsEntity);
 }

@@ -54,7 +54,7 @@ public class ClientRequestDto {
 
     private StatusEnum status;
 
-    private PackageEnum subscriptionPlan;
+    private PackageEntity subscriptionPlan;
 
 
 }

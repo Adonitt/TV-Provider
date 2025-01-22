@@ -52,8 +52,9 @@ public class ClientsEntity {
     //    @Column(nullable = false)
     private String registeredBy;
 
-    @Enumerated
-    private PackageEnum subscriptionPlan;
+    @ManyToOne
+    @JoinColumn(name = "package_id", nullable = false)
+    private PackageEntity subscriptionPlan;
 
     @Column(nullable = false)
     private boolean subscriptionActive;
