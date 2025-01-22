@@ -1,0 +1,29 @@
+fas fa-exclamation
+
+fas fa-exclamation-circle
+fas fa-exclamation-triangle
+
+fas fa-external-link-alt
+fas fa-envelope-square
+fas fa-envelope
+fas fa-envelope-open
+fas fa-euro-sign
+fas fa-file-alt
+
+fas fa-folder
+fas fa-history
+fas fa-image
+fas fa-info
+fas fa-layer-group
+
+fas fa-list
+
+fas fa-list-ol
+fas fa-list-ul
+
+fas fa-newspaper
+
+fas fa-pencil-alt
+fas fa-pen-alt
+
+fas fa-plus
