@@ -88,6 +88,7 @@ public class ClientsEntity {
     private LocalDateTime expiryDate;
 
     private String notes;
+
     private String declinedBy;
 
 

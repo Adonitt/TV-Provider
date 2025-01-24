@@ -1,5 +1,8 @@
 package org.example.finalproject.user.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.services.interfaces.PackageService;
@@ -10,10 +13,7 @@ import org.example.finalproject.user.services.ClientRequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -29,6 +29,7 @@ public class GetStartedController {
         model.addAttribute("clientRequestDto", new ClientRequestDto());
         model.addAttribute("citiesList", Cities.values());
         model.addAttribute("packageList", packageService.findAll());
+
         return "user-view/get-started/get-started";
     }
 
@@ -38,12 +39,16 @@ public class GetStartedController {
             br.getAllErrors().forEach(System.out::println);
             return "/user-view/get-started/get-started";
         }
+
         var randomTicketNr = 100000L + (long) (Math.random() * 900000);
         clientRequest.setTicketNr(randomTicketNr);
         clientRequest.setStatus(StatusEnum.OPEN);
 
+
         var selectedPlan = packageService.findById(clientRequest.getSubscriptionPlan().getId());
-         clientRequest.setSubscriptionPlan(selectedPlan);
+        clientRequest.setSubscriptionPlan(selectedPlan);
+
+
         service.add(clientRequest);
 
         ra.addFlashAttribute("successRequest", "Your form has been requested successfully. You will receive a response via email shortly.");

@@ -66,11 +66,12 @@ public class ClientRequestServiceImpl implements ClientRequestService {
         var entity = mapper.toClientEntity(mergedDto);
 
         clientRequestEntity.setStatus(StatusEnum.SAVED);
+
         var savedEntity = clientsRepository.save(entity);
 
-        mapper.toClientRegDto(savedEntity);
+        mapper.toClientReqDto(savedEntity);
         mapper.toClientDto(savedEntity);
-        return mapper.toClientReqDto(savedEntity);
+        return mapper.toClientRegDto(savedEntity);
     }
 
 

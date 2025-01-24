@@ -52,5 +52,6 @@ public class ClientRequestEntity {
     @JoinColumn(name = "package_id", nullable = false)
     private PackageEntity subscriptionPlan;
 
+    private String declinedBy;
 
 }
