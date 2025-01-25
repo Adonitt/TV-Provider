@@ -85,7 +85,7 @@ public class ReqForNewClientsController {
         clientRegistrationDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
 
         clientRegistrationDto.setContractDate(LocalDateTime.now());
-        clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusYears(1));
+        clientRegistrationDto.setContractExpiryDate(LocalDateTime.now().plusYears(1));
         clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
 
 
@@ -99,7 +99,7 @@ public class ReqForNewClientsController {
         }
 
 
-        if (clientRegistrationDto.getExpiryDate() != null && clientRegistrationDto.getExpiryDate().isBefore(LocalDateTime.now())) {
+        if (clientRegistrationDto.getContractExpiryDate() != null && clientRegistrationDto.getContractDate().isBefore(LocalDateTime.now())) {
             clientRegistrationDto.setContractStatus(ContractStatus.INACTIVE);
         } else {
             clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
