@@ -1,5 +1,6 @@
 package org.example.finalproject.user.dtos.clients;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,11 @@ public class ClientDto {
 
     private PackageEntity subscriptionPlan;
 
-    private boolean subscriptionActive;
+    private LocalDateTime subscriptionStartDate;
+
+    private LocalDateTime subscriptionEndDate;
+
+    private ContractStatus subscriptionStatus;
 
     private String billingAddress;
 
@@ -51,8 +56,6 @@ public class ClientDto {
     private LocalDateTime registeredTime = LocalDateTime.now();
 
     private StatusEnum status;
-
-    private ContractType contractType;
 
     private LocalDateTime contractDate;
 
