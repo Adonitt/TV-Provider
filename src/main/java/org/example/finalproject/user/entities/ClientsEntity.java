@@ -81,10 +81,10 @@ public class ClientsEntity {
     private StatusEnum status;
 
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime contractDate;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime contractExpiryDate;
 
     @Enumerated

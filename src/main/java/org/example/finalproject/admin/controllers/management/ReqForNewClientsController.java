@@ -51,7 +51,6 @@ public class ReqForNewClientsController {
         model.addAttribute("cities", Cities.values());
         model.addAttribute("packagesList", PackageEnum.values());
         model.addAttribute("deviceTypes", DevicesTypes.values());
-        model.addAttribute("contractType", ContractType.values());
         model.addAttribute("contractStatus", ContractStatus.values());
 
         ClientRequestDto clientDto = service.findById(id);
@@ -83,16 +82,22 @@ public class ReqForNewClientsController {
     private void fillDataAutomatically(ClientRegistrationDto clientRegistrationDto, @SessionAttribute("admin") AdminEntity adminSession) {
 
         clientRegistrationDto.setStatus(StatusEnum.SAVED);
-        clientRegistrationDto.setSubscriptionActive(true);
         clientRegistrationDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
 
         clientRegistrationDto.setContractDate(LocalDateTime.now());
+        clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusYears(1));
+        clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
 
-        if (clientRegistrationDto.getContractType() == ContractType.MONTHLY) {
-            clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusMonths(1));
-        } else if (clientRegistrationDto.getContractType() == ContractType.YEARLY) {
-            clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusYears(1));
+
+        clientRegistrationDto.setSubscriptionStartDate(LocalDateTime.now());
+        clientRegistrationDto.setSubscriptionEndDate(LocalDateTime.now().plusMonths(1));
+
+        if (clientRegistrationDto.getSubscriptionEndDate() != null && clientRegistrationDto.getSubscriptionEndDate().isBefore(LocalDateTime.now())) {
+            clientRegistrationDto.setSubscriptionStatus(ContractStatus.INACTIVE);
+        }else{
+            clientRegistrationDto.setSubscriptionStatus(ContractStatus.ACTIVE);
         }
+
 
         if (clientRegistrationDto.getExpiryDate() != null && clientRegistrationDto.getExpiryDate().isBefore(LocalDateTime.now())) {
             clientRegistrationDto.setContractStatus(ContractStatus.INACTIVE);
