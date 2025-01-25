@@ -47,7 +47,7 @@ public class ClientController {
         String formattedRequestTime = clientDto.getRequestTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedRegisteredTime = clientDto.getRegisteredTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedContractDate = clientDto.getContractDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        String formattedExpiryDate = clientDto.getExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedExpiryDate = clientDto.getContractExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedSubscriptionStartDate = clientDto.getSubscriptionStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedSubscriptionEndDate = clientDto.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 

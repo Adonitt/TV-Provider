@@ -46,7 +46,7 @@ public class ClientRegistrationDto {
     @NotNull(message = "Contract status is required")
     private ContractStatus contractStatus;
 
-    private LocalDateTime expiryDate;
+    private LocalDateTime contractExpiryDate;
 
     private String notes;
     private String declinedBy;
