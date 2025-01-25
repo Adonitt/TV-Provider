@@ -44,6 +44,7 @@ public class ClientController {
     public String details(@PathVariable Long id, Model model) {
         var clientEntity = clientsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Client not found"));
         var clientDto = mapper.toClientDto(clientEntity);
+
         String formattedRequestTime = clientDto.getRequestTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedRegisteredTime = clientDto.getRegisteredTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedContractDate = clientDto.getContractDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));

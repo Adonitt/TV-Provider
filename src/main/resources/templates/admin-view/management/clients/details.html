@@ -163,6 +163,15 @@
                     <div class="col-sm-3"><h6 class="mb-0">Expiry Date</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="${formattedExpiryDate}"></div>
                 </div>
+                <hr>   <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Subscription Start Date</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedSubscriptionStartDate}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Subscription End Date</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedSubscriptionEndDate}"></div>
+                </div>
                 <hr>
                 <div class="row" th:if="${clientDto.notes == null}">
                     <div class="col-sm-3"><h6 class="mb-0">Notes</h6></div>
