@@ -102,6 +102,8 @@ public class ProfileController {
         sessionAdmin.setPostcode(admin.getPostcode());
         sessionAdmin.setCity(admin.getCity());
 
+        adminRepository.save(sessionAdmin);
+
         ra.addFlashAttribute("successMessage", "Profile edited successfully!");
         return "redirect:/admin-panel/profile";
     }

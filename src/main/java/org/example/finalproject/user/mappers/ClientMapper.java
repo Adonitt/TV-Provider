@@ -28,11 +28,10 @@ public interface ClientMapper extends SimpleMapper<ClientRequestEntity, ClientRe
 
     ClientsEntity toClientEntity(ClientDto clientDto);
 
-    ClientRegistrationDto toClientReqDto(ClientsEntity clientsEntity);
-
     ClientRegistrationDto toClientRegDto(ClientsEntity clientsEntity);
+
+    ClientRequestDto toClientReqDto(ClientsEntity clientsEntity);
 
     ClientDto toClientDto(ClientsEntity clientsEntity);
 
-    List<ClientReqListingDto> toClientReqListingDtos(List<ClientsEntity> clientsEntity);
 }

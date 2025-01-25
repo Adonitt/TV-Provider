@@ -55,6 +55,7 @@ public class ClientRequestDto {
     private StatusEnum status;
 
     private PackageEntity subscriptionPlan;
+
     private String declinedBy;
 
 

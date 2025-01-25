@@ -49,7 +49,7 @@ public class HomeController2 {
 
 //    @GetMapping("/**")
 //    public String error() {
-//        return "error";
+//        return "user-view/error";
 //    }
 
 }

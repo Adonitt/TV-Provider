@@ -10,8 +10,12 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public String home() {
-        return"admin-view/dashboard";
+        return "admin-view/dashboard";
     }
 
+    @GetMapping("/**")
+    public String error() {
+        return "admin-view/dashboard";
+    }
 
 }

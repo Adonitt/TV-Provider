@@ -1,5 +1,6 @@
 package org.example.finalproject.admin.controllers.management;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.example.finalproject.user.dtos.clients.ClientRequestDto;
 import org.example.finalproject.user.entities.ClientRequestEntity;
 import org.example.finalproject.user.entities.ClientsEntity;
 import org.example.finalproject.user.entities.enums.*;
+import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
 import org.example.finalproject.user.repositories.ClientsRepository;
 import org.example.finalproject.user.services.ClientRequestService;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -30,7 +33,7 @@ import java.util.Optional;
 public class ReqForNewClientsController {
 
     private final ClientRequestService service;
-    private final ClientRequestRepository clientRequestRepository;
+    private final ClientMapper mapper;
 
     @GetMapping("/requests")
     public String reqForNewClients(Model model) {
@@ -63,10 +66,12 @@ public class ReqForNewClientsController {
                              @PathVariable long id,
                              RedirectAttributes redirectAttributes,
                              @SessionAttribute("admin") AdminEntity adminSession) {
+
         if (br.hasErrors()) {
             br.getAllErrors().forEach(System.out::println);
             return "admin-view/management/requests/save-client";
         }
+
         fillDataAutomatically(clientRegistrationDto, adminSession);
 
         service.saveClient(clientRegistrationDto);
@@ -75,6 +80,7 @@ public class ReqForNewClientsController {
     }
 
     private void fillDataAutomatically(ClientRegistrationDto clientRegistrationDto, @SessionAttribute("admin") AdminEntity adminSession) {
+
         clientRegistrationDto.setStatus(StatusEnum.SAVED);
         clientRegistrationDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
 
@@ -109,13 +115,25 @@ public class ReqForNewClientsController {
     }
 
     @PostMapping("/requests/{id}/decline")
-    public String declineRequest(@PathVariable long id, RedirectAttributes redirectAttributes, @SessionAttribute("admin") AdminEntity adminSession) {
+    public String declineRequest(@PathVariable long id, RedirectAttributes redirectAttributes,
+                                 HttpSession session,
+                                 @SessionAttribute("admin") AdminEntity adminSession) {
         ClientRequestDto clientRequestDto = service.findById(id);
-        if (clientRequestDto != null) {
-            clientRequestDto.setStatus(StatusEnum.DECLINED);
-            service.add(clientRequestDto);
-            redirectAttributes.addFlashAttribute("declinedMessage", "Request declined successfully!");
+
+        if (clientRequestDto == null) {
+            throw new EntityNotFoundException("Client request with id " + id + " not found");
         }
+
+        clientRequestDto.setStatus(StatusEnum.DECLINED);
+        clientRequestDto.setDeclinedBy(adminSession.getName() + " " + adminSession.getSurname());
+
+        session.setAttribute("status", StatusEnum.DECLINED);
+
+        mapper.toEntity(clientRequestDto);
+
+        service.add(clientRequestDto);
+
+        redirectAttributes.addFlashAttribute("declinedMessage", "Request declined successfully!");
         return "redirect:/admin-panel/management/requests";
     }
 }
