@@ -1,12 +1,10 @@
 package org.example.finalproject.user.dtos.clients;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.finalproject.admin.models.admin.PackageEntity;
 import org.example.finalproject.user.entities.enums.*;
 
 import java.time.LocalDateTime;
@@ -45,7 +43,7 @@ public class ClientRegistrationDto {
     @NotNull(message = "Contract status is required")
     private ContractStatus contractStatus;
 
-    private LocalDateTime expiryDate;
+    private LocalDateTime contractExpiryDate;
 
     private String notes;
     private String declinedBy;

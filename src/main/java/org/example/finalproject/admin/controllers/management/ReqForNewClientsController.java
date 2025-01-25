@@ -89,12 +89,13 @@ public class ReqForNewClientsController {
         clientRegistrationDto.setContractDate(LocalDateTime.now());
 
         if (clientRegistrationDto.getContractType() == ContractType.MONTHLY) {
-            clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusMonths(1));
+            clientRegistrationDto.setContractExpiryDate(LocalDateTime.now().plusMonths(1));
         } else if (clientRegistrationDto.getContractType() == ContractType.YEARLY) {
-            clientRegistrationDto.setExpiryDate(LocalDateTime.now().plusYears(1));
+            clientRegistrationDto.setContractExpiryDate(LocalDateTime.now().plusYears(1));
         }
 
-        if (clientRegistrationDto.getExpiryDate() != null && clientRegistrationDto.getExpiryDate().isBefore(LocalDateTime.now())) {
+        if (clientRegistrationDto.getContractExpiryDate() != null
+                && clientRegistrationDto.getContractExpiryDate().isBefore(LocalDateTime.now())) {
             clientRegistrationDto.setContractStatus(ContractStatus.INACTIVE);
         } else {
             clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);

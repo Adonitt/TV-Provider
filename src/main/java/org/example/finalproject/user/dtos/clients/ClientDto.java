@@ -58,7 +58,7 @@ public class ClientDto {
 
     private ContractStatus contractStatus;
 
-    private LocalDateTime expiryDate;
+    private LocalDateTime contractExpiryDate;
 
     private String notes;
 
