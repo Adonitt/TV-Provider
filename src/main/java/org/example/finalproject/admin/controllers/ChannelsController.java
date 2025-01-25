@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.channels.ChannelsDto;
 import org.example.finalproject.admin.mappers.ChannelsMapper;
+import org.example.finalproject.admin.models.admin.AdminRole;
 import org.example.finalproject.admin.repositories.ChannelRepository;
 import org.example.finalproject.admin.services.interfaces.ChannelService;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class ChannelsController {
 
     @GetMapping("")
     public String allChannels(Model model) {
+        model.addAttribute("roles", AdminRole.class);
         model.addAttribute("channelsList", service.findAll());
         return "admin-view/channels/list";
     }

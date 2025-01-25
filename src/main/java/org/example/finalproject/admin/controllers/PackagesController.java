@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.dtos.admin.packages.PackageRegistrationDto;
 import org.example.finalproject.admin.helpers.files.FileHelper;
+import org.example.finalproject.admin.models.admin.AdminRole;
 import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.admin.services.implementations.PackageServiceImplementation;
 import org.example.finalproject.admin.services.interfaces.PackageService;
@@ -23,6 +24,7 @@ public class PackagesController {
 
     @GetMapping("")
     public String packages(Model model) {
+        model.addAttribute("roles", AdminRole.class);
         model.addAttribute("packagesList", service.findAll());
         return "admin-view/packages/list";
     }

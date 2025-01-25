@@ -8,7 +8,7 @@
 
 <div class="page-inner">
     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-        <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role == 'Super Admin'}">
+        <div class="ms-md-auto py-2 py-md-0" th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
             <a th:href="@{/admin-panel/channels/new}" class="btn btn-primary btn-round">Create New Channel</a>
         </div>
     </div>
@@ -54,14 +54,14 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th th:if="${session.admin.role == 'Super Admin'}">Actions</th>
+                <th th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="channel: ${channelsList}" th:object="${channel}">
                 <td th:text="*{id}"></td>
                 <td th:text="*{name}"></td>
-                <td th:if="${session.admin.role == 'Super Admin'}">
+                <td th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
                     <div class="d-inline-block">
                         <form th:action="@{/admin-panel/channels/{id}/delete(id=*{id})}" method="post"
                               onsubmit="return confirmDelete()">

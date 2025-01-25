@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.finalproject.admin.models.admin.PackageEntity;
-import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.user.entities.enums.*;
 
 import java.time.LocalDateTime;
@@ -80,12 +79,12 @@ public class ClientsEntity {
     @Column(nullable = false)
     private LocalDateTime contractDate;
 
+    @Column(nullable = false)
+    private LocalDateTime contractExpiryDate;
+
     @Enumerated
     @Column(nullable = false)
     private ContractStatus contractStatus;
-
-    @Column(nullable = false)
-    private LocalDateTime expiryDate;
 
     private String notes;
 
