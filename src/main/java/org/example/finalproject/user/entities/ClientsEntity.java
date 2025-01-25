@@ -54,7 +54,15 @@ public class ClientsEntity {
     private PackageEntity subscriptionPlan;
 
     @Column(nullable = false)
-    private boolean subscriptionActive;
+    private LocalDateTime subscriptionStartDate;
+
+    @Column(nullable = false)
+    private LocalDateTime subscriptionEndDate;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ContractStatus subscriptionStatus;
+
 
     @Column(nullable = false)
     private String billingAddress;
@@ -73,9 +81,6 @@ public class ClientsEntity {
     @Enumerated()
     private StatusEnum status;
 
-    @Enumerated
-    @Column(nullable = false)
-    private ContractType contractType;
 
     @Column(nullable = false)
     private LocalDateTime contractDate;

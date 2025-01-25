@@ -48,12 +48,16 @@ public class ClientController {
         String formattedRegisteredTime = clientDto.getRegisteredTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedContractDate = clientDto.getContractDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedExpiryDate = clientDto.getExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedSubscriptionStartDate = clientDto.getSubscriptionStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedSubscriptionEndDate = clientDto.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
         // Add formatted dates to model
         model.addAttribute("formattedRequestTime", formattedRequestTime);
         model.addAttribute("formattedRegisteredTime", formattedRegisteredTime);
         model.addAttribute("formattedContractDate", formattedContractDate);
         model.addAttribute("formattedExpiryDate", formattedExpiryDate);
+        model.addAttribute("formattedSubscriptionStartDate", formattedSubscriptionStartDate);
+        model.addAttribute("formattedSubscriptionEndDate", formattedSubscriptionEndDate);
 
         model.addAttribute("clientDto", clientDto);
         return "admin-view/management/clients/details";

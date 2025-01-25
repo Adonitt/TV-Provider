@@ -17,7 +17,11 @@ import java.time.LocalDateTime;
 public class ClientRegistrationDto {
     private Long id;
 
-    private boolean subscriptionActive;
+    private LocalDateTime subscriptionStartDate;
+
+    private LocalDateTime subscriptionEndDate;
+
+    private ContractStatus subscriptionStatus;
 
     @NotNull(message = "Billing address is required")
     @NotBlank(message = "Billing address is required")
@@ -36,9 +40,6 @@ public class ClientRegistrationDto {
     private LocalDateTime registeredTime = LocalDateTime.now();
 
     private StatusEnum status;
-
-    @NotNull(message = "Contract type is required")
-    private ContractType contractType;
 
     private LocalDateTime contractDate;
 
