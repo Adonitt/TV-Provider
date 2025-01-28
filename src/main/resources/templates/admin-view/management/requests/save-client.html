@@ -83,11 +83,10 @@
 
         <input type="hidden" th:field="*{status}" value="SAVED"/>
 
-        <!-- Preferred Language and Device Type (Inline) -->
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="preferredLanguage" class="form-label">Preferred Language</label>
-                <select class="form-control" th:field="*{preferredLanguage}">
+                <select class="form-control" th:field="*{preferredLanguage}" required>
                     <option value="" selected>Select Preferred Language</option>
                     <th:block th:each="language : ${preferredLanguages}">
                         <option th:value="${language}" th:text="${language}"></option>
@@ -99,7 +98,7 @@
             </div>
             <div class="col-md-6">
                 <label for="deviceType" class="form-label">Device</label>
-                <select class="form-control" th:field="*{deviceType}">
+                <select class="form-control" th:field="*{deviceType}" required>
                     <option value="" selected>Select Modem Type</option>
                     <th:block th:each="type : ${deviceTypes}">
                         <option th:value="${type}" th:text="${type}"></option>
@@ -113,7 +112,7 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="billingAddress" class="form-label">Billing Address</label>
-                <input type="text" class="form-control" th:field="*{billingAddress}"
+                <input type="text" class="form-control" th:field="*{billingAddress}" required
                        placeholder="Enter Billing Address"></input>
                 <p class="alert-danger" th:if="${#fields.hasErrors('billingAddress')}"
                    th:errors="*{billingAddress}"></p>

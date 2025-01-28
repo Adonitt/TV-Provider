@@ -8,6 +8,7 @@ import org.example.finalproject.admin.dtos.admin.admins.AdminRegistrationRequest
 import org.example.finalproject.admin.helpers.files.FileHelper;
 import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.models.admin.AdminRole;
+import org.example.finalproject.admin.repositories.AdminRepository;
 import org.example.finalproject.admin.services.interfaces.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ public class AdminController {
 
     private final AdminService service;
     private final FileHelper fileHelper;
+    private final AdminRepository adminRepository;
 
     @GetMapping("")
     public String manageAdmins(Model model) {
@@ -48,14 +50,26 @@ public class AdminController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @RequestParam("photoFile") MultipartFile photoFile,
-                           @SessionAttribute("admin") AdminEntity adminSession) {
+                           @SessionAttribute("admin") AdminEntity adminSession,
+                           Model model) {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(System.out::println);
+            model.addAttribute("admin", adminRegistrationRequestDto);
             return "admin-view/management/admins/new";
         }
 
-        System.out.println("Photo file: " + photoFile.getOriginalFilename());
+        if (adminRepository.existsByPersonalNumber(adminRegistrationRequestDto.getPersonalNumber())) {
+            model.addAttribute("personalNrExists", "Admin with this personal number already exists!");
+            model.addAttribute("admin", adminRegistrationRequestDto);
+            return "admin-view/management/admins/new";
+        }
+
+        if (adminRepository.existsByEmail(adminRegistrationRequestDto.getEmail())) {
+            model.addAttribute("emailExists", "Admin with this Email Address already exists!");
+            model.addAttribute("admin", adminRegistrationRequestDto);
+            return "admin-view/management/admins/new";
+        }
 
         if (!photoFile.isEmpty()) {
             try {

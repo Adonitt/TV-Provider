@@ -61,7 +61,7 @@ public class ReqForNewClientsController {
     }
 
     @PostMapping("/requests/{id}/save-client")
-    public String saveClient(ClientRegistrationDto clientRegistrationDto,
+    public String saveClient(@Valid ClientRegistrationDto clientRegistrationDto,
                              BindingResult br,
                              @PathVariable long id,
                              RedirectAttributes redirectAttributes,
@@ -94,7 +94,7 @@ public class ReqForNewClientsController {
 
         if (clientRegistrationDto.getSubscriptionEndDate() != null && clientRegistrationDto.getSubscriptionEndDate().isBefore(LocalDateTime.now())) {
             clientRegistrationDto.setSubscriptionStatus(ContractStatus.INACTIVE);
-        }else{
+        } else {
             clientRegistrationDto.setSubscriptionStatus(ContractStatus.ACTIVE);
         }
 

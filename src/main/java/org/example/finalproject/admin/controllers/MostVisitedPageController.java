@@ -5,18 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin-panel")
+@RequestMapping("/admin-panel/most-visited")
 
-public class WebPageController {
+public class MostVisitedPageController {
 
-    @GetMapping("/most-visited")
+    @GetMapping("")
     public String mostVisitedPage() {
         return "admin-view/web-page-details/most-visited/most-visited";
     }
-
-    @GetMapping("/reviews")
-    public String webPageReviews() {
-        return "admin-view/web-page-details/reviews/reviews";
-
-    }
 }
+
+

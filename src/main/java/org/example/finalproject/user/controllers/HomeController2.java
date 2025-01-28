@@ -3,6 +3,7 @@ package org.example.finalproject.user.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.services.interfaces.ChannelService;
 import org.example.finalproject.admin.services.interfaces.PackageService;
+import org.example.finalproject.admin.services.interfaces.WebsiteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController2 {
     private final PackageService packageService;
     private final ChannelService channelService;
+    private final WebsiteService websiteService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("website", websiteService.fetchData());
         return "user-view/index";
     }
 

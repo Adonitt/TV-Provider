@@ -11,14 +11,7 @@ import java.util.Optional;
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
     Optional<AdminEntity> findByEmail(String email);
 
-    AdminEntity findByName(String name);
+    boolean existsByPersonalNumber(String personalNumber);
 
-    AdminEntity findBySurname(String surname);
-
-    List<AdminEntity> findByNameContainingIgnoreCase(String name);
-
-    List<AdminEntity> findBySurnameContainingIgnoreCase(String surname);
-
-    List<AdminEntity> findByAddressContainingIgnoreCase(String address);
-
+    boolean existsByEmail(String email);
 }

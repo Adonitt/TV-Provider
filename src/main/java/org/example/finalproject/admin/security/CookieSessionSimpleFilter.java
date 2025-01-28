@@ -65,7 +65,6 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
         }
 
 
-
         if (request.getRequestURI().equals("/admin-panel") || request.getRequestURI().equals("/admin-panel/forgot-password") || request.getRequestURI().equals("/admin-panel/send-reset-link")
                 || request.getRequestURI().
                 equals("/")
@@ -89,6 +88,8 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 equals("/e-payment/invoice")
                 || request.getRequestURI().
                 equals("/get-started/successfully-sent")
+                || request.getRequestURI().
+                equals("/admin-panel/website-details")
         ) {
             filterChain.doFilter(request, response);
             return;

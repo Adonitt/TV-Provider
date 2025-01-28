@@ -1,0 +1,64 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Website Details','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Website Details</li>
+</ol>
+<div class="page-inner">
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+        <div>
+            <h3 class="fw-bold mb-3">Website Details</h3>
+        </div>
+        <div class="alert alert-info alert-dismissible fade show d-flex justify-content-between align-items-center"
+             role="alert" th:if="${website == null}" style="height: 100px">
+            <div>
+                <i class="fas fa-exclamation-circle"></i>
+                <strong th:text="${nullMessage}">Website not found.</strong>
+            </div>
+
+            <div th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
+                <a th:href="@{/admin-panel/website-details/add}" class="btn btn-primary btn-round">Create One</a>
+            </div>
+        </div>
+
+        <table id="attribute-table" class="display table table-striped table-hover" th:if="${website != null}"
+               th:object="${website}">
+            <a th:href="@{/admin-panel/website-details/{id}/edit(id=*{id})}" style="float: right;margin: 10px 20px"
+               th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}" class="btn btn-icon btn-round btn-warning">
+                <i class="fas fa-edit"></i>
+            </a>
+            <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>ID</td>
+                <td th:text="*{id}"></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td>
+                    <img th:src="@{*{image}}" alt="Photo" style="max-height: 50px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Title 1</td>
+                <td th:text="*{h1}"></td>
+            </tr>
+            <tr>
+                <td>Title 2</td>
+                <td th:text="*{h2}"></td>
+            </tr>
+            <tr>
+                <td>Title 3</td>
+                <td th:text="*{h3}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</html>

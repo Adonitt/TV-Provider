@@ -1,0 +1,56 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Edit Web Details','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/website-details}">Website Details</a></li>
+    <li class="breadcrumb-item active">Edit Website Details</li>
+</ol>
+<div class="page-inner" th:replace="~{admin-view/web-page-details/website-details/add :: div.page-inner}">
+
+    <!--    <form class="row g-3" th:object="${websiteDto}" method="post" enctype="multipart/form-data">-->
+    <!--        <div class="col-md-12">-->
+    <!--            <div class="card shadow-sm mb-5 rounded">-->
+    <!--                <div class="card-body p-4">-->
+    <!--                    <h3 class="text-center mb-4">Add Website Detils</h3>-->
+    <!--                    &lt;!&ndash; Price &ndash;&gt;-->
+    <!--                    <div class="row">-->
+    <!--                        <div class="col-md-6">-->
+    <!--                            <label class="form-label">Title 1</label>-->
+    <!--                            <input type="text" class="form-control" th:field="*{h1}" placeholder="Title 1" required-->
+    <!--                                   minlength="3" maxlength="100">-->
+    <!--                            <p class="text-danger" th:if="${#fields.hasErrors('h1')}" th:errors="*{h1}"></p>-->
+    <!--                        </div>-->
+
+    <!--                        <div class="col-md-6">-->
+    <!--                            <label class="form-label">Title 2</label>-->
+    <!--                            <input type="text" class="form-control" th:field="*{h2}" placeholder="Title 2" required-->
+    <!--                                   minlength="3" maxlength="100">-->
+    <!--                            <p class="text-danger" th:if="${#fields.hasErrors('h2')}" th:errors="*{h2}"></p>-->
+    <!--                        </div>-->
+
+    <!--                    </div>-->
+    <!--                    <div class="row">-->
+    <!--                        <div class="col-md-6">-->
+    <!--                            <label class="form-label">Title 3</label>-->
+    <!--                            <input type="text" class="form-control" th:field="*{h3}" placeholder="Title 3" required-->
+    <!--                                   minlength="3" maxlength="100">-->
+    <!--                            <p class="text-danger" th:if="${#fields.hasErrors('h3a')}" th:errors="*{h3}"></p>-->
+    <!--                        </div>-->
+
+    <!--                        <div class="col-md-6">-->
+    <!--                            <label class="form-label">Photo</label>-->
+    <!--                            <input type="file" class="form-control" id="photoFile" name="photoFile" accept="image/*">-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="col-md-12 mt-4 text-center">-->
+    <!--                <button class="btn btn-primary btn-lg" type="submit"><i class="fas fa-save"-->
+    <!--                                                                        style="margin-right: 8px;"></i> Save-->
+    <!--                </button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </form>-->
+
+</div>
+</html>

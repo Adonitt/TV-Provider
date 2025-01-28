@@ -1,6 +1,7 @@
 package org.example.finalproject.admin.repositories;
 
 import lombok.RequiredArgsConstructor;
+import org.example.finalproject.admin.models.WebsiteEntity;
 import org.example.finalproject.admin.models.admin.*;
 import org.example.finalproject.admin.services.interfaces.ChannelService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,13 +18,13 @@ public class DataInitializer implements Runnable {
     private final AdminRepository adminRepository;
     private final PackageRepository packageRepository;
     private final ChannelRepository channelRepository;
-    private final ChannelService channelService;
+    private final WebsiteRepository websiteRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run() {
         if (adminRepository.count() == 0) {
-            AdminEntity admin = new AdminEntity(1, "Adonit", "Halili", "1252334056", LocalDate.of(2005, 2, 12), "045350345", "Kosovo", "Ali Ajeti 72", "Podujeve", 11000, "adonit.halili@smart-tv.com", passwordEncoder.encode("Doni1234."), 19, AdminRole.SUPER_ADMIN, "/images/une.jpg", "M","Adonit Halili");
+            AdminEntity admin = new AdminEntity(1, "Adonit", "Halili", "1252334056", LocalDate.of(2005, 2, 12), "045350345", "Kosovo", "Ali Ajeti 72", "Podujeve", 11000, "adonit.halili@smart-tv.com", passwordEncoder.encode("Tetagjyli1."), 19, AdminRole.SUPER_ADMIN, "/images/une.jpg", "M", "Adonit Halili");
             adminRepository.save(admin);
         }
 
@@ -84,6 +85,13 @@ public class DataInitializer implements Runnable {
             channelRepository.saveAll(channels);
         }
 
+        if (websiteRepository.count() == 0) {
+            WebsiteEntity website = new WebsiteEntity(1, "Better digital experience with SmartTV",
+                    "Experience unique passion with our platform.",
+                    "With more than 270 channels with super transmission quality",
+                    "/images/hero-bg.jpg");
+            websiteRepository.save(website);
+        }
 
     }
 

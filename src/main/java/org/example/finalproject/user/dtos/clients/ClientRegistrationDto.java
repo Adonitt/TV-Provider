@@ -1,5 +1,7 @@
 package org.example.finalproject.user.dtos.clients;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ public class ClientRegistrationDto {
 
     private LocalDateTime subscriptionEndDate;
 
+    @Enumerated(EnumType.STRING)
     private ContractStatus subscriptionStatus;
 
     @NotNull(message = "Billing address is required")
@@ -28,20 +31,23 @@ public class ClientRegistrationDto {
     private LocalDateTime installationDate = LocalDateTime.now();
 
     @NotNull(message = "Preferred language is required")
+    @Enumerated(EnumType.STRING)
     private PreferredLanguages preferredLanguage;
 
     @NotNull(message = "Device type is required")
+    @Enumerated(EnumType.STRING)
     private DevicesTypes deviceType;
 
     private String registeredBy;
 
     private LocalDateTime registeredTime = LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
     private LocalDateTime contractDate;
 
-    @NotNull(message = "Contract status is required")
+    @Enumerated(EnumType.STRING)
     private ContractStatus contractStatus;
 
     private LocalDateTime contractExpiryDate;

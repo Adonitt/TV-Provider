@@ -2,26 +2,30 @@
 <html lang="en" th:replace="shared/_layout.html::layout('SmartTV','',~{::div#fatlind},'')">
 
 <div id="fatlind">
-        <section id="hero" class="hero section">
+    <section id="hero" class="hero section" th:object="${website}" th:if="${website!=null}">
 
-                <img src="/assets/img/hero-bg.jpg" alt="" >
+        <img th:src="@{*{image}}" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 data-aos-delay="100" th:text="*{h1}">Bettter digital experience with SmartTV</h2>
+                    <p data-aos-delay="200" th:text="*{h2}">Experience unique passion with our platform.</p>
+                    <p data-aos-delay="200" th:text="*{h3}">With more than 270 channels with super transmission
+                        quality</p>
+                    <div class="d-flex mt-4" data-aos-delay="300">
+                        <a th:href="@{/get-started}" class="btn-get-started">Get Started</a>
+                    </div>
 
-                <div class="container">
-                        <div class="row">
-                                <div class="col-lg-6">
-                                        <h2  data-aos-delay="100">Bettter digital experience with SmartTV</h2>
-                                        <p  data-aos-delay="200">Experience unique passion with our platform.</p>
-                                        <p data-aos-delay="200">With more than 270 channels with super transmission quality</p>
-                                        <div class="d-flex mt-4" data-aos-delay="300">
-                                                <a th:href="@{/get-started}" class="btn-get-started">Get Started</a>
-                                        </div>
-
-                                </div>
-                        </div>
                 </div>
+            </div>
+        </div>
 
-        </section>
-
+    </section>
+    <section class="hero section" th:unless="${website!=null}">
+        <div class="container">
+            <h1>No data here</h1>
+        </div>
+    </section>
 
 
 </div>
