@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Data
 public class ClientRegistrationDto {
     private Long id;
+    private Long clientNr;
 
     private LocalDateTime subscriptionStartDate;
 

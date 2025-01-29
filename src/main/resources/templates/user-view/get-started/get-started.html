@@ -8,11 +8,18 @@
         <form method="post" th:object="${clientRequestDto}">
             <!-- First Name -->
 
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${emailExists!=null}">
+                <i class="fas fa-check"></i>
+                <strong th:text="${emailExists}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name</label>
                 <input type="text" class="form-control" th:field="*{firstName}" placeholder="Enter first name"
                        required>
-                <p class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color: red"></p>
+                <p class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                   style="color: red"></p>
 
             </div>
 
@@ -21,7 +28,8 @@
                 <label for="lastName" class="form-label">Last Name</label>
                 <input type="text" class="form-control" th:field="*{lastName}" placeholder="Enter last name"
                        required>
-                <p class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color: red"></p>
+                <p class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                   style="color: red"></p>
             </div>
 
             <!-- Email -->
@@ -29,7 +37,8 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" placeholder="Enter email address"
                        required th:field="*{email}">
-                <p class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></p>
+                <p class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                   style="color: red"></p>
             </div>
 
             <!-- Phone -->
@@ -37,7 +46,8 @@
                 <label for="phone" class="form-label">Phone</label>
                 <input type="text" class="form-control" th:field="*{phone}" placeholder="Enter phone number"
                        required>
-                <p class="alert-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red"></p>
+                <p class="alert-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                   style="color: red"></p>
             </div>
 
             <div class="mb-3">
@@ -57,7 +67,8 @@
                     <th:block th:each="plan : ${packageList}">
                         <option th:value="${plan.id}" th:text="${plan.name}"></option>
                     </th:block>
-                    <p class="alert-danger" th:if="${#fields.hasErrors('subscriptionPlan')}" th:errors="*{subscriptionPlan}" style="color: red"></p>
+                    <p class="alert-danger" th:if="${#fields.hasErrors('subscriptionPlan')}"
+                       th:errors="*{subscriptionPlan}" style="color: red"></p>
                 </select>
             </div>
 
@@ -67,7 +78,8 @@
                 <label for="address" class="form-label">Address</label>
                 <input class="form-control" th:field="*{address}" rows="3" placeholder="Enter address"
                        required>
-                <p class="alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red"></p>
+                <p class="alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                   style="color: red"></p>
             </div>
 
 

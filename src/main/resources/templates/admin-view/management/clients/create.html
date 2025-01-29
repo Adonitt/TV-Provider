@@ -1,0 +1,126 @@
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Create Client Manually','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/clients}">Clients List</a></li>
+    <li class="breadcrumb-item active">Create Client Manually</li>
+</ol>
+
+<div class="page-inner">
+
+    <form method="post" th:object="${clientDto}" th:action="@{/admin-panel/management/clients/create}">
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${emailExists!=null}">
+            <i class="fas fa-check"></i>
+            <strong th:text="${emailExists}"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First Name" th:field="*{firstName}"
+                       required>
+                <p class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}" placeholder="Last Name"
+                       required>
+                <p class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Email" required>
+                <p class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" required>
+                <p class="alert-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label><br/>
+                <select class="form-control" th:field="*{city}">
+                    <option value="" selected>Select City</option>
+                    <th:block th:each="city : ${citiesList}">
+                        <option th:value="${city}" th:text="${city}"></option>
+                    </th:block>
+                </select>
+                <p class="alert-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}" style="color: red"></p>
+            </div>
+
+            <div class="col-md-6">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" placeholder="Address" th:field="*{address}"
+                       required>
+                <p class="alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="billingAddress" class="form-label">Billing Address</label>
+                <input type="text" class="form-control" id="billingAddress" placeholder="Billing Address"
+                       th:field="*{billingAddress}" required>
+                <p class="alert-danger" th:if="${#fields.hasErrors('billingAddress')}"
+                   th:errors="*{billingAddress}"></p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="mb-3">
+                <label for="subscriptionPlan" class="form-label">Subscription Plan</label>
+                <select class="form-control" th:field="*{subscriptionPlan}">
+                    <option value="" selected>Select a Plan</option>
+                    <th:block th:each="plan : ${packageList}">
+                        <option th:value="${plan.id}" th:text="${plan.name}"></option>
+                    </th:block>
+                    <p class="alert-danger" th:if="${#fields.hasErrors('subscriptionPlan')}"
+                       th:errors="*{subscriptionPlan}" style="color: red"></p>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="preferredLanguage" class="form-label">Preferred Language</label>
+                <select class="form-control" th:field="*{preferredLanguage}" required>
+                    <option value="" selected>Select Preferred Language</option>
+                    <th:block th:each="language : ${preferredLanguages}">
+                        <option th:value="${language}" th:text="${language}"></option>
+                    </th:block>
+                </select>
+                <p class="alert-danger" th:if="${#fields.hasErrors('preferredLanguage')}"
+                   th:errors="*{preferredLanguage}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="deviceType" class="form-label">Device</label>
+                <select class="form-control" th:field="*{deviceType}" required>
+                    <option value="" selected>Select Device Type</option>
+                    <th:block th:each="type : ${deviceTypes}">
+                        <option th:value="${type}" th:text="${type}"></option>
+                    </th:block>
+                </select>
+                <p class="alert-danger" th:if="${#fields.hasErrors('deviceType')}" th:errors="*{deviceType}"></p>
+            </div>
+
+        </div>
+        <div class="mb-6">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" th:field="*{notes}" rows="2"
+                      placeholder="Enter notes ( optional )"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save Client</button>
+        </div>
+    </form>
+
+
+</div>
+</html>

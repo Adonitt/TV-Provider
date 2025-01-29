@@ -61,6 +61,13 @@
                 <strong th:text="${errorMessage}"></strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert"
+                 th:if="${reactivatedMessage!=null}">
+                <i class="fas fa-check"></i>
+                <strong th:text="${reactivatedMessage}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
 
             <div class="table-responsive">
                 <table id="multi-filter-select" class="display table table-striped table-hover">
@@ -84,11 +91,13 @@
                         <td th:text="*{city}"></td>
                         <td th:text="*{status}"></td>
                         <td th:if="${clientReq.status.toString() == 'OPEN'}">
+
                             <a th:href="@{/admin-panel/management/requests/{id}/save-client(id=*{id})}">
                                 <button type="button" class="btn btn-icon btn-round btn-secondary">
                                     <i class="fa fa-save"></i> <!-- Save Icon -->
                                 </button>
                             </a>
+
                             <form th:action="@{/admin-panel/management/requests/{id}/decline(id=${clientReq.id})}"
                                   method="post" style="display:inline;" onsubmit="return confirmDecline();">
                                 <button type="submit" class="btn btn-icon btn-round btn-danger"

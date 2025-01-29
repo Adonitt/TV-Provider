@@ -21,6 +21,9 @@ public class ClientDto {
 
     private Long ticketNr;
 
+    private Long clientNr;
+
+
     private String firstName;
 
     private String lastName;
@@ -66,5 +69,14 @@ public class ClientDto {
     private String notes;
 
     private String declinedBy;
+
+    private String modifiedBy;
+
+    private LocalDateTime modifiedTime;
+
+    private String reactivatedBy;
+
+    private LocalDateTime reactivatedTime;
+
 
 }

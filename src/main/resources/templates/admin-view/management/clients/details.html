@@ -9,7 +9,15 @@
 <div class="page-inner">
     <div class="col-md-12" th:object="${clientDto}">
         <div class="card mb-5">
+
             <div class="card-body" style="margin: 25px">
+
+                <a th:href="@{/admin-panel/management/clients/{id}/edit(id=*{id})}" class="ms-auto"
+                   style="float: right;margin-left: 10px">
+                    <button type="button" class="btn btn-icon btn-round btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                </a>
                 <h1 style="text-align: center"> Client Details</h1>
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Status</h6></div>
@@ -24,6 +32,11 @@
                 <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Ticket Number</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{ticketNr}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Client Number</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{clientNr}"></div>
                 </div>
                 <hr>
                 <div class="row">
@@ -72,6 +85,17 @@
                     <div class="col-sm-9 text-secondary" th:text="*{registeredBy}"></div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Modified By</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="*{modifiedBy}"></div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3"><h6 class="mb-0">Modified Time</h6></div>
+                    <div class="col-sm-9 text-secondary" th:text="${formattedModifiedTime}"></div>
+                </div>
+                <hr>
+
 
             </div>
         </div>
@@ -160,10 +184,11 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-sm-3"><h6 class="mb-0">Expiry Date</h6></div>
+                    <div class="col-sm-3"><h6 class="mb-0">Contract Expiry Date</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="${formattedExpiryDate}"></div>
                 </div>
-                <hr>   <div class="row">
+                <hr>
+                <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Subscription Start Date</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="${formattedSubscriptionStartDate}"></div>
                 </div>
@@ -173,11 +198,11 @@
                     <div class="col-sm-9 text-secondary" th:text="${formattedSubscriptionEndDate}"></div>
                 </div>
                 <hr>
-                <div class="row" th:if="${clientDto.notes == null}">
+                <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Notes</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{notes}"></div>
-                <hr>
                 </div>
+                <hr>
 
             </div>
         </div>

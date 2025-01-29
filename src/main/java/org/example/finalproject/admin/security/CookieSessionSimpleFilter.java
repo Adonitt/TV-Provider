@@ -12,6 +12,7 @@ import org.example.finalproject.user.entities.ClientRequestEntity;
 import org.example.finalproject.user.entities.ClientsEntity;
 import org.example.finalproject.user.entities.enums.StatusEnum;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
+import org.example.finalproject.user.repositories.ClientsRepository;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -23,9 +24,11 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
 
 
     private final ClientRequestRepository clientRequestRepository;
+    private final ClientsRepository clientsRepository;
 
-    public CookieSessionSimpleFilter(ClientRequestRepository clientRequestRepository) {
+    public CookieSessionSimpleFilter(ClientRequestRepository clientRequestRepository, ClientsRepository clientsRepository) {
         this.clientRequestRepository = clientRequestRepository;
+        this.clientsRepository = clientsRepository;
     }
 
     @Override
@@ -52,11 +55,32 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 response.sendRedirect("/admin-panel/dashboard");
             }
 
-            if (session.getAttribute("status") != null) {
-                StatusEnum status = (StatusEnum) session.getAttribute("status");
-                String requestURI = request.getRequestURI();
-                if (status == StatusEnum.DECLINED && requestURI.endsWith("/save-client")) {
-                    response.sendRedirect("/admin-panel/management/clients");
+            String requestURI = request.getRequestURI();
+
+            if (requestURI.endsWith("/save-client")) {
+                Optional<Long> clientIdOpt = extractClientIdFromRequestURI(requestURI);
+
+                if (clientIdOpt.isPresent()) {
+                    Long clientId = clientIdOpt.get();
+                    Optional<ClientRequestEntity> clientOpt = clientRequestRepository.findById(clientId);
+
+                    if (clientOpt.isPresent()) {
+                        ClientRequestEntity clientRequest = clientOpt.get();
+                        StatusEnum status = clientRequest.getStatus();
+
+                        if (status == StatusEnum.DECLINED || status == StatusEnum.SAVED) {
+                            response.sendRedirect("/admin-panel/management/clients?error=access-denied");
+                            return;
+                        }
+
+                        if (status == StatusEnum.OPEN) {
+                            filterChain.doFilter(request, response);
+                            return;
+                        }
+                    } else {
+                        response.sendRedirect("/admin-panel/management/clients?error=not-found");
+                        return;
+                    }
                 }
             }
 
@@ -90,6 +114,8 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 equals("/get-started/successfully-sent")
                 || request.getRequestURI().
                 equals("/admin-panel/website-details")
+                || request.getRequestURI().
+                equals("/admin-panel/management/clients/create")
         ) {
             filterChain.doFilter(request, response);
             return;
@@ -99,6 +125,16 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
 
 
     }
+
+    private Optional<Long> extractClientIdFromRequestURI(String requestURI) {
+        try {
+            String[] parts = requestURI.split("/");
+            return Optional.of(Long.parseLong(parts[parts.length - 2]));
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
+    }
+
 }
 
 

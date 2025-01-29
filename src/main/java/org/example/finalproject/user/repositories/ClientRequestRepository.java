@@ -11,4 +11,6 @@ public interface ClientRequestRepository extends JpaRepository<ClientRequestEnti
     Long countAllByEmailAndPhone(String email, String phone);
 
     Optional<ClientRequestEntity> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

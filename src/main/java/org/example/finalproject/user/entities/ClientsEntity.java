@@ -22,6 +22,8 @@ public class ClientsEntity {
 
     private Long ticketNr;
 
+    private Long clientNr;
+
     @Column(nullable = false)
     private String firstName;
 
@@ -94,6 +96,14 @@ public class ClientsEntity {
     private String notes;
 
     private String declinedBy;
+
+    private String modifiedBy;
+
+    private LocalDateTime modifiedTime;
+
+    private String reactivatedBy;
+
+    private LocalDateTime reactivatedTime;
 
 
 }

@@ -30,7 +30,7 @@ public interface ClientMapper extends SimpleMapper<ClientRequestEntity, ClientRe
 
     ClientRegistrationDto toClientRegDto(ClientsEntity clientsEntity);
 
-    ClientRequestDto toClientReqDto(ClientsEntity clientsEntity);
+    ClientRequestDto toClientRequestDto(ClientsEntity clientsEntity);
 
     ClientDto toClientDto(ClientsEntity clientsEntity);
 

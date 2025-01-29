@@ -58,5 +58,9 @@ public class ClientRequestDto {
 
     private String declinedBy;
 
+    private String reactivatedBy;
+
+    private LocalDateTime reactivatedTime;
+
 
 }

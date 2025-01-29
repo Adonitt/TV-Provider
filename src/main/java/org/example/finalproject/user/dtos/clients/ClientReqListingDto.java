@@ -13,6 +13,8 @@ public class ClientReqListingDto {
     private Long id;
 
     private Long ticketNr;
+    private Long clientNr;
+
 
     private String firstName;
 

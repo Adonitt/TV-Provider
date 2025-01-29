@@ -8,12 +8,8 @@ import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
 import org.example.finalproject.user.dtos.clients.ClientRequestDto;
-import org.example.finalproject.user.entities.ClientRequestEntity;
-import org.example.finalproject.user.entities.ClientsEntity;
 import org.example.finalproject.user.entities.enums.*;
 import org.example.finalproject.user.mappers.ClientMapper;
-import org.example.finalproject.user.repositories.ClientRequestRepository;
-import org.example.finalproject.user.repositories.ClientsRepository;
 import org.example.finalproject.user.services.ClientRequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin-panel/management")
@@ -37,7 +30,7 @@ public class ReqForNewClientsController {
 
     @GetMapping("/requests")
     public String reqForNewClients(Model model) {
-        var clientList = service.findAll(); // Fetch mapped data
+        var clientList = service.findAll();
         model.addAttribute("clientRequestList", clientList);
         model.addAttribute("statusEnum", StatusEnum.class);
         return "admin-view/management/requests/requests-list";
@@ -61,7 +54,7 @@ public class ReqForNewClientsController {
     }
 
     @PostMapping("/requests/{id}/save-client")
-    public String saveClient(@Valid ClientRegistrationDto clientRegistrationDto,
+    public String saveClient(@Valid @ModelAttribute ClientRegistrationDto clientRegistrationDto,
                              BindingResult br,
                              @PathVariable long id,
                              RedirectAttributes redirectAttributes,
@@ -76,8 +69,10 @@ public class ReqForNewClientsController {
 
         service.saveClient(clientRegistrationDto);
         redirectAttributes.addFlashAttribute("savedSuccessfully", "Client saved successfully!");
+
         return "redirect:/admin-panel/management/clients";
     }
+
 
     private void fillDataAutomatically(ClientRegistrationDto clientRegistrationDto, @SessionAttribute("admin") AdminEntity adminSession) {
 
@@ -88,36 +83,28 @@ public class ReqForNewClientsController {
         clientRegistrationDto.setContractExpiryDate(LocalDateTime.now().plusYears(1));
         clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
 
-
         clientRegistrationDto.setSubscriptionStartDate(LocalDateTime.now());
         clientRegistrationDto.setSubscriptionEndDate(LocalDateTime.now().plusMonths(1));
+        clientRegistrationDto.setClientNr((long) (Math.random() * 1000000));
 
-        if (clientRegistrationDto.getSubscriptionEndDate() != null && clientRegistrationDto.getSubscriptionEndDate().isBefore(LocalDateTime.now())) {
-            clientRegistrationDto.setSubscriptionStatus(ContractStatus.INACTIVE);
-        } else {
-            clientRegistrationDto.setSubscriptionStatus(ContractStatus.ACTIVE);
-        }
+        clientRegistrationDto.setSubscriptionStatus(ContractStatus.ACTIVE);
 
-
-        if (clientRegistrationDto.getContractExpiryDate() != null && clientRegistrationDto.getContractDate().isBefore(LocalDateTime.now())) {
-            clientRegistrationDto.setContractStatus(ContractStatus.INACTIVE);
-        } else {
-            clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
-        }
+        clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
 
     }
 
     @GetMapping("/requests/{id}/decline")
     public String declineRequest(@PathVariable long id, Model model) {
         model.addAttribute("clientRequest", service.findById(id));
-
         return "admin-view/management/requests/declined";
     }
 
     @PostMapping("/requests/{id}/decline")
-    public String declineRequest(@PathVariable long id, RedirectAttributes redirectAttributes,
-                                 HttpSession session,
-                                 @SessionAttribute("admin") AdminEntity adminSession) {
+    public String declineRequest(@PathVariable long id,
+                                 RedirectAttributes redirectAttributes,
+                                 @SessionAttribute("admin") AdminEntity adminSession,
+                                 HttpSession session) {
+
         ClientRequestDto clientRequestDto = service.findById(id);
 
         if (clientRequestDto == null) {
@@ -127,13 +114,14 @@ public class ReqForNewClientsController {
         clientRequestDto.setStatus(StatusEnum.DECLINED);
         clientRequestDto.setDeclinedBy(adminSession.getName() + " " + adminSession.getSurname());
 
-        session.setAttribute("status", StatusEnum.DECLINED);
-
         mapper.toEntity(clientRequestDto);
-
         service.add(clientRequestDto);
 
         redirectAttributes.addFlashAttribute("declinedMessage", "Request declined successfully!");
+
+
         return "redirect:/admin-panel/management/requests";
     }
+
+
 }

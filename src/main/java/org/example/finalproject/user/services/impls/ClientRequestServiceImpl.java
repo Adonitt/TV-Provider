@@ -2,9 +2,11 @@ package org.example.finalproject.user.services.impls;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.example.finalproject.user.dtos.clients.ClientDto;
 import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
 import org.example.finalproject.user.dtos.clients.ClientReqListingDto;
 import org.example.finalproject.user.dtos.clients.ClientRequestDto;
+import org.example.finalproject.user.entities.ClientsEntity;
 import org.example.finalproject.user.entities.enums.StatusEnum;
 import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
@@ -30,8 +32,8 @@ public class ClientRequestServiceImpl implements ClientRequestService {
 
     @Override
     public List<ClientReqListingDto> findAll() {
-        var clientRequests = clientRequestRepository.findAll(); // Fetch all requests
-        return mapper.toClientReqListingDtoList(clientRequests); // Map to Listing DTOs
+        var clientRequests = clientRequestRepository.findAll();
+        return mapper.toClientReqListingDtoList(clientRequests);
     }
 
     @Override
@@ -69,10 +71,46 @@ public class ClientRequestServiceImpl implements ClientRequestService {
 
         var savedEntity = clientsRepository.save(entity);
 
-        mapper.toClientReqDto(savedEntity);
+        mapper.toClientRequestDto(savedEntity);
         mapper.toClientDto(savedEntity);
         return mapper.toClientRegDto(savedEntity);
     }
 
+    @Override
+    public ClientDto findClientById(Long id) {
+        var exists = clientsRepository.findById(id);
+        if (exists.isEmpty()) {
+            throw new EntityNotFoundException("Client with id " + id + " not found");
+        }
+        return mapper.toClientDto(exists.get());
+    }
 
+    @Override
+    public ClientDto createClientManually(ClientDto clientDto) {
+        var entity = mapper.toClientEntity(clientDto);
+        var savedEntity = clientsRepository.save(entity);
+        return mapper.toClientDto(savedEntity);
+    }
+
+
+    @Override
+    public void modify(ClientDto dto, Long id) {
+        ClientsEntity existingClient = clientsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Client with id " + id + " not found"));
+
+        existingClient.setFirstName(dto.getFirstName());
+        existingClient.setLastName(dto.getLastName());
+        existingClient.setEmail(dto.getEmail());
+        existingClient.setPhone(dto.getPhone());
+        existingClient.setCity(dto.getCity());
+        existingClient.setAddress(dto.getAddress());
+        existingClient.setSubscriptionPlan(dto.getSubscriptionPlan());
+        existingClient.setBillingAddress(dto.getBillingAddress());
+        existingClient.setPreferredLanguage(dto.getPreferredLanguage());
+        existingClient.setDeviceType(dto.getDeviceType());
+        existingClient.setModifiedBy(dto.getModifiedBy());
+        existingClient.setModifiedTime(dto.getModifiedTime());
+        existingClient.setNotes(dto.getNotes());
+        clientsRepository.save(existingClient);
+    }
 }

@@ -13,7 +13,16 @@
         <strong th:text="${savedSuccessfully}"></strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${editedMessage!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${editedMessage}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
+    <div class="ms-md-auto py-2 py-md-0">
+        <a th:href="@{/admin-panel/management/clients/create}" class="btn btn-primary btn-round"
+           style="margin-bottom: 10px">Create New Client</a>
+    </div>
     <div class="d-flex gap-3 align-items-center" style="display: flex; gap: 10px;"
          th:if="${clientsList!=null && clientsList.size()>0}">
 
@@ -21,7 +30,7 @@
                 type="text"
                 id="filter-ticket-number"
                 class="form-control"
-                placeholder="Search by Ticket Number"
+                placeholder="Search by Client Number"
                 style="width: 250px;"
         />
         <input
@@ -37,12 +46,7 @@
                 class="form-control"
                 placeholder="Search by Surname"
                 style="width: 250px;"
-        /> <select id="filter-status" class="form-control" style="width: 250px;">
-        <option value="">Search by status</option>
-        <option value="OPEN">Open</option>
-        <option value="DECLINED">Declined</option>
-        <option value="SAVED">Saved</option>
-    </select>
+        />
 
 
     </div>
@@ -54,6 +58,7 @@
     </div>
 
     <div class="card mt-4">
+
         <div class="card-body" th:if="${clientsList != null && clientsList.size() >0}">
             <div class="card-header">
                 <h4 class="card-title">Clients List</h4>
@@ -66,6 +71,7 @@
                     <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Client Number</th>
                         <th>Ticket Number</th>
                         <th>Full name</th>
                         <th>Email</th>
@@ -76,15 +82,23 @@
                     <tbody>
                     <tr th:each="client: ${clientsList}" th:object="${client}">
                         <td th:text="*{id}"></td>
+                        <td th:text="*{clientNr}">Adonit</td>
                         <td th:text="*{ticketNr}">Adonit</td>
                         <td th:text="*{firstName + ' ' + lastName} ">Adonit</td>
                         <td th:text="*{email}">adonit.halili@smart-tv.com</td>
                         <td th:text="*{status}">adonit.halili@smart-tv.com</td>
                         <td>
                             <a>
-                                <a th:href="@{/admin-panel/management/clients/{id}/details(id=*{id})}" class="btn btn-icon btn-round btn-info">
+                                <a th:href="@{/admin-panel/management/clients/{id}/details(id=*{id})}"
+                                   class="btn btn-icon btn-round btn-info">
                                     <i class="fa fa-info-circle"></i>
                                 </a>
+                            </a>
+                            <a th:href="@{/admin-panel/management/clients/{id}/edit(id=*{id})}">
+                                <button type="button" class="btn btn-icon btn-round btn-warning">
+                                    <i class="fa fa-edit"></i>
+                                    <a href=""></a>
+                                </button>
                             </a>
                         </td>
                     </tr>
@@ -95,39 +109,42 @@
         </div>
     </div>
 </div>
-
 <script id="script">
+    const ticketNumberFilter = document.getElementById("filter-ticket-number");
     const nameFilter = document.getElementById("filter-name");
     const surnameFilter = document.getElementById("filter-surname");
-    const emailFilter = document.getElementById("filter-email");
 
-    [nameFilter, surnameFilter, emailFilter].forEach((filterInput) => {
+    [ticketNumberFilter, nameFilter, surnameFilter].forEach((filterInput) => {
         filterInput.addEventListener("input", filterTable);
     });
 
     function filterTable() {
+        const ticketNumberValue = ticketNumberFilter.value.toLowerCase();
         const nameValue = nameFilter.value.toLowerCase();
         const surnameValue = surnameFilter.value.toLowerCase();
-        const emailValue = emailFilter.value.toLowerCase();
 
         const rows = document.querySelectorAll("#multi-filter-select tbody tr");
 
         rows.forEach((row) => {
-            const nameCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
-            const surnameCell = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
-            const emailCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+            // Extract each cell's data
+            const ticketNumberCell = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            const fullNameCell = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+            const surnameCell = fullNameCell.split(" ")[1];  // Assuming full name is in "First Last" format
 
-            const nameMatch = !nameValue || nameCell.includes(nameValue);
+            // Check if the current row matches the filter values
+            const ticketNumberMatch = !ticketNumberValue || ticketNumberCell.includes(ticketNumberValue);
+            const nameMatch = !nameValue || fullNameCell.includes(nameValue);
             const surnameMatch = !surnameValue || surnameCell.includes(surnameValue);
-            const emailMatch = !emailValue || emailCell.includes(emailValue);
 
-            if (nameMatch && surnameMatch && emailMatch) {
+            // Show or hide row based on filter match
+            if (ticketNumberMatch && nameMatch && surnameMatch) {
                 row.style.display = "";
             } else {
                 row.style.display = "none";
             }
         });
     }
-</script>
+</script
+
 
 </html>

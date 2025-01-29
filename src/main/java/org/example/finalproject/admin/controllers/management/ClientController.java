@@ -1,21 +1,28 @@
 package org.example.finalproject.admin.controllers.management;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.finalproject.admin.models.admin.AdminEntity;
+import org.example.finalproject.admin.models.admin.AdminRole;
 import org.example.finalproject.admin.models.admin.PackageEnum;
+import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.example.finalproject.user.dtos.clients.ClientDto;
 import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
-import org.example.finalproject.user.entities.enums.Cities;
-import org.example.finalproject.user.entities.enums.PreferredLanguages;
+import org.example.finalproject.user.entities.enums.*;
 import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientsRepository;
+import org.example.finalproject.user.services.ClientRequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin-panel/management/clients")
@@ -23,20 +30,14 @@ import java.time.format.DateTimeFormatter;
 public class ClientController {
     private final ClientsRepository clientsRepository;
     private final ClientMapper mapper;
+    private final ClientRequestService service;
+    private final PackageService packageService;
 
     @GetMapping("")
     public String clients(Model model) {
         model.addAttribute("clientsList", clientsRepository.findAll());
+        model.addAttribute("roles", AdminRole.class);
         return "admin-view/management/clients/clients-list";
-    }
-
-    @GetMapping("/new")
-    public String newClient(Model model) {
-        model.addAttribute("clientRegistrationDto", new ClientRegistrationDto());
-        model.addAttribute("preferredLanguages", PreferredLanguages.values());
-        model.addAttribute("cities", Cities.values());
-        model.addAttribute("packagesList", PackageEnum.values());
-        return "admin-view/management/clients/new-client";
     }
 
 
@@ -52,7 +53,10 @@ public class ClientController {
         String formattedSubscriptionStartDate = clientDto.getSubscriptionStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedSubscriptionEndDate = clientDto.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-        // Add formatted dates to model
+        if (clientDto.getModifiedTime() != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            model.addAttribute("formattedModifiedTime", clientDto.getModifiedTime().format(formatter));
+        }
         model.addAttribute("formattedRequestTime", formattedRequestTime);
         model.addAttribute("formattedRegisteredTime", formattedRegisteredTime);
         model.addAttribute("formattedContractDate", formattedContractDate);
@@ -64,7 +68,99 @@ public class ClientController {
         return "admin-view/management/clients/details";
     }
 
-    private void formatRequestTime(ClientDto clientDto, Model model) {
+
+    @GetMapping("/{id}/edit")
+    public String editClient(@PathVariable long id, Model model) {
+        model.addAttribute("clientDto", service.findClientById(id));
+        model.addAttribute("preferredLanguages", PreferredLanguages.values());
+        model.addAttribute("packagesList", PackageEnum.values());
+        model.addAttribute("deviceTypes", DevicesTypes.values());
+        model.addAttribute("packageList", packageService.findAll());
+
+
+        return "admin-view/management/clients/edit";
     }
 
+    @PostMapping("/{id}/edit")
+    public String updateClient(@PathVariable long id, @Valid @ModelAttribute ClientDto clientDto,
+                               BindingResult br,
+                               RedirectAttributes ra, @SessionAttribute("admin") AdminEntity adminSession, Map map) {
+        if (br.hasErrors()) {
+            br.getAllErrors().forEach(System.out::println);
+            return "admin-view/management/clients/edit";
+        }
+
+        clientDto.setId(id);
+        clientDto.setModifiedBy(adminSession.getName() + " " + adminSession.getSurname());
+
+        clientDto.setModifiedTime(LocalDateTime.now());
+
+        mapper.toClientEntity(clientDto);
+        service.modify(clientDto, id);
+        ra.addFlashAttribute("editedMessage", "Client with id " + id + " edited successfully!");
+        return "redirect:/admin-panel/management/clients";
+    }
+
+    @GetMapping("/create")
+    public String createClient(Model model) {
+        model.addAttribute("clientDto", new ClientDto());
+        model.addAttribute("preferredLanguages", PreferredLanguages.values());
+        model.addAttribute("packagesList", PackageEnum.values());
+        model.addAttribute("deviceTypes", DevicesTypes.values());
+        model.addAttribute("citiesList", Cities.values());
+        model.addAttribute("packageList", packageService.findAll());
+        return "admin-view/management/clients/create";
+    }
+
+    @PostMapping("/create")
+    public String createClient(@Valid @ModelAttribute ClientDto clientDto,
+                               BindingResult br,
+                               RedirectAttributes ra,
+                               @SessionAttribute("admin") AdminEntity adminSession,
+                               Model model) {
+
+        if (br.hasErrors()) {
+            br.getAllErrors().forEach(System.out::println);
+            return "admin-view/management/clients/create";
+        }
+        if (clientsRepository.existsByEmail(clientDto.getEmail())) {
+            model.addAttribute("emailExists", "Request with this email already exists!");
+            model.addAttribute("clientDto", clientDto);
+            model.addAttribute("preferredLanguages", PreferredLanguages.values());
+            model.addAttribute("packagesList", PackageEnum.values());
+            model.addAttribute("deviceTypes", DevicesTypes.values());
+            model.addAttribute("citiesList", Cities.values());
+            model.addAttribute("packageList", packageService.findAll());
+            return "admin-view/management/clients/create";
+        }
+
+
+        mapper.toClientEntity(clientDto);
+        clientDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
+        var selectedPlan = packageService.findById(clientDto.getSubscriptionPlan().getId());
+        clientDto.setSubscriptionPlan(selectedPlan);
+
+        fillDataAutomatically(clientDto);
+        service.createClientManually(clientDto);
+        ra.addFlashAttribute("savedSuccessfully", "Client saved successfully!");
+        return "redirect:/admin-panel/management/clients";
+    }
+
+    private void fillDataAutomatically(ClientDto clientDto) {
+
+        clientDto.setStatus(StatusEnum.SAVED);
+
+        clientDto.setContractDate(LocalDateTime.now());
+        clientDto.setContractExpiryDate(LocalDateTime.now().plusYears(1));
+
+
+        clientDto.setSubscriptionStartDate(LocalDateTime.now());
+        clientDto.setSubscriptionEndDate(LocalDateTime.now().plusMonths(1));
+        clientDto.setClientNr((long) (Math.random() * 1000000));
+
+        clientDto.setContractStatus(ContractStatus.ACTIVE);
+        clientDto.setSubscriptionStatus(ContractStatus.ACTIVE);
+
+
+    }
 }
