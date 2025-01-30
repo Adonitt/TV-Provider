@@ -7,10 +7,16 @@
         <div class="row justify-content-center">
             <div class="col-md-6" style="max-width: 600px;">
                 <h3 class="text-center mb-4">E-Payment</h3>
-                <form th:action="@{/submit-payment}" th:object="${subDto}" method="post">
+
+                <!-- Display Error Message -->
+                <div th:if="${errorMessage}" class="alert alert-danger">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+
+                <form th:action="@{/e-payment}" th:object="${subDto}" method="post">
                     <input type="hidden" th:field="*{id}">
                     <div class="mb-3">
-                        <label for="ticketNr" class="form-label">Ticket Number</label>
+                        <label for="ticketNr" class="form-label">Client Number</label>
                         <input type="text" class="form-control" id="ticketNr" th:field="*{clientNr}" required>
                     </div>
                     <div class="mb-3">
@@ -31,7 +37,6 @@
             </div>
         </div>
     </div>
-
 
 </div>
 </html>
