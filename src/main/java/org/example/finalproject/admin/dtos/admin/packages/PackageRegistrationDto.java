@@ -17,9 +17,6 @@ public class PackageRegistrationDto {
 
     private long id;
 
-    @NotBlank(message = "Name is required")
-    @NotNull(message = "Name is required")
-    @Size(min = 4, max = 50, message = "Name must be at least 4 characters long and at most 50 characters long")
     private PackageEnum name;
 
     @Positive(message = "Price must be a positive number")

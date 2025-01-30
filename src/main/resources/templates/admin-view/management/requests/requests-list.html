@@ -79,7 +79,7 @@
                         <th>Surname</th>
                         <th>City</th>
                         <th>Status</th>
-                        <th> Actions</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -99,7 +99,7 @@
                             </a>
 
                             <form th:action="@{/admin-panel/management/requests/{id}/decline(id=${clientReq.id})}"
-                                  method="post" style="display:inline;" onsubmit="return confirmDecline();">
+                                  method="post" style="display:inline;" class="decline-form">
                                 <button type="submit" class="btn btn-icon btn-round btn-danger"
                                         th:disabled="${clientReq.status == 'DECLINED'}">
                                     <i class="fa fa-times"></i> <!-- X Icon -->
@@ -122,6 +122,7 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 
@@ -175,9 +176,38 @@
         }
     });
 
-    function confirmDecline() {
-        return confirm("Are you sure you want to decline this request?");
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script loaded and running...");
+
+        let forms = document.querySelectorAll("form.decline-form");
+        console.log(`Total forms found: ${forms.length}`);
+
+        forms.forEach((form, index) => {
+            console.log(`Attaching event listener to Form ${index}...`);
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                let buttonText = this.querySelector("button").textContent.trim();
+                console.log(`Form ${index} triggered: ${buttonText}`);
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: `Do you want to decline this request?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, confirm!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log(`Submitting Form ${index}...`);
+                        this.submit();
+                    }
+                });
+            });
+        });
+    });
 </script>
 
 </html>

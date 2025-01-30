@@ -1,5 +1,5 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Requests','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Requests','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
@@ -15,11 +15,12 @@
 
         <div class="card">
 
-        <form th:action="@{/admin-panel/management/requests/{id}/reactivate(id=*{id})}" method="post">
-            <button type="submit" class="btn btn-outline-primary d-flex align-items-center gap-2">
-                <i class="fa fa-sync-alt"></i> Change Status to Open
-            </button>
-        </form>
+            <form th:action="@{/admin-panel/management/requests/{id}/reactivate(id=*{id})}" method="post" class="reactivate-form">
+                <button type="submit" class="btn btn-outline-primary d-flex align-items-center gap-2">
+                    <i class="fa fa-sync-alt"></i> Change Status to Open
+                </button>
+            </form>
+
             <div class="card-body" style="margin: 25px">
 
                 <h1 class="mb-4">Request Details</h1>
@@ -91,5 +92,40 @@
         </div>
     </div>
 </div>
+
+<script id="script">
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script loaded and running...");
+
+        let reactivateForms = document.querySelectorAll("form.reactivate-form");
+        console.log(`Total reactivate forms found: ${reactivateForms.length}`);
+
+        reactivateForms.forEach((form, index) => {
+            console.log(`Attaching event listener to Reactivate Form ${index}...`);
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                let buttonText = this.querySelector("button").textContent.trim();
+                console.log(`Form ${index} triggered: ${buttonText}`);
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: `Do you want to change the status to Open?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, confirm!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log(`Submitting Reactivate Form ${index}...`);
+                        this.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 </html>

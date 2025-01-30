@@ -31,6 +31,7 @@ public class PackagesController {
     @GetMapping("/{id}/details")
     public String details(@PathVariable long id, Model model) {
         model.addAttribute("package", service.findById(id));
+        model.addAttribute("roles", AdminRole.class);
         return "admin-view/packages/details";
     }
 
@@ -51,6 +52,7 @@ public class PackagesController {
             bindingResult.getAllErrors().forEach(System.out::println);
             return "admin-view/packages/new";
         }
+
         if (!photoFile.isEmpty()) {
             try {
                 var fileName = fileHelper.uploadFile("target/classes/static/assets-a/img", photoFile.getOriginalFilename(), photoFile.getBytes());
@@ -95,14 +97,6 @@ public class PackagesController {
         redirectAttributes.addFlashAttribute("editedMessage", "Package with id: " + packageRegistrationDto.getId() + " modified successfully!");
 
         service.modify(packageRegistrationDto, packageRegistrationDto.getId());
-        return "redirect:/admin-panel/packages";
-    }
-
-
-    @PostMapping("/{id}/delete")
-    public String deletePackage(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        service.removeById(id);
-        redirectAttributes.addFlashAttribute("deletedMessage", "Package deleted successfully!");
         return "redirect:/admin-panel/packages";
     }
 

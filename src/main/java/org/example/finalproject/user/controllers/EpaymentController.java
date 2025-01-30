@@ -6,6 +6,7 @@ import org.example.finalproject.user.dtos.sub.SubDto;
 import org.example.finalproject.user.entities.ClientsEntity;
 import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientsRepository;
+import org.example.finalproject.user.services.impls.PageViewCounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +23,12 @@ import java.util.Optional;
 public class EpaymentController {
 
     private final ClientsRepository clientsRepository;
-    private final ClientMapper clientMapper;
+    private final PageViewCounterService pageViewCounterService;
 
     @GetMapping("")
     public String ePayment(Model model) {
-        model.addAttribute("subDto", new SubDto()); // Empty DTO for input
+        model.addAttribute("subDto", new SubDto());
+        model.addAttribute("ePaymentCounter", pageViewCounterService.incrementCounter("e-payment"));
         return "user-view/e-payment/e-payment";
     }
 
@@ -35,22 +37,17 @@ public class EpaymentController {
         Optional<ClientsEntity> clientOpt = clientsRepository.findByClientNrAndLastName(subDto.getClientNr(), subDto.getLastName());
 
         if (clientOpt.isPresent()) {
-            // You could choose to populate the SubDto with additional data here
             ClientsEntity client = clientOpt.get();
             subDto.setLastName(client.getLastName());
 
-            // Add subDto to the model
             model.addAttribute("subDto", subDto);
 
-            // Redirect to details page
             return "user-view/e-payment/details";
         }
 
         model.addAttribute("errorMessage", "Client does not exist. Please check your details.");
         return "user-view/e-payment/e-payment";
     }
-
-
 
 
     @GetMapping("/bank-information")

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},~{::script} ,~{::ol.breadcrumb})}">
+      th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},'' ,~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
@@ -60,33 +60,29 @@
                     <div class="col-sm-3"><h6 class="mb-0">Channels included</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{channelsIncluded}"></div>
                 </div>
-                <hr>       <div class="row">
+                <hr>
+                <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">Affordable Pricing</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{affordablePricing}"></div>
                 </div>
-                <hr>       <div class="row">
+                <hr>
+                <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">HD Streaming</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{hdStreaming}"></div>
                 </div>
-                <hr>       <div class="row">
+                <hr>
+                <div class="row">
                     <div class="col-sm-3"><h6 class="mb-0">User-Friendly Features</h6></div>
                     <div class="col-sm-9 text-secondary" th:text="*{userFriendlyFeatures}"></div>
                 </div>
                 <hr>
 
 
-
-                <div class="row" th:if="${session.admin.role == 'Super Admin'}">
+                <div class="row" th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
                     <div class="col-sm-12 text-center">
                         <a class="btn btn-info mx-2 mb-3"
                            th:href="@{/admin-panel/packages/{id}/edit(id=*{id})}">Edit this package</a>
 
-                        <form method="post" th:action="@{/admin-panel/packages/{id}/delete(id=*{id})}"
-                              onsubmit="return confirmDelete()">
-                            <button type="submit" class="btn btn-danger">
-                                Delete this package forever
-                            </button>
-                        </form>
 
                     </div>
                 </div>
@@ -94,10 +90,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    function confirmDelete() {
-        return confirm("Are you sure you want to delete this package?");
-    }
-</script>
 </html>

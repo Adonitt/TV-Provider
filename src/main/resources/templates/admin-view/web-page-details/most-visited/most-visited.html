@@ -1,20 +1,63 @@
-<html lang="en" th:replace="~{shared/_adminLayout::adminLayout('TV Packages','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+<html lang="en"
+      th:replace="~{shared/_adminLayout::adminLayout('Most Visited Page','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item active">Most visited page</li>
 </ol>
+
 <div class="page-inner">
-    <div
-            class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
-    >
+    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
         <div>
             <h3 class="fw-bold mb-3">Most visited page</h3>
         </div>
-
-
     </div>
 
-
+    <!-- Table displaying the page visit counts -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Page</th>
+                <th>Visit Count</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Home Page</td>
+                <td th:text="${indexCounter}"></td>
+            </tr>
+            <tr>
+                <td>About</td>
+                <td th:text="${aboutCounter}"></td>
+            </tr>
+            <tr>
+                <td>Services</td>
+                <td th:text="${servicesCounter}"></td>
+            </tr>
+            <tr>
+                <td>TV Channels</td>
+                <td th:text="${tvChannelsCounter}"></td>
+            </tr>
+            <tr>
+                <td>Pricing</td>
+                <td th:text="${pricingCounter}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td th:text="${contactCounter}"></td>
+            </tr>
+            <tr>
+                <td>Get Started</td>
+                <td th:text="${getStartedCounter}"></td>
+            </tr>
+            <tr>
+                <td>E Payment</td>
+                <td th:text="${ePaymentCounter}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 </html>

@@ -9,6 +9,7 @@ import org.example.finalproject.user.entities.enums.Cities;
 import org.example.finalproject.user.entities.enums.StatusEnum;
 import org.example.finalproject.user.repositories.ClientRequestRepository;
 import org.example.finalproject.user.services.ClientRequestService;
+import org.example.finalproject.user.services.impls.PageViewCounterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,13 +24,15 @@ public class GetStartedController {
     private final ClientRequestService service;
     private final PackageService packageService;
     private final ClientRequestRepository clientRequestRepository;
+    private final PageViewCounterService pageViewCounterService;
+
 
     @GetMapping("")
     public String getStarted(Model model) {
         model.addAttribute("clientRequestDto", new ClientRequestDto());
         model.addAttribute("citiesList", Cities.values());
         model.addAttribute("packageList", packageService.findAll());
-
+        model.addAttribute("getStartedCounter", pageViewCounterService.incrementCounter("get-started"));
         return "user-view/get-started/get-started";
     }
 

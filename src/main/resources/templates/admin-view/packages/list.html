@@ -72,17 +72,13 @@
                         <i class="fa fa-info-circle"></i>
                     </button>
                 </a>
-                <a th:href="@{/admin-panel/packages/{id}/edit(id=*{id})}" th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
+                <a th:href="@{/admin-panel/packages/{id}/edit(id=*{id})}"
+                   th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
                     <button type="button" class="btn btn-icon btn-round btn-warning">
                         <i class="fas fa-edit"></i>
                     </button>
                 </a>
-                <a th:href="@{/admin-panel/packages/{id}/details(id=*{id})}" th:if="${session.admin.role.equals(roles.SUPER_ADMIN)}">
-                    <button type="button" class="btn btn-icon btn-round btn-danger">
-                        <i class="fa fa-trash"></i>
 
-                    </button>
-                </a>
 
             </td>
         </tr>

@@ -1,5 +1,5 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Add new Client','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Client Details','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/clients}">Clients List</a></li>
@@ -11,9 +11,9 @@
         <div class="card mb-5">
             <div class="card-body" style="margin: 25px">
                 <div class="row">
-                    <form name="extendOneMonth"
-                          th:action="@{/admin-panel/management/clients/{id}/extend-subscription(id=*{id})}"
-                          method="post">
+                    <form
+                            th:action="@{/admin-panel/management/clients/{id}/extend-subscription(id=*{id})}"
+                            method="post" target="_blank">
                         <button type="submit" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2">
                             <i class="fa fa-calendar-plus"></i> Extend Subscription for One More Month
                         </button>
@@ -259,6 +259,7 @@
             });
         });
     });
+
 
 </script>
 

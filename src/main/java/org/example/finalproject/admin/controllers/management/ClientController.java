@@ -1,7 +1,6 @@
 package org.example.finalproject.admin.controllers.management;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.finalproject.admin.models.admin.AdminEntity;
@@ -9,8 +8,6 @@ import org.example.finalproject.admin.models.admin.AdminRole;
 import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.example.finalproject.user.dtos.clients.ClientDto;
-import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
-import org.example.finalproject.user.dtos.clients.ClientRequestDto;
 import org.example.finalproject.user.entities.enums.*;
 import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientsRepository;
@@ -21,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -175,13 +173,14 @@ public class ClientController {
             redirectAttributes.addFlashAttribute("errorSub", "Client with id " + id + " not found or subscription not active.");
         }
 
-        return "redirect:/admin-panel/management/clients";
+        return "redirect:/admin-panel/management/clients/" + id + "/invoice";
     }
 
     @PostMapping("/{id}/extend-contract")
     public String extendContract(@PathVariable Long id,
                                  @SessionAttribute("admin") AdminEntity admin,
                                  RedirectAttributes redirectAttributes) {
+
         boolean success = service.extendSubscriptionByOneYear(id, admin.getName());
 
         if (success) {
@@ -190,7 +189,17 @@ public class ClientController {
             redirectAttributes.addFlashAttribute("errorContract", "Client with id " + id + " not found or subscription not active.");
         }
 
+        // Return redirect to the invoice page for the client
         return "redirect:/admin-panel/management/clients";
+    }
+
+    @GetMapping("/{id}/invoice")
+    public String invoice(@PathVariable Long id, Model model) {
+        var client = service.findClientById(id);
+        model.addAttribute("client", client);
+        model.addAttribute("todayDate", LocalDate.now());
+        model.addAttribute("subEndDate", client.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return "admin-view/management/clients/invoice";
     }
 
 }
