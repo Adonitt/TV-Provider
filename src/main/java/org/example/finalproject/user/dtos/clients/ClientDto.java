@@ -17,66 +17,90 @@ import java.time.LocalDateTime;
 
 public class ClientDto {
 
-    private Long id;
 
-    private Long ticketNr;
+        private Long id;
 
-    private Long clientNr;
+        @NotNull(message = "Ticket number cannot be null")
+        private Long ticketNr;
 
+        @NotNull(message = "Client number cannot be null")
+        private Long clientNr;
 
-    private String firstName;
+        @NotBlank(message = "First name cannot be blank")
+        @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters")
+        private String firstName;
 
-    private String lastName;
+        @NotBlank(message = "Last name cannot be blank")
+        @Size(min = 2, max = 50, message = "Last name must be between 2 and 50 characters")
+        private String lastName;
 
-    private String email;
+        @NotBlank(message = "Email cannot be blank")
+        @Email(message = "Invalid email format")
+        private String email;
 
-    private String phone;
+        @NotBlank(message = "Phone number cannot be blank")
+        @Pattern(regexp = "^\\+?[0-9\\-\\s]{7,20}$", message = "Invalid phone number format")
+        private String phone;
 
-    private Cities city;
+        @NotNull(message = "City cannot be null")
+        private Cities city;
 
-    private String address;
+        @NotBlank(message = "Address cannot be blank")
+        private String address;
 
-    private LocalDateTime requestTime = LocalDateTime.now();
+        private LocalDateTime requestTime = LocalDateTime.now();
 
-    private PackageEntity subscriptionPlan;
+        @NotNull(message = "Subscription plan cannot be null")
+        private PackageEntity subscriptionPlan;
 
-    private LocalDateTime subscriptionStartDate;
+        @FutureOrPresent(message = "Subscription start date must be in the present or future")
+        private LocalDateTime subscriptionStartDate;
 
-    private LocalDateTime subscriptionEndDate;
+        @Future(message = "Subscription end date must be in the future")
+        private LocalDateTime subscriptionEndDate;
 
-    private ContractStatus subscriptionStatus;
+        @NotNull(message = "Subscription status cannot be null")
+        private ContractStatus subscriptionStatus;
 
-    private String billingAddress;
+        @NotBlank(message = "Billing address cannot be blank")
+        private String billingAddress;
 
-    private LocalDateTime installationDate = LocalDateTime.now();
+        @FutureOrPresent(message = "Installation date must be in the present or future")
+        private LocalDateTime installationDate = LocalDateTime.now();
 
-    private PreferredLanguages preferredLanguage;
+        @NotNull(message = "Preferred language cannot be null")
+        private PreferredLanguages preferredLanguage;
 
-    private DevicesTypes deviceType;
+        @NotNull(message = "Device type cannot be null")
+        private DevicesTypes deviceType;
 
-    private String registeredBy;
+        @NotBlank(message = "Registered by cannot be blank")
+        private String registeredBy;
 
-    private LocalDateTime registeredTime = LocalDateTime.now();
+        private LocalDateTime registeredTime = LocalDateTime.now();
 
-    private StatusEnum status;
+        @NotNull(message = "Status cannot be null")
+        private StatusEnum status;
 
-    private LocalDateTime contractDate;
+        @FutureOrPresent(message = "Contract start date must be in the present or future")
+        private LocalDateTime contractStartDate;
 
-    private ContractStatus contractStatus;
+        @NotNull(message = "Contract status cannot be null")
+        private ContractStatus contractStatus;
 
-    private LocalDateTime contractExpiryDate;
+        @Future(message = "Contract expiry date must be in the future")
+        private LocalDateTime contractExpiryDate;
 
-    private String notes;
+        private String notes;
 
-    private String declinedBy;
+        private String declinedBy;
 
-    private String modifiedBy;
+        private String modifiedBy;
 
-    private LocalDateTime modifiedTime;
+        private LocalDateTime modifiedTime;
 
-    private String reactivatedBy;
+        private String reactivatedBy;
 
-    private LocalDateTime reactivatedTime;
+        private LocalDateTime reactivatedTime;
+    }
 
-
-}

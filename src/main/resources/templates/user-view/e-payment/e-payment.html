@@ -7,22 +7,15 @@
         <div class="row justify-content-center">
             <div class="col-md-6" style="max-width: 600px;">
                 <h3 class="text-center mb-4">E-Payment</h3>
-                <form class="form-control mb-5">
-                <div class="mb-3">
-                        <label for="name" class="form-label">Emri</label>
-                        <input type="text" class="form-control" id="name" placeholder="Shkruani emrin tuaj" required>
+                <form th:action="@{/submit-payment}" th:object="${subDto}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="mb-3">
+                        <label for="ticketNr" class="form-label">Ticket Number</label>
+                        <input type="text" class="form-control" id="ticketNr" th:field="*{clientNr}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="lastName" class="form-label">Mbiemri</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Shkruani mbiemrin tuaj" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Numri i Telefonit</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Shkruani numrin tuaj" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="form-label">Email (ne kete email do ta pranoni faturen)</label>
-                        <input type="email" class="form-control" id="email" placeholder="Shkruani email-in tuaj" required>
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
                     </div>
                     <div class="d-flex justify-content-end align-items-center mb-3">
                         <!-- Ikonat -->
@@ -32,7 +25,7 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" width="50" class="me-2">
                         </div>
                         <!-- Butoni -->
-                        <button type="submit" class="btn btn-primary bi-arrow-right-circle"><a href="e-payment/bank-information" style="color: white">Vazhdo Abonimin</a></button>
+                        <button type="submit" class="btn btn-primary bi-arrow-right-circle" style="color: white">Vazhdo Abonimin</button>
                     </div>
                 </form>
             </div>
