@@ -18,6 +18,30 @@
         <strong th:text="${editedMessage}"></strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successSub!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${successSub}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${errorSub!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${errorSub}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successContract!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${successContract}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${errorContract!=null}">
+        <i class="fas fa-check"></i>
+        <strong th:text="${errorContract}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
 
     <div class="ms-md-auto py-2 py-md-0">
         <a th:href="@{/admin-panel/management/clients/create}" class="btn btn-primary btn-round"

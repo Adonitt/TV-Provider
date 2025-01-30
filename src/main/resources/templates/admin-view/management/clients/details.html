@@ -1,5 +1,5 @@
 <html lang="en"
-      th:replace="~{shared/_adminLayout::adminLayout('Add new Client','', ~{::div.page-inner},'', ~{::ol.breadcrumb})}">
+      th:replace="~{shared/_adminLayout::adminLayout('Add new Client','', ~{::div.page-inner},~{::script#script}, ~{::ol.breadcrumb})}">
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/dashboard}">Dashboard</a></li>
     <li class="breadcrumb-item"><a th:href="@{/admin-panel/management/clients}">Clients List</a></li>
@@ -9,9 +9,25 @@
 <div class="page-inner">
     <div class="col-md-12" th:object="${clientDto}">
         <div class="card mb-5">
-
             <div class="card-body" style="margin: 25px">
+                <div class="row">
+                    <form name="extendOneMonth"
+                          th:action="@{/admin-panel/management/clients/{id}/extend-subscription(id=*{id})}"
+                          method="post">
+                        <button type="submit" class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2">
+                            <i class="fa fa-calendar-plus"></i> Extend Subscription for One More Month
+                        </button>
+                    </form>
+                    <form th:action="@{/admin-panel/management/clients/{id}/extend-contract(id=*{id})}"
+                          method="post">
+                        <button type="submit"
+                                class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2">
+                            <i class="fa fa-calendar-plus"></i> Extend Subscription for One More
+                            YEAR
+                        </button>
+                    </form>
 
+                </div>
                 <a th:href="@{/admin-panel/management/clients/{id}/edit(id=*{id})}" class="ms-auto"
                    style="float: right;margin-left: 10px">
                     <button type="button" class="btn btn-icon btn-round btn-warning">
@@ -208,4 +224,42 @@
         </div>
     </div>
 </div>
+
+<script id="script">
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script loaded and running..."); // Debugging line
+
+        let forms = document.querySelectorAll("form");
+        console.log(`Total forms found: ${forms.length}`); // Debugging line
+
+        forms.forEach((form, index) => {
+            console.log(`Attaching event listener to Form ${index}...`); // Debugging line
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                let actionUrl = this.getAttribute("action");
+                let buttonText = this.querySelector("button").textContent.trim();
+                console.log(`Form ${index} triggered: ${buttonText}`); // Debugging line
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: `Do you want to ${buttonText.toLowerCase()}?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, confirm!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log(`Submitting Form ${index}...`); // Debugging line
+                        this.submit();
+                    }
+                });
+            });
+        });
+    });
+
+</script>
+
 </html>

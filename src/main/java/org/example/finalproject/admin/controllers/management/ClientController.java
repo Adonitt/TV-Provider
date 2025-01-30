@@ -10,6 +10,7 @@ import org.example.finalproject.admin.models.admin.PackageEnum;
 import org.example.finalproject.admin.services.interfaces.PackageService;
 import org.example.finalproject.user.dtos.clients.ClientDto;
 import org.example.finalproject.user.dtos.clients.ClientRegistrationDto;
+import org.example.finalproject.user.dtos.clients.ClientRequestDto;
 import org.example.finalproject.user.entities.enums.*;
 import org.example.finalproject.user.mappers.ClientMapper;
 import org.example.finalproject.user.repositories.ClientsRepository;
@@ -160,7 +161,36 @@ public class ClientController {
 
         clientDto.setContractStatus(ContractStatus.ACTIVE);
         clientDto.setSubscriptionStatus(ContractStatus.ACTIVE);
-
-
     }
+
+    @PostMapping("/{id}/extend-subscription")
+    public String extendSubscription(@PathVariable Long id,
+                                     @SessionAttribute("admin") AdminEntity admin,
+                                     RedirectAttributes redirectAttributes) {
+        boolean success = service.extendSubscriptionByOneMonth(id, admin.getName());
+
+        if (success) {
+            redirectAttributes.addFlashAttribute("successSub", "Subscription extended by one month for client with id " + id + "!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorSub", "Client with id " + id + " not found or subscription not active.");
+        }
+
+        return "redirect:/admin-panel/management/clients";
+    }
+
+    @PostMapping("/{id}/extend-contract")
+    public String extendContract(@PathVariable Long id,
+                                 @SessionAttribute("admin") AdminEntity admin,
+                                 RedirectAttributes redirectAttributes) {
+        boolean success = service.extendSubscriptionByOneYear(id, admin.getName());
+
+        if (success) {
+            redirectAttributes.addFlashAttribute("successContract", "Contract extended by one year for client with id " + id + "!");
+        } else {
+            redirectAttributes.addFlashAttribute("errorContract", "Client with id " + id + " not found or subscription not active.");
+        }
+
+        return "redirect:/admin-panel/management/clients";
+    }
+
 }

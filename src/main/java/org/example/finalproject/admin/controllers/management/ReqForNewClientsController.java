@@ -123,5 +123,18 @@ public class ReqForNewClientsController {
         return "redirect:/admin-panel/management/requests";
     }
 
+    @PostMapping("/requests/{id}/reactivate")
+    public String reactivateRequest(@PathVariable long id, RedirectAttributes redirectAttributes, @SessionAttribute("admin") AdminEntity adminSession) {
+        ClientRequestDto clientRequestDto = service.findById(id);
+
+        clientRequestDto.setStatus(StatusEnum.OPEN);
+        clientRequestDto.setReactivatedBy(adminSession.getName() + " " + adminSession.getSurname());
+        clientRequestDto.setReactivatedTime(LocalDateTime.now());
+
+        service.add(clientRequestDto);
+        redirectAttributes.addFlashAttribute("reactivatedMessage", "Request reactivated successfully!");
+        return "redirect:/admin-panel/management/requests";
+    }
+
 
 }

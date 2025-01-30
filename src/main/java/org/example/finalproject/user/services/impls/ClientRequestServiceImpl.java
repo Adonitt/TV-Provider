@@ -15,6 +15,7 @@ import org.example.finalproject.user.services.ClientRequestService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -90,6 +91,36 @@ public class ClientRequestServiceImpl implements ClientRequestService {
         var entity = mapper.toClientEntity(clientDto);
         var savedEntity = clientsRepository.save(entity);
         return mapper.toClientDto(savedEntity);
+    }
+
+    @Override
+    public boolean extendSubscriptionByOneMonth(Long clientId, String modifiedBy) {
+        Optional<ClientsEntity> clientOpt = clientsRepository.findById(clientId);
+
+        if (clientOpt.isPresent()) {
+            ClientsEntity client = clientOpt.get();
+            client.setSubscriptionEndDate(client.getSubscriptionEndDate().plusMonths(1));
+            client.setModifiedBy(modifiedBy);
+            clientsRepository.save(client);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean extendSubscriptionByOneYear(Long clientId, String modifiedBy) {
+        Optional<ClientsEntity> clientOpt = clientsRepository.findById(clientId);
+
+        if (clientOpt.isPresent()) {
+            ClientsEntity client = clientOpt.get();
+            client.setContractExpiryDate(client.getContractExpiryDate().plusYears(1));
+            client.setModifiedBy(modifiedBy);
+            clientsRepository.save(client);
+            return true;
+        }
+
+        return false;
     }
 
 
