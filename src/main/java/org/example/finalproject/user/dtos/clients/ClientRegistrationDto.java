@@ -46,7 +46,7 @@ public class ClientRegistrationDto {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-    private LocalDateTime contractDate;
+    private LocalDateTime contractStartDate;
 
     @Enumerated(EnumType.STRING)
     private ContractStatus contractStatus;

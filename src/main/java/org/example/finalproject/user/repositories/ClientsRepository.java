@@ -11,4 +11,6 @@ public interface ClientsRepository extends JpaRepository<ClientsEntity, Long> {
 //    Optional<ClientsEntity> findClientWithPackageId(Long id);
 
     boolean existsByEmail(String email);
+
+    Optional<ClientsEntity> findByClientNrAndLastName(Long clientNr, String lastName);
 }

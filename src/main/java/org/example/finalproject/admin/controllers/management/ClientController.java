@@ -49,7 +49,7 @@ public class ClientController {
 
         String formattedRequestTime = clientDto.getRequestTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedRegisteredTime = clientDto.getRegisteredTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        String formattedContractDate = clientDto.getContractDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedcontractStartDate = clientDto.getContractStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedExpiryDate = clientDto.getContractExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedSubscriptionStartDate = clientDto.getSubscriptionStartDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         String formattedSubscriptionEndDate = clientDto.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
@@ -60,7 +60,7 @@ public class ClientController {
         }
         model.addAttribute("formattedRequestTime", formattedRequestTime);
         model.addAttribute("formattedRegisteredTime", formattedRegisteredTime);
-        model.addAttribute("formattedContractDate", formattedContractDate);
+        model.addAttribute("formattedcontractStartDate", formattedcontractStartDate);
         model.addAttribute("formattedExpiryDate", formattedExpiryDate);
         model.addAttribute("formattedSubscriptionStartDate", formattedSubscriptionStartDate);
         model.addAttribute("formattedSubscriptionEndDate", formattedSubscriptionEndDate);
@@ -151,7 +151,7 @@ public class ClientController {
 
         clientDto.setStatus(StatusEnum.SAVED);
 
-        clientDto.setContractDate(LocalDateTime.now());
+        clientDto.setContractStartDate(LocalDateTime.now());
         clientDto.setContractExpiryDate(LocalDateTime.now().plusYears(1));
 
 

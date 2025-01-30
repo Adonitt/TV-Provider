@@ -84,7 +84,7 @@ public class ClientsEntity {
 
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime contractDate;
+    private LocalDateTime contractStartDate;
 
     @Column()
     private LocalDateTime contractExpiryDate;

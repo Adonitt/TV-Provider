@@ -79,7 +79,7 @@ public class ReqForNewClientsController {
         clientRegistrationDto.setStatus(StatusEnum.SAVED);
         clientRegistrationDto.setRegisteredBy(adminSession.getName() + " " + adminSession.getSurname());
 
-        clientRegistrationDto.setContractDate(LocalDateTime.now());
+        clientRegistrationDto.setContractStartDate(LocalDateTime.now());
         clientRegistrationDto.setContractExpiryDate(LocalDateTime.now().plusYears(1));
         clientRegistrationDto.setContractStatus(ContractStatus.ACTIVE);
 
