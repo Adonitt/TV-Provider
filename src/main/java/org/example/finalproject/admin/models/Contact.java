@@ -14,10 +14,10 @@ import lombok.*;
 @Entity(name = "contact_form")
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-    private String surname;
     private String email;
+    private String subject;
     private String message;
 }

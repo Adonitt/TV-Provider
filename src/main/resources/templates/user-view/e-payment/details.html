@@ -3,7 +3,7 @@
 
 <div id="fatlind">
 
-    <div class="container mt-5" th:object="${subDto}">
+    <div class="container mt-5" th:object="${subDetails}">
         <div class="card shadow-lg p-4">
             <h2 class="text-center mb-4">Subscription Details</h2>
             <table class="table table-bordered">
@@ -12,45 +12,47 @@
                     <td th:text="*{clientNr}"></td>
                 </tr>
                 <tr>
-                    <th>Full Name</th>
-                    <td th:text="${subscription.firstName} + ' ' + ${subscription.lastName}"></td>
+                    <th>First Name</th>
+                    <td th:text="*{firstName}"></td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td th:text="*{lastName}"></td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td th:text="${subscription.email}"></td>
+                    <td th:text="*{email}"></td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td th:text="${subscription.phone}"></td>
+                    <td th:text="*{phone}"></td>
                 </tr>
                 <tr>
                     <th>City</th>
-                    <td th:text="${subscription.city}"></td>
+                    <td th:text="*{city.name}"></td> <!-- Assuming city is an object with a 'name' field -->
                 </tr>
                 <tr>
                     <th>Address</th>
-                    <td th:text="${subscription.address}"></td>
+                    <td th:text="*{address}"></td>
                 </tr>
                 <tr>
                     <th>Subscription Plan</th>
-                    <td th:text="${subscription.subscriptionPlan.packageName}"></td>
-                </tr>
+                    <td th:text="${subDetails.subscriptionPlan.name}"></td>
+              </tr>
                 <tr>
                     <th>Subscription End Date</th>
-                    <td th:text="${#temporals.format(subscription.subscriptionEndDate, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td th:text="${#temporals.format(subDetails.subscriptionEndDate, 'dd-MM-yyyy HH:mm')}"></td>
                 </tr>
             </table>
 
             <div class="text-center mt-4">
                 <form action="/subscription/pay" method="post">
-                    <input type="hidden" name="clientNr" th:value="${subscription.clientNr}" />
-                    <button type="submit" class="btn btn-primary btn-lg">Continue with Payment</button>
+                    <input type="hidden" name="clientNr" th:value="*{clientNr}" />
+                    <button type="submit" class="btn btn-primary btn-lg"><a href="e-payment/bank-information" style="color: white">Continue with Payment</a></button>
                 </form>
             </div>
         </div>
     </div>
-
-
 
 </div>
 </html>

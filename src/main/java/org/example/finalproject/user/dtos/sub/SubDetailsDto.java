@@ -1,15 +1,13 @@
 package org.example.finalproject.user.dtos.sub;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.finalproject.admin.models.admin.PackageEntity;
 import org.example.finalproject.user.entities.enums.Cities;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubDetailsDto {

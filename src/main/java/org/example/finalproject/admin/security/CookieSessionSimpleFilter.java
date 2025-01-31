@@ -116,6 +116,10 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 equals("/admin-panel/website-details")
                 || request.getRequestURI().
                 equals("/admin-panel/management/clients/create")
+                || request.getRequestURI().
+                equals("/e-payment/bank-information")
+                || request.getRequestURI().
+                equals("/e-payment/invoice")
         ) {
             filterChain.doFilter(request, response);
             return;

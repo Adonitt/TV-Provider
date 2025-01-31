@@ -50,32 +50,35 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <form action="forms/contact.php" method="post" class="php-email-form aos-init aos-animate"
-                          data-aos="fade-up" data-aos-delay="500">
+                    <form th:action="@{/contact}" th:object="${contact}" method="post" class="php-email-form aos-init aos-animate"
+                           data-aos-delay="500">
                         <div class="row gy-4">
 
                             <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                                <label for="name" class="form-label"></label>
+                                <input type="text" id="name" name="name" class="form-control" th:field="*{name}" placeholder="Your Name" required="">
                             </div>
 
                             <div class="col-md-6 ">
-                                <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                <label for="email" class="form-label"></label>
+                                <input type="email" id="email" class="form-control" name="email" th:field="*{email}" placeholder="Your Email"
                                        required="">
                             </div>
 
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                <label for="subject" class="form-label"></label>
+                                <input type="text" id="subject" class="form-control" name="subject" th:field="*{subject}" placeholder="Subject"
                                        required="">
                             </div>
 
                             <div class="col-md-12">
-                                <textarea class="form-control" name="message" rows="4" placeholder="Message"
+                                <label for="message" class="form-label"></label>
+                                <textarea class="form-control" id="message" name="message" rows="4" th:field="*{message}" placeholder="Message"
                                           required=""></textarea>
                             </div>
 
                             <div class="col-md-12 text-center">
                                 <div class="loading">Loading</div>
-                                <div class="error-message"></div>
                                 <div class="sent-message">Your message has been sent. Thank you!</div>
 
                                 <button type="submit">Send Message</button>
