@@ -1,6 +1,8 @@
 package org.example.finalproject.user.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.example.finalproject.admin.models.admin.AdminEntity;
 import org.example.finalproject.user.dtos.sub.SubDetailsDto;
 import org.example.finalproject.user.dtos.sub.SubDto;
 import org.example.finalproject.user.entities.BankInformation;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -35,12 +39,12 @@ public class EpaymentController {
     }
 
     @PostMapping("")
-    public String validateClient(@ModelAttribute SubDto subDto, Model model) {
+    public String validateClient(@ModelAttribute SubDto subDto, Model model, HttpSession session) {
         Optional<ClientsEntity> clientOpt = clientsRepository.findByClientNrAndLastName(subDto.getClientNr(), subDto.getLastName());
 
         if (clientOpt.isPresent()) {
             ClientsEntity client = clientOpt.get();
-
+            session.setAttribute("clientId", client.getId());
             // Map the client entity to SubDetailsDto (if you have a mapper)
             SubDetailsDto subDetailsDto = clientMapper.toSubDetailsDto(client); // You might already have a method like this
 
@@ -53,17 +57,24 @@ public class EpaymentController {
         return "user-view/e-payment/e-payment"; // Stay on the e-payment page
     }
 
-    @GetMapping("/bank-information")
-    public String bankInformation(Model model) {
+    @GetMapping("{id}/bank-information")
+    public String bankInformation(@PathVariable Long id, Model model) {
+        var client = service.findClientById(id); // Fetch client details using ID
+
+
+        model.addAttribute("client", client);
         model.addAttribute("bankInformation", new BankInformation());
+
         return "user-view/e-payment/bank-information";
     }
 
-    @PostMapping("/bank-information")
-    public String bankInformation(@ModelAttribute BankInformation bankInformation, Model model) {
+
+    @PostMapping("/{id}/bank-information")
+    public String bankInformation(@PathVariable Long id, @ModelAttribute BankInformation bankInformation,
+                                  Model model,
+                                  @SessionAttribute("admin") AdminEntity adminSession) {
 
         BankInformation defaultBank = new BankInformation("Fatlind Adonit", "1234123412341234", "12", "24", "123");
-
 
         if (!bankInformation.getCardHolder().equals(defaultBank.getCardHolder()) ||
                 !bankInformation.getCardNumber().equals(defaultBank.getCardNumber()) ||
@@ -72,16 +83,22 @@ public class EpaymentController {
                 !bankInformation.getCvc().equals(defaultBank.getCvc())) {
 
             model.addAttribute("errorMessage", "Please enter valid bank information.");
-            return "user-view/e-payment/bank-information"; // Stay on the same page
+            return "user-view/e-payment/bank-information";
         }
+        service.extendSubscriptionByOneMonth(id, adminSession.getName() + " " + adminSession.getSurname());
 
-        return "redirect:/e-payment/invoice";
+        return "redirect:/e-payment/" + id + "/invoice"; // Redirect to invoice with client ID
     }
 
 
-
-    @GetMapping("/invoice")
-    public String invoice() {
+    @GetMapping("/{id}/invoice")
+    public String invoice(@PathVariable Long id, Model model, HttpSession session) {
+        var client = service.findClientById(id);
+        model.addAttribute("client", client);
+        model.addAttribute("todayDate", LocalDate.now());
+        model.addAttribute("subEndDate", client.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return "user-view/e-payment/invoice";
     }
+
+
 }

@@ -38,7 +38,7 @@
                 <tr>
                     <th>Subscription Plan</th>
                     <td th:text="${subDetails.subscriptionPlan.name}"></td>
-              </tr>
+                </tr>
                 <tr>
                     <th>Subscription End Date</th>
                     <td th:text="${#temporals.format(subDetails.subscriptionEndDate, 'dd-MM-yyyy HH:mm')}"></td>
@@ -46,10 +46,8 @@
             </table>
 
             <div class="text-center mt-4">
-                <form action="/subscription/pay" method="post">
-                    <input type="hidden" name="clientNr" th:value="*{clientNr}" />
-                    <button type="submit" class="btn btn-primary btn-lg"><a href="e-payment/bank-information" style="color: white">Continue with Payment</a></button>
-                </form>
+                <a th:href="@{/e-payment/{id}/bank-information(id=*{id})}" class="btn btn-primary btn-lg"
+                   style="color: white">Continue with Payment</a>
             </div>
         </div>
     </div>

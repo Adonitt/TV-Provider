@@ -9,6 +9,7 @@
         body {
             padding-top: 50px; /* Adjust padding as needed */
         }
+
         .container {
             max-width: 500px;
         }
@@ -22,7 +23,9 @@
             <h3 class="mb-0">Enter Bank Information</h3>
         </div>
         <div class="card-body">
-            <form th:action="@{/e-payment/bank-information}" th:object="${bankInformation}" method="post">
+            <form th:action="@{/e-payment/{id}/bank-information(id=${client.id})}"
+                  th:object="${bankInformation}"
+                  method="post">
 
                 <div th:if="${errorMessage}" class="alert alert-danger">
                     <p th:text="${errorMessage}"></p>
@@ -30,20 +33,23 @@
                 <!-- Card Holder -->
                 <div class="form-group">
                     <label for="cardHolder">Card Holder</label>
-                    <input type="text" class="form-control" id="cardHolder" name="cardHolder" th:field="*{cardHolder}" required>
+                    <input type="text" class="form-control" id="cardHolder" name="cardHolder" th:field="*{cardHolder}"
+                           required>
                 </div>
 
                 <!-- Card Number -->
                 <div class="form-group">
                     <label for="cardNumber">Card Number</label>
-                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" th:field="*{cardNumber}" required>
+                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" th:field="*{cardNumber}"
+                           required>
                 </div>
 
                 <!-- Expiry Date (Month + Year) -->
                 <div class="form-row">
                     <div class="form-group col-6">
                         <label for="expiryMonth">Expiration Month</label>
-                        <select class="form-control" id="expiryMonth" name="expiryMonth" th:field="*{expiryMonth}" required>
+                        <select class="form-control" id="expiryMonth" name="expiryMonth" th:field="*{expiryMonth}"
+                                required>
                             <option value="">MM</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -61,7 +67,8 @@
                     </div>
                     <div class="form-group col-6">
                         <label for="expiryYear">Expiration Year</label>
-                        <select class="form-control" id="expiryYear" name="expiryYear" th:field="*{expiryYear}" required>
+                        <select class="form-control" id="expiryYear" name="expiryYear" th:field="*{expiryYear}"
+                                required>
                             <option value="">YY</option>
                             <option value="23">23</option>
                             <option value="24">24</option>
@@ -83,7 +90,7 @@
 
                 <!-- Submit Button -->
 
-                <button type="submit" class="btn btn-primary" >Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
