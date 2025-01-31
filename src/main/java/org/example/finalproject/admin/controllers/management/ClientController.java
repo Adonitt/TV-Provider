@@ -120,17 +120,11 @@ public class ClientController {
 
         if (br.hasErrors()) {
             br.getAllErrors().forEach(System.out::println);
-            return "admin-view/management/clients/create";
+            return getModelAttributes(clientDto, model);
         }
         if (clientsRepository.existsByEmail(clientDto.getEmail())) {
             model.addAttribute("emailExists", "Request with this email already exists!");
-            model.addAttribute("clientDto", clientDto);
-            model.addAttribute("preferredLanguages", PreferredLanguages.values());
-            model.addAttribute("packagesList", PackageEnum.values());
-            model.addAttribute("deviceTypes", DevicesTypes.values());
-            model.addAttribute("citiesList", Cities.values());
-            model.addAttribute("packageList", packageService.findAll());
-            return "admin-view/management/clients/create";
+            return getModelAttributes(clientDto, model);
         }
 
 
@@ -143,6 +137,16 @@ public class ClientController {
         service.createClientManually(clientDto);
         ra.addFlashAttribute("savedSuccessfully", "Client saved successfully!");
         return "redirect:/admin-panel/management/clients";
+    }
+
+    private String getModelAttributes(@ModelAttribute @Valid ClientDto clientDto, Model model) {
+        model.addAttribute("clientDto", clientDto);
+        model.addAttribute("preferredLanguages", PreferredLanguages.values());
+        model.addAttribute("packagesList", PackageEnum.values());
+        model.addAttribute("deviceTypes", DevicesTypes.values());
+        model.addAttribute("citiesList", Cities.values());
+        model.addAttribute("packageList", packageService.findAll());
+        return "admin-view/management/clients/create";
     }
 
     private void fillDataAutomatically(ClientDto clientDto) {
