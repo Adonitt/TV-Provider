@@ -98,13 +98,15 @@
                                 </button>
                             </a>
 
-                            <form th:action="@{/admin-panel/management/requests/{id}/decline(id=${clientReq.id})}"
-                                  method="post" style="display:inline;" class="decline-form">
+                            <a th:href="@{/admin-panel/management/requests/{id}/decline(id=*{id})}"
+                               style="display:inline;" class="decline-form">
                                 <button type="submit" class="btn btn-icon btn-round btn-danger"
                                         th:disabled="${clientReq.status == 'DECLINED'}">
                                     <i class="fa fa-times"></i> <!-- X Icon -->
                                 </button>
-                            </form>
+                            </a>
+
+
                         </td>
                         <td th:if="${clientReq.status.toString() == 'SAVED'}">
                             <a th:href="@{/admin-panel/management/clients/{id}/details(id=*{id})}"

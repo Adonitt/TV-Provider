@@ -96,6 +96,7 @@ public class ReqForNewClientsController {
     @GetMapping("/requests/{id}/decline")
     public String declineRequest(@PathVariable long id, Model model) {
         model.addAttribute("clientRequest", service.findById(id));
+        model.addAttribute("statusEnum", StatusEnum.class);
         return "admin-view/management/requests/declined";
     }
 
