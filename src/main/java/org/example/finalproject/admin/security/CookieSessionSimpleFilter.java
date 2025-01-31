@@ -89,7 +89,9 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
         }
 
 
-        if (request.getRequestURI().equals("/admin-panel") || request.getRequestURI().equals("/admin-panel/forgot-password") || request.getRequestURI().equals("/admin-panel/send-reset-link")
+        if (request.getRequestURI().equals("/admin-panel")
+                || request.getRequestURI().equals("/admin-panel/forgot-password")
+                || request.getRequestURI().equals("/admin-panel/send-reset-link")
                 || request.getRequestURI().
                 equals("/")
                 || request.getRequestURI().
@@ -116,10 +118,9 @@ public class CookieSessionSimpleFilter extends OncePerRequestFilter {
                 equals("/admin-panel/website-details")
                 || request.getRequestURI().
                 equals("/admin-panel/management/clients/create")
+                || request.getRequestURI().matches("/e-payment/\\d+/bank-information")
                 || request.getRequestURI().
-                equals("/e-payment/bank-information")
-                || request.getRequestURI().
-                equals("/e-payment/invoice")
+                matches("/e-payment/\\d+/invoice")
         ) {
             filterChain.doFilter(request, response);
             return;

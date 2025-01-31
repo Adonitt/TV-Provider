@@ -94,13 +94,12 @@ public class ClientRequestServiceImpl implements ClientRequestService {
     }
 
     @Override
-    public boolean extendSubscriptionByOneMonth(Long clientId, String modifiedBy) {
+    public boolean extendSubscriptionByOneMonth(Long clientId) {
         Optional<ClientsEntity> clientOpt = clientsRepository.findById(clientId);
 
         if (clientOpt.isPresent()) {
             ClientsEntity client = clientOpt.get();
             client.setSubscriptionEndDate(client.getSubscriptionEndDate().plusMonths(1));
-            client.setModifiedBy(modifiedBy);
             clientsRepository.save(client);
             return true;
         }

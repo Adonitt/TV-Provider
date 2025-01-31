@@ -18,7 +18,7 @@ public interface ClientRequestService extends
 
     ClientDto createClientManually(ClientDto clientDto);
 
-    boolean extendSubscriptionByOneMonth(Long clientId, String modifiedBy);
+    boolean extendSubscriptionByOneMonth(Long clientId);
 
     boolean extendSubscriptionByOneYear(Long clientId, String modifiedBy);
 

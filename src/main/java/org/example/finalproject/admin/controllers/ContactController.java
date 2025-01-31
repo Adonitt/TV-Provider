@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ContactController {
 
-    @GetMapping("/contact-us-details")
+    @GetMapping("/contact-us-form")
     public String contact() {
         return "admin-view/contact/contact";
     }

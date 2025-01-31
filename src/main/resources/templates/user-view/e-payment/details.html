@@ -39,6 +39,10 @@
                     <th>Subscription Plan</th>
                     <td th:text="${subDetails.subscriptionPlan.name}"></td>
                 </tr>
+                <tr>    <tr>
+                    <th>Subscription Price</th>
+                    <td th:text="${subDetails.subscriptionPlan.price}"></td>
+                </tr>
                 <tr>
                     <th>Subscription End Date</th>
                     <td th:text="${#temporals.format(subDetails.subscriptionEndDate, 'dd-MM-yyyy HH:mm')}"></td>

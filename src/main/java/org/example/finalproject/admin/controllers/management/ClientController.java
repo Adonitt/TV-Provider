@@ -83,7 +83,7 @@ public class ClientController {
     @PostMapping("/{id}/edit")
     public String updateClient(@PathVariable long id, @Valid @ModelAttribute ClientDto clientDto,
                                BindingResult br,
-                               RedirectAttributes ra, @SessionAttribute("admin") AdminEntity adminSession, Map map) {
+                               RedirectAttributes ra, @SessionAttribute("admin") AdminEntity adminSession) {
         if (br.hasErrors()) {
             br.getAllErrors().forEach(System.out::println);
             return "admin-view/management/clients/edit";
@@ -163,9 +163,8 @@ public class ClientController {
 
     @PostMapping("/{id}/extend-subscription")
     public String extendSubscription(@PathVariable Long id,
-                                     @SessionAttribute("admin") AdminEntity admin,
                                      RedirectAttributes redirectAttributes) {
-        boolean success = service.extendSubscriptionByOneMonth(id, admin.getName());
+        boolean success = service.extendSubscriptionByOneMonth(id);
 
         if (success) {
             redirectAttributes.addFlashAttribute("successSub", "Subscription extended by one month for client with id " + id + "!");
@@ -199,6 +198,7 @@ public class ClientController {
         model.addAttribute("client", client);
         model.addAttribute("todayDate", LocalDate.now());
         model.addAttribute("subEndDate", client.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        model.addAttribute("contractEndDate", client.getContractExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return "admin-view/management/clients/invoice";
     }
 

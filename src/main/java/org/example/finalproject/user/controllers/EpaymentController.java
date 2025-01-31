@@ -71,8 +71,7 @@ public class EpaymentController {
 
     @PostMapping("/{id}/bank-information")
     public String bankInformation(@PathVariable Long id, @ModelAttribute BankInformation bankInformation,
-                                  Model model,
-                                  @SessionAttribute("admin") AdminEntity adminSession) {
+                                  Model model) {
 
         BankInformation defaultBank = new BankInformation("Fatlind Adonit", "1234123412341234", "12", "24", "123");
 
@@ -85,18 +84,19 @@ public class EpaymentController {
             model.addAttribute("errorMessage", "Please enter valid bank information.");
             return "user-view/e-payment/bank-information";
         }
-        service.extendSubscriptionByOneMonth(id, adminSession.getName() + " " + adminSession.getSurname());
+        service.extendSubscriptionByOneMonth(id);
 
         return "redirect:/e-payment/" + id + "/invoice"; // Redirect to invoice with client ID
     }
 
 
     @GetMapping("/{id}/invoice")
-    public String invoice(@PathVariable Long id, Model model, HttpSession session) {
+    public String invoice(@PathVariable Long id, Model model) {
         var client = service.findClientById(id);
         model.addAttribute("client", client);
         model.addAttribute("todayDate", LocalDate.now());
         model.addAttribute("subEndDate", client.getSubscriptionEndDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        model.addAttribute("contractEndDate", client.getContractExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         return "user-view/e-payment/invoice";
     }
 
