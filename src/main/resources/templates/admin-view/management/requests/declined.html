@@ -14,6 +14,7 @@
     <div class="col-md-12" th:object="${clientRequest}">
 
         <div class="card">
+
             <div th:if="${clientRequest.status.equals(statusEnum.DECLINED)}">
                 <form th:action="@{/admin-panel/management/requests/{id}/reactivate(id=${clientRequest.id})}"
                       method="post"
